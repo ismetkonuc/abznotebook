@@ -1,0 +1,16 @@
+﻿@model List<Project.TechnoStore.Entities.Concrete.Product>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+@foreach (var product in @Model)
+{
+    <h4>
+        @product.Name
+    </h4>
+    <img style="height: 10rem !important;" src="img.jpg"/>
+}
+
