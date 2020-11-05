@@ -27,7 +27,7 @@ namespace Project.TechnoStore.Web
                     {
                         Name = "HP 15-DA2067",
                         Description = "HP 15-DA2067NT Intel Core i5 10210U 4GB 256GB SSD MX110 Freedos 15.6",
-                        IsAvailable = true,
+                        IsAvailable = false,
                         Processor = "10210U",
                         ProcessorVendor = "Intel",
                         SKU = "HBV00000X88NL",

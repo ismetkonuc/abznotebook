@@ -17,7 +17,7 @@ namespace Project.TechnoStore.Web.Controllers
             using var db = new TechnoStoreDbContext();
 
 
-            return View(db.Products.Where(I=>I.IsAvailable == true).ToList());
+            return View(db.Products.ToList());
         }
     }
 }

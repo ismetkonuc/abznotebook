@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.TechnoStore.Data", "Project.TechnoStore.Data\Project.TechnoStore.Data.csproj", "{02DA7FC9-3BA1-4FD2-A81F-218929959866}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.TechnoStore.Data", "Project.TechnoStore.Data\Project.TechnoStore.Data.csproj", "{02DA7FC9-3BA1-4FD2-A81F-218929959866}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.TechnoStore.Entities", "Project.TechnoStore.Entities\Project.TechnoStore.Entities.csproj", "{FB524222-A29C-4EC9-A85C-328CE2DC545F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.TechnoStore.Entities", "Project.TechnoStore.Entities\Project.TechnoStore.Entities.csproj", "{FB524222-A29C-4EC9-A85C-328CE2DC545F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.TechnoStore.Business", "Project.TechnoStore.Business\Project.TechnoStore.Business.csproj", "{C6A10022-5E79-469A-9C96-8352959C4DCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.TechnoStore.Business", "Project.TechnoStore.Business\Project.TechnoStore.Business.csproj", "{C6A10022-5E79-469A-9C96-8352959C4DCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.TechnoStore.Web", "Project.TechnoStore.Web\Project.TechnoStore.Web.csproj", "{89F4324B-12C8-450C-9927-0DACB541A0E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.TechnoStore.Web", "Project.TechnoStore.Web\Project.TechnoStore.Web.csproj", "{89F4324B-12C8-450C-9927-0DACB541A0E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3369F7E8-F7E0-466C-AB12-BAF0BE9D71C0}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

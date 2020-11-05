@@ -1,16 +1,51 @@
 ﻿@model List<Project.TechnoStore.Entities.Concrete.Product>
+
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_StandartLayout.cshtml";
 }
 
-<h1>Index</h1>
-
-
-@foreach (var product in @Model)
-{
-    <h4>
-        @product.Name
-    </h4>
-    <img style="height: 10rem !important;" src="img.jpg"/>
-}
-
+<h1>Test</h1>
+<div class="table-responsive">
+    <table class="table $reflow$">
+        <thead>
+            <tr>
+                <th>Stok Kodu</th>
+                <th>Marka</th>
+                <th>Ürün Adı</th>
+                <th>İşlemci Markası</th>
+                <th>İşlemci</th>
+                <th>Ekran Kartı</th>
+                <th>Bellek</th>
+                <th>Disk Kapasitesi</th>
+                <th>Fiyat</th>
+                <th>Stok Durumu</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        @foreach (var product in @Model)
+        {
+            <tr>
+                <td>@product.SKU</td>
+                <td>@product.Vendor</td>
+                <td>@product.Name</td>
+                <td>@product.ProcessorVendor</td>
+                <td>@product.Processor</td>
+                <td>@product.GraphicsCard</td>
+                <td>@product.MemoryCapacity</td>
+                <td>@product.DiscCapacity</td>
+                <td>@product.UnitPrice.ToString("C")</td>
+                @if (@product.IsAvailable)
+                {
+                    <td>Stokta Var</td>
+                }
+                else
+                {
+                    <td>Stokta Yok</td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
