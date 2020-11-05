@@ -11,11 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.TechnoStore.Busines
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.TechnoStore.Web", "Project.TechnoStore.Web\Project.TechnoStore.Web.csproj", "{89F4324B-12C8-450C-9927-0DACB541A0E0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3369F7E8-F7E0-466C-AB12-BAF0BE9D71C0}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
