@@ -10,7 +10,7 @@ using Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Contexts;
 namespace Project.TechnoStore.Data.Migrations
 {
     [DbContext(typeof(TechnoStoreDbContext))]
-    [Migration("20201105001334_Initial")]
+    [Migration("20201118011849_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

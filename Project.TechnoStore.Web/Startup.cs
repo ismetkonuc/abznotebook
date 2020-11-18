@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Project.TechnoStore.Business.Concrete;
+using Project.TechnoStore.Business.Interfaces;
 using Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Contexts;
 using Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Repositories;
 using Project.TechnoStore.Data.Interfaces;
@@ -21,8 +18,13 @@ namespace Project.TechnoStore.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IAppUserService, AppUserManager>();
+            services.AddScoped<IOrderService, OrderManager>();
+            services.AddScoped<IProductService, ProductManager>();
+
             services.AddScoped<IAppUserDal, EfAppUserRepository>();
             services.AddScoped<IOrderDal, EfOrderRepository>();
+            services.AddScoped<IProductDal, EfProductRepository>();
 
             services.AddDbContext<TechnoStoreDbContext>();
 
@@ -50,7 +52,8 @@ namespace Project.TechnoStore.Web
             app.UseRouting();
             app.UseAuthorization();
             IdentityInitializer.SeedData(userManager, roleManager).Wait();
-            SeedData.EnsurePopulated(app);
+            SeedCategory.EnsurePopulated(app);
+            SeedProduct.EnsurePopulated(app);
             app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>

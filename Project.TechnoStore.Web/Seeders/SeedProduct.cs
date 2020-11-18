@@ -1,25 +1,28 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Contexts;
+using Project.TechnoStore.Data.Interfaces;
 using Project.TechnoStore.Entities.Concrete;
 
 namespace Project.TechnoStore.Web
 {
-    public static class SeedData
+    public static class SeedProduct
     {
         public static void EnsurePopulated(IApplicationBuilder app)
         {
             TechnoStoreDbContext context = app.ApplicationServices.CreateScope().ServiceProvider
                 .GetRequiredService<TechnoStoreDbContext>();
-
-            if (context.Database.GetPendingMigrations().Any())
+            var test = context.Categories.Single(I => I.Id == 2);
+            if (EnumerableExtensions.Any(context.Database.GetPendingMigrations()))
             {
                 context.Database.Migrate();
             }
 
-            if (!context.Products.Any())
+            if (!EnumerableExtensions.Any(context.Products))
             {
                 context.Products.AddRange(
                     
@@ -40,6 +43,8 @@ namespace Project.TechnoStore.Web
                         QuantityPerUnit = 100,
                         DiscCapacity = "1 TB",
                         MemoryCapacity = "4 GB",
+                        Category = context.Categories.Single(I => I.Id == 2),
+                        CategoryId = 2
                     },
 
                     new Product()
@@ -59,6 +64,13 @@ namespace Project.TechnoStore.Web
                         QuantityPerUnit = 100,
                         DiscCapacity = "256 GB",
                         MemoryCapacity = "4 GB",
+                        Category = new Category()
+                        {
+                            Id = 2,
+                            Name = "Ev - Ofis Laptop'ları",
+                            Description = "Günlük temel düzeyde kullanımı temel alan ev - ofis bilgisayarları."
+                        },
+                        CategoryId = 2
                     }
                     
                     );
