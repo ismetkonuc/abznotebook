@@ -37,7 +37,7 @@ namespace Project.TechnoStore.Web.Controllers
                     UnitPrice = product.UnitPrice,
                     Name = product.Name,
                     UnitInStock = product.UnitInStock,
-                    Processor = product.Processor,
+                    Processor = product.ProcessorType,
                     Vendor = product.Vendor,
                     GraphicsCard = product.GraphicsCard,
                     MemoryCapacity = product.MemoryCapacity,

@@ -14,7 +14,8 @@ namespace Project.TechnoStore.Entities.Concrete
         public string Description { get; set; }
         public string Vendor { get; set; }
         public string ProcessorVendor { get; set; }
-        public string Processor { get; set; }
+        public string ProcessorModel { get; set; }
+        public string ProcessorType { get; set; }
         public string GraphicsCard { get; set; }
         public string MemoryCapacity { get; set; }
         public string DiscCapacity { get; set; }

@@ -52,7 +52,7 @@ namespace Project.TechnoStore.Web
             app.UseRouting();
             app.UseAuthorization();
             IdentityInitializer.SeedData(userManager, roleManager).Wait();
-            SeedCategory.EnsurePopulated(app);
+            //SeedCategory.EnsurePopulated(app);
             SeedProduct.EnsurePopulated(app);
             app.UseStaticFiles();
 

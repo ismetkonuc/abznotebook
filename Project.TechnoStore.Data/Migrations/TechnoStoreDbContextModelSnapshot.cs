@@ -363,7 +363,11 @@ namespace Project.TechnoStore.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Processor")
+                    b.Property<string>("ProcessorModel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProcessorType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

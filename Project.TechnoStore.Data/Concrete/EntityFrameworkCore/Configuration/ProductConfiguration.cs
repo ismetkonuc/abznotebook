@@ -15,7 +15,8 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Configuration
             builder.Property(I => I.Description).HasColumnType("ntext");
             builder.Property(I => I.Name).HasMaxLength(250).IsRequired();
             builder.Property(I => I.DiscCapacity).IsRequired();
-            builder.Property(I => I.Processor).IsRequired();
+            builder.Property(I => I.ProcessorModel).IsRequired();
+            builder.Property(I => I.ProcessorType).IsRequired();
             builder.Property(I => I.GraphicsCard).IsRequired();
             builder.Property(I => I.SKU).IsRequired();
             builder.Property(I => I.IDSKU).IsRequired();

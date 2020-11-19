@@ -10,7 +10,7 @@ using Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Contexts;
 namespace Project.TechnoStore.Data.Migrations
 {
     [DbContext(typeof(TechnoStoreDbContext))]
-    [Migration("20201118011849_Initial")]
+    [Migration("20201119031306_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -365,7 +365,11 @@ namespace Project.TechnoStore.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Processor")
+                    b.Property<string>("ProcessorModel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProcessorType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
