@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Project.TechnoStore.Entities.Concrete;
 
 namespace Project.TechnoStore.Data.Interfaces
 {
     public interface IProductDal : IGenericDal<Product>
     {
-        List<Product> GetAllProducts();
+        public IQueryable<Product> Products { get; }
 
         Product GetSpesificProduct(int id);
-        Product GetSpecificProduct(string SKU);
         List<Product> GetProductsByCategoryId(int Id);
     }
 }

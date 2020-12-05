@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Project.TechnoStore.Business.Interfaces;
 using Project.TechnoStore.Data.Interfaces;
 using Project.TechnoStore.Entities.Concrete;
@@ -39,20 +40,13 @@ namespace Project.TechnoStore.Business.Concrete
             return _productDal.GetAllOrders();
         }
 
-        public List<Product> GetAllProducts()
-        {
-            return _productDal.GetAllProducts();
-        }
+        public IQueryable<Product> Products => _productDal.Products;
+
+
 
         public Product GetSpesificProduct(int id)
         {
             return _productDal.GetSpesificProduct(id);
-        }
-
-
-        public Product GetSpecificProduct(string SKU)
-        {
-            return _productDal.GetSpecificProduct(SKU);
         }
 
         public List<Product> GetProductsByCategoryId(int Id)

@@ -35,7 +35,6 @@ namespace Project.TechnoStore.Web
                         Description = "Günlük temel düzeyde kullanımı temel alan ev - ofis bilgisayarları.",
                     }
 
-
                 );
                 context.SaveChanges();
             }

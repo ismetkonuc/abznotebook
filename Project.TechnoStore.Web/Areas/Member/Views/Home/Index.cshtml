@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Member/Views/Shared/_StandartLayout.cshtml";
+}
+
+<h1>Hesap Özeti</h1>
+
+<body>
+<table class="table table-hover table-sm">
+    <tr>
+        <th>Ad</th>
+        <td>@Model.Name</td>
+    </tr>
+
+    <tr>
+        <th>Soyad:</th>
+        <td>@Model.Surname</td>
+    </tr>
+
+    <tr>
+        <th>Email:</th>
+        <td>@Model.Email</td>
+    </tr>
+
+    <tr>
+        <th>Telefon:</th>
+        <td>@Model.PhoneNumber</td>
+    </tr>
+
+</table>
+</body>

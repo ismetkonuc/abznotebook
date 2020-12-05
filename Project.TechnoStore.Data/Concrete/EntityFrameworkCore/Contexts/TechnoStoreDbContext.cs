@@ -14,7 +14,7 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Contexts
         {
             optionsBuilder.UseSqlServer(
                 "Server=DESKTOP-0GDA6G3; Database=TechnoStore; Trusted_Connection=True; MultipleActiveResultSets=True;");
-
+            
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -25,6 +25,8 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Contexts
             builder.ApplyConfiguration(new OrderConfiguration());
             builder.ApplyConfiguration(new OrderDetailConfiguration());
             builder.ApplyConfiguration(new ProductConfiguration());
+            builder.ApplyConfiguration(new ShipperConfiguration());
+            builder.ApplyConfiguration(new AddressConfiguration());
             builder.ApplyConfiguration(new ShipperConfiguration());
             base.OnModelCreating(builder);
         }

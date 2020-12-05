@@ -8,7 +8,7 @@ namespace Project.TechnoStore.Entities.Concrete
     public class Order : ITable
     {
         public int Id { get; set; }
-        public string OrderNumber { get; set; }
+        public Guid OrderNumber { get; set; } = Guid.NewGuid();
         public DateTime OrderDate { get; set; }
         public DateTime ShipDate { get; set; }
         public bool IsShipped { get; set; } = false;
@@ -20,5 +20,7 @@ namespace Project.TechnoStore.Entities.Concrete
         public int? ShipperId { get; set; }
         public Shipper Shipper { get; set; }
 
+        public int? PaymentId { get; set; }
+        public Payment Payment { get; set; }
     }
 }

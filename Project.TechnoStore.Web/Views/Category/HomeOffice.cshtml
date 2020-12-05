@@ -1,0 +1,15 @@
+﻿@model List<Product>
+@{
+    Layout = "_StandartLayout";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <partial name="ProductSummary" model="product" />
+        }
+
+    </div>
+</div>

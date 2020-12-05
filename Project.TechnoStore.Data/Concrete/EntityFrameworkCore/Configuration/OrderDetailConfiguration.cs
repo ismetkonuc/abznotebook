@@ -11,8 +11,7 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Configuration
     {
         public void Configure(EntityTypeBuilder<OrderDetail> builder)
         {
-            builder.HasKey(I => I.OrderNumber);
-
+            builder.HasKey(I => I.Id);
         }
     }
 }

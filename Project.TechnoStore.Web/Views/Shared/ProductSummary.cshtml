@@ -1,0 +1,26 @@
+﻿@model Product
+
+<div class="col-md-4 mt-2">
+    
+    <div class="card">
+        <a class="mx-auto" asp-action="Product" asp-controller="Home" asp-route-productId="@Model.Id" asp-route-name="@Model.Name">
+            <img class="card-img-top-fluid mx-auto" src="~/img/@Model.Image1" style="width: 300px; height: 300px;" alt="">
+            </a>
+            <div class="card-body text-center">
+                @if (Model.UnitPrice > 30)
+                {
+                    <p class="text-center" style="font-size: 12px; color: #e85d00">Ücretsiz Kargo</p>
+                }
+                <h4 class="card-title text-center">
+                    @Model.Name
+                </h4>
+                <p class="card-text text-center">@Model.UnitPrice.ToString("C")</p>
+
+                <a href="#" class="btn btn-outline-success btn-overlay">
+                    <span class="fa fa-shopping-cart mr-2 mx-auto my-2"> Sepete Ekle</span>
+                </a>
+
+            </div>
+    </div>
+    
+</div>

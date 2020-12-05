@@ -1,0 +1,86 @@
+﻿@model IQueryable<Category>
+@{
+    ViewData["Title"] = "Category";
+    Layout = "~/Areas/Admin/Views/Shared/_StandartLayout.cshtml";
+}
+
+<body>
+
+    <h1 class="mt-4">Kategori İşlemleri</h1>
+    <div class="dropdown-divider"></div>
+
+    <div class="container">
+        <div class="col-md-12">
+            <div class="row">
+
+                <div class="col-xl-4 col-md-4">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body">Kategori Ekle</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" asp-controller="Operations" asp-action="AddCategory">İşlem Yap</a>
+                            <div class="small text-white"><i class="fas fa-plus"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-md-4">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">Kategori Düzenle</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" asp-controller="Operations" asp-action="EditCategory">İşlem Yap</a>
+                            <div class="small text-white"><i class="fas fa-edit"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-md-4">
+                    <div class="card bg-danger text-white mb-4">
+                        <div class="card-body">Kategori Sil</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" asp-controller="Operations" asp-action="DeleteCategory">İşlem Yap</a>
+                            <div class="small text-white"><i class="far fa-trash-alt"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-header">
+                <i class="fas fa-table mr-1"></i>
+                Kategoriler
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Ad</th>
+                                <th>Açıklama</th>
+                                <th>Ürün Sayısı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var category in Model)
+                            {
+                                <tr>
+                                    <td>@category.Id</td>
+                                    <td>@category.Name</td>
+                                    <td>@(category?.Description ?? "Detay Mevcut Değil")</td>
+                                    <td>@(category.Products?.Count.ToString())</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>

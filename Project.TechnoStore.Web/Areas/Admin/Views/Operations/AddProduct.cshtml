@@ -1,0 +1,147 @@
+﻿@model AddProductViewModel
+
+@{
+    ViewData["title"] = "AddProduct";
+}
+
+<div class="container">
+    <div class="col-md-12">
+        <div class="row">
+
+            <div class="col-md-6 mt-2">
+                <div class="card bg-warning text-white mb-4">
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" asp-controller="Operations" asp-action="Product">Ürün Güncelle</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mt-2">
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" asp-controller="Operations" asp-action="Product">Ürün Sil</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dropdown-divider"></div>
+
+<h1 class="mt-4 text-center">Ürün Ekle</h1>
+
+
+<form class="w-75 mx-auto p-3" method="post" asp-action="AddProduct" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label asp-for="Name">Ad</label>
+        <input type="text" asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Vendor">Marka</label>
+        <select class="form-control" asp-for="Vendor" asp-items="@ViewBag.Vendors">
+            <option hidden value="-1">Seç</option>
+        </select>
+        <span asp-validation-for="Vendor" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UnitPrice">Birim Fiyatı</label>
+        <input type="number" asp-for="UnitPrice" class="form-control" />
+        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UnitInStock">Stok Adedi</label>
+        <input type="number" asp-for="UnitInStock" class="form-control" />
+        <span asp-validation-for="UnitInStock" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CategoryId">Kategori</label>
+        <select class="form-control" asp-for="CategoryId" asp-items="@ViewBag.Categories">
+            <option hidden value="-1">Seç</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProcessorVendor">İşlemci Markası</label>
+        <select class="form-control" asp-for="ProcessorVendor" asp-items="@ViewBag.ProcessorVendors">
+            <option hidden value="-1">Seç</option>
+        </select>
+        <span asp-validation-for="ProcessorVendor" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProcessorType">İşlemci Modeli</label>
+        <input type="text" asp-for="ProcessorType" class="form-control" />
+        <span asp-validation-for="ProcessorType" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="GraphicsCard">Ekran Kartı</label>
+        <input type="text" asp-for="GraphicsCard" class="form-control" />
+        <span asp-validation-for="GraphicsCard" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DiscCapacity">Depolama Kapasitesi</label>
+        <select class="form-control" asp-for="DiscCapacity" asp-items="@ViewBag.DiscCapacities">
+            <option hidden value="-1">Seç</option>
+        </select>
+        <span asp-validation-for="DiscCapacity" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MemoryCapacity">Bellek</label>
+        <select class="form-control" asp-for="MemoryCapacity" asp-items="@ViewBag.Memories">
+            <option hidden value="-1">Seç</option>
+        </select>
+        <span asp-validation-for="MemoryCapacity" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Tanım</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    @*<div class="form-group">
+            <label asp-for="Image1">Fotoğraf Ekle</label>
+            <input multiple asp-for="Image1" class="form-control mt-2" />
+            <span asp-validation-for="Image1" class="text-danger"></span>
+        </div>*@
+
+    <div class="form-group">
+        <label asp-for="Images">Fotoğraf Ekle</label>
+        <input multiple asp-for="Images" class="form-control mt-2" />
+        <span asp-validation-for="Images" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-outline-success ">Ekle</button>
+
+</form>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('.custom-file-input').on("change",
+                function() {
+                    var fileLabel = $(this).next('.custom-file-label');
+                    var files = $(this)[0].files;
+                    if (files.length > 1) {
+                        fileLabel.html(files.length + 'dosya seçildi');
+                    } else if (files.length == 1) {
+                        fileLabel.html(files[0].name);
+                    }
+                });
+        });
+    </script>
+}

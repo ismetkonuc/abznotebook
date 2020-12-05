@@ -1,58 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Project.TechnoStore.Business.Interfaces;
-using Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Contexts;
-using Project.TechnoStore.Data.Interfaces;
 using Project.TechnoStore.Entities.Concrete;
 using Project.TechnoStore.Web.Models;
+using System.Linq;
+using System.Net;
 
 namespace Project.TechnoStore.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
+        public int pageSize = 9;
 
-        public HomeController(IProductService productService)
+        public HomeController(IProductService productService, ICategoryService categoryService)
         {
             _productService = productService;
+            _categoryService = categoryService;
         }
 
-        public IActionResult Index()
+
+        public IActionResult Index(int productPage = 1, string sortOrder="")
         {
-
-            var products = _productService.GetAllProducts();
-
-            List<ProductListViewModel> model = new List<ProductListViewModel>();
-
-            foreach (var product in products)
+            ProductListViewModel productList =  new ProductListViewModel()
             {
-                ProductListViewModel singleProduct = new ProductListViewModel()
+                Products =
+                    _productService.Products.OrderBy(p => p.Id).Skip((productPage - 1) * pageSize).Take(pageSize),
+                PagingInfo = new PagingInfo()
                 {
-                    Id = product.Id,
-                    IsAvailable = product.IsAvailable,
-                    CategoryId = product.CategoryId,
-                    UnitPrice = product.UnitPrice,
-                    Name = product.Name,
-                    UnitInStock = product.UnitInStock,
-                    Processor = product.ProcessorType,
-                    Vendor = product.Vendor,
-                    GraphicsCard = product.GraphicsCard,
-                    MemoryCapacity = product.MemoryCapacity,
-                    DiscCapacity = product.DiscCapacity,
-                    Picture = product.Picture,
-                    Description = product.Description,
-                    ProcessorVendor = product.ProcessorVendor,
-                    QuantityPerUnit = product.QuantityPerUnit,
-                    Category = product.Category,
-                    SKU = product.SKU
-                };
-                model.Add(singleProduct);
+                    CurrentPage = productPage,
+                    ItemsPerPage = pageSize,
+                    TotalItems = _productService.Products.Count()
+                }
+            };
+
+
+            ViewBag.OrderStatus = "En İyi Eşleşme";
+
+            switch (sortOrder)
+            {
+                case "best_match":
+                    productList.Products = _productService.Products.OrderByDescending(P => P.CreatedDate);
+                    ViewBag.OrderStatus = "En İyi Eşleşme";
+                    break;
+
+                case "desc_price":
+                    productList.Products = _productService.Products.OrderByDescending(p => p.UnitPrice);
+                    ViewBag.OrderStatus = "Fiyat: Azalan";
+                    break;
+                case "asc_price":
+                    productList.Products = _productService.Products.OrderBy(p => p.UnitPrice);
+                    ViewBag.OrderStatus = "Fiyat: Artan";
+                    break;
             }
 
-            return View(model);
+            return View(productList);
         }
+
+        public IActionResult Product(int productId=1, string name="")
+        {
+            name = WebUtility.UrlEncode(name);
+            var product = _productService.Products.Single(I=>I.Id == productId);
+            return View(product);
+        }
+
+
     }
 }

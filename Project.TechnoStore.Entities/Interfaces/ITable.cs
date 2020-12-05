@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Project.TechnoStore.Entities.Interfaces
 {
-    public interface ITable // for Dependency Injection
+    public interface ITable 
     {
-
+        // Dependency Injection
     }
 }
