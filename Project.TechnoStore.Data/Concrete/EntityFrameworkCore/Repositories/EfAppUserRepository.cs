@@ -16,5 +16,6 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Repositories
 
             return context.Users.Where(I => I.Id == user.Id).FirstOrDefault().Orders.ToList();
         }
+
     }
 }

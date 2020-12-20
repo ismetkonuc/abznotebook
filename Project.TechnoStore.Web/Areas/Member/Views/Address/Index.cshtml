@@ -1,0 +1,14 @@
+﻿@model List<Address>
+
+<h2>Adreslerim</h2>
+
+
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var address in Model)
+        {
+            <partial name="AddressPartial" model="address" />
+        }
+    </div>
+</div>
+

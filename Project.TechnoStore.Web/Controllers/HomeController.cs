@@ -14,7 +14,7 @@ namespace Project.TechnoStore.Web.Controllers
         private readonly ICategoryService _categoryService;
         public int pageSize = 9;
 
-        public HomeController(IProductService productService, ICategoryService categoryService)
+        public HomeController(IProductService productService, ICategoryService categoryService, Cart cart)
         {
             _productService = productService;
             _categoryService = categoryService;
@@ -23,6 +23,8 @@ namespace Project.TechnoStore.Web.Controllers
 
         public IActionResult Index(int productPage = 1, string sortOrder="")
         {
+
+
             ProductListViewModel productList =  new ProductListViewModel()
             {
                 Products =

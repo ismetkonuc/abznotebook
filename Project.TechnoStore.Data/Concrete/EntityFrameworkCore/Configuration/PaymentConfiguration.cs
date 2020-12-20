@@ -12,7 +12,6 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Configuration
         public void Configure(EntityTypeBuilder<Payment> builder)
         {
             builder.HasKey(I => I.PaymentId);
-            builder.Property(I => I.Allowed).IsRequired();
             builder.Property(I => I.PaymentType).IsRequired();
 
             builder.HasMany(I => I.Orders).WithOne(I => I.Payment).HasForeignKey(I => I.PaymentId)

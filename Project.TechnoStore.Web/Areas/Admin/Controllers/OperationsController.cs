@@ -7,6 +7,7 @@ using Project.TechnoStore.Entities.Concrete;
 using Project.TechnoStore.Web.Areas.Admin.Infrastructure;
 using Project.TechnoStore.Web.Areas.Admin.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -36,14 +37,12 @@ namespace Project.TechnoStore.Web.Areas.Admin.Controllers
         [Route("admin/islemler/urunler")]
         public IActionResult Product(string sortOrder, string searchString)
         {
-
             ViewBag.IdSort = sortOrder == "IdSort" ? "id_desc" : "IdSort";
             ViewBag.NameSort = sortOrder == "NameSort" ? "name_desc" : "NameSort";
             ViewBag.StockSort = sortOrder == "StockSort" ? "stock_desc" : "StockSort";
             ViewBag.VendorSort = sortOrder == "VendorSort" ? "vendor_desc" : "VendorSort";
             ViewBag.StockStatusSort = sortOrder == "StockStatusSort" ? "stockstatus_desc" : "StockStatusSort";
             ViewBag.PriceSort = sortOrder == "PriceSort" ? "price_desc" : "PriceSort";
-
             ViewBag.FromSearch = searchString;
 
             return View(this.sortByParameters(sortOrder, searchString));
@@ -174,17 +173,29 @@ namespace Project.TechnoStore.Web.Areas.Admin.Controllers
 
         public IActionResult DeleteProduct(int id)
         {
-            _productService.Delete(new Product{Id = id});
+            _productService.Delete(new Product { Id = id });
             return RedirectToAction("Product");
         }
 
 
         public IActionResult Category()
         {
-            ViewBag.CountOfCat1 = _productService.GetProductsByCategoryId(1).Count;
-            ViewBag.CountOfCat2 = _productService.GetProductsByCategoryId(2).Count;
+            List<Category> categories = _categoryService.GetAllCategories.ToList();
 
-            return View(_categoryService.GetAllCategories);
+            List<CategoryViewModel> model = new List<CategoryViewModel>();
+
+            foreach (var category in categories)
+            {
+                model.Add(new CategoryViewModel()
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Description = category.Description,
+                    CountOfProduct = _categoryService.GetProductsOfGivenCategory(category.Id).Count()
+                });
+            }
+
+            return View(model);
         }
 
         [HttpGet]

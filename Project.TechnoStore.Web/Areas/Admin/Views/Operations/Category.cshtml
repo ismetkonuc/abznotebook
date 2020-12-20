@@ -1,4 +1,4 @@
-﻿@model IQueryable<Category>
+﻿@model List<CategoryViewModel>
 @{
     ViewData["Title"] = "Category";
     Layout = "~/Areas/Admin/Views/Shared/_StandartLayout.cshtml";
@@ -71,7 +71,7 @@
                                     <td>@category.Id</td>
                                     <td>@category.Name</td>
                                     <td>@(category?.Description ?? "Detay Mevcut Değil")</td>
-                                    <td>@(category.Products?.Count.ToString())</td>
+                                    <td>@category.CountOfProduct</td>
                                 </tr>
                             }
 

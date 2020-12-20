@@ -1,0 +1,19 @@
+﻿@using Project.TechnoStore.Web.Pages
+@model Address
+
+<div class="col-md-4 mt-2">
+    <div class="container">
+        <div class="card" style="width:400px">
+            <h1 class="card-img-top text-center" style="width: 100%">@Model.Title</h1>
+            <div class="card-body">
+                <p>@Model.AddressLine</p>
+                <p>@Model.Neighborhood</p>
+                <p>@Model.City / @Model.District</p>
+                <p>@Model.PostalCode</p>
+                <a href="#" class="btn btn-primary">Düzenle</a>
+                <a href="#" class="btn btn-danger">Sil</a>
+            </div>
+        </div>
+    </div>
+</div>
+

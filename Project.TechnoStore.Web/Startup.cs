@@ -12,6 +12,8 @@ using Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Contexts;
 using Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Repositories;
 using Project.TechnoStore.Data.Interfaces;
 using Project.TechnoStore.Entities.Concrete;
+using Project.TechnoStore.Web.Models;
+using Project.TechnoStore.Web.Seeders;
 
 namespace Project.TechnoStore.Web
 {
@@ -25,12 +27,21 @@ namespace Project.TechnoStore.Web
             services.AddScoped<IOrderService, OrderManager>();
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICategoryService, CategoryManager>();
+            services.AddScoped<IAddressService, AddressManager>();
+            services.AddScoped<IShipperService, ShipperManager>();
+            services.AddScoped<IPaymentService, PaymentManager>();
+            services.AddScoped<IOrderDetailService, OrderDetailManager>();
 
 
             services.AddScoped<IAppUserDal, EfAppUserRepository>();
             services.AddScoped<IOrderDal, EfOrderRepository>();
             services.AddScoped<IProductDal, EfProductRepository>();
             services.AddScoped<ICategoryDal, EfCategoryRepository>();
+            services.AddScoped<IAddressDal, EfAddressRepository>();
+            services.AddScoped<IShipperDal, EfShipperRepository>();
+            services.AddScoped<IPaymentDal, EfPaymentRepository>();
+            services.AddScoped<IOrderDetailDal, EfOrderDetailRepository>();
+            services.AddRazorPages();
 
             services.AddDbContext<TechnoStoreDbContext>();
 
@@ -52,25 +63,34 @@ namespace Project.TechnoStore.Web
                 opt.ExpireTimeSpan = TimeSpan.FromDays(90);
             });
 
+            services.AddDistributedMemoryCache();
+            
+            services.AddSession();
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseDeveloperExceptionPage();
+            app.UseStatusCodePages();
+            app.UseStaticFiles();
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
             IdentityInitializer.SeedData(userManager, roleManager).Wait();
-            //SeedCategory.EnsurePopulated(app);
-            //SeedProduct.EnsurePopulated(app);
-            app.UseStaticFiles();
+            SeedCategory.EnsurePopulated(app);
+            SeedProduct.EnsurePopulated(app);
+            SeedShipper.EnsurePopulated(app);
+            SeedPayment.EnsurePopulated(app);
 
             app.UseEndpoints(endpoints =>
             {
@@ -97,6 +117,9 @@ namespace Project.TechnoStore.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
+
+                //endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
 
             });
         }

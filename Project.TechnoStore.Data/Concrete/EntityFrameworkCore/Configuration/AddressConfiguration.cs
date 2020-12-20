@@ -17,7 +17,8 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Configuration
             builder.Property(I => I.City).IsRequired().HasMaxLength(30);
             builder.Property(I => I.District).IsRequired().HasMaxLength(30);
             builder.Property(I => I.PostalCode).IsRequired(false).HasMaxLength(10);
-
+            builder.Property(I => I.Title).IsRequired().HasMaxLength(50);
+            builder.Property(I => I.Neighborhood).IsRequired().HasMaxLength(100);
             builder.HasOne(I => I.AppUser).WithMany(I => I.Addresses).HasForeignKey(I => I.AppUserId);
         }
     }

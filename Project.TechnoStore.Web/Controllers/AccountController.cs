@@ -19,12 +19,16 @@ namespace Project.TechnoStore.Web.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        
-        
-        public IActionResult Login() => View(new UserLoginViewModel());
+
+
+        public IActionResult Login(string data)
+        {
+            TempData["status"] = data;
+            return View(new UserLoginViewModel());
+        }
 
         [HttpPost]
-        public async Task<IActionResult> Login(UserLoginViewModel model)
+        public async Task<IActionResult> Login(UserLoginViewModel model, string data="")
         {
             if (ModelState.IsValid)
             {
@@ -43,9 +47,16 @@ namespace Project.TechnoStore.Web.Controllers
                             return RedirectToAction("Index", "Home", new { area = "Admin" });
                         }
 
+                        if (data.Contains("order"))
+                        {
+                            return RedirectToAction("Checkout", "Order");
+
+                        }
+
                         return RedirectToAction("Index", "Home");
                     }
                 }
+
                 ModelState.AddModelError("", "Bu kullanıcı adı bulunmadı.");
             }
             return View();
@@ -74,31 +85,31 @@ namespace Project.TechnoStore.Web.Controllers
                     UserName = model.UserName,
                     Email = model.Email
                 };
-               var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, model.Password);
 
-               if (result.Succeeded)
-               {
-                   var roleResult = await _userManager.AddToRoleAsync(user, "Member");
+                if (result.Succeeded)
+                {
+                    var roleResult = await _userManager.AddToRoleAsync(user, "Member");
 
-                   if (roleResult.Succeeded)
-                   {
-                       return RedirectToAction("Login");
-                   }
-                   else
-                   {
-                       foreach (var item in roleResult.Errors)
-                       {
-                           ModelState.AddModelError("", item.Description);
-                       }
-                   }
-               }
+                    if (roleResult.Succeeded)
+                    {
+                        return RedirectToAction("Login");
+                    }
+                    else
+                    {
+                        foreach (var item in roleResult.Errors)
+                        {
+                            ModelState.AddModelError("", item.Description);
+                        }
+                    }
+                }
 
-               else
-               {
-                   foreach (var error in result.Errors)
-                   {
-                       ModelState.AddModelError("", error.Description);
-                   }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
                 }
             }
             return View(model);

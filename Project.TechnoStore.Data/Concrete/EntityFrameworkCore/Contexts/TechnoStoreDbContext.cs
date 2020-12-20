@@ -36,6 +36,8 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Contexts
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Shipper> Shippers { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
     }
 }

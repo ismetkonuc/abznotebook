@@ -20,5 +20,6 @@ namespace Project.TechnoStore.Business.Concrete
         {
             return _appUserDal.GetGivenCustomersOrders(user);
         }
+
     }
 }

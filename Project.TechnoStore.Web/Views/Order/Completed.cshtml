@@ -1,0 +1,13 @@
+﻿@model int
+@{
+    ViewData["Title"] = "Completed";
+    Layout = "~/Areas/Member/Views/Shared/_StandartLayout.cshtml";
+}
+
+<div class="text-center">
+    <h2>Teşekkürler!</h2>
+    <p>Sipariş verdiğiniz için teşekkür ederiz. #@Model.ToString()</p>
+    <p>Ürününüzü en kısa sürede size ulaştırmak üzere kargolayacağız.</p>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Mağazaya geri dön</a>
+</div>
+

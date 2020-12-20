@@ -21,9 +21,10 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Repositories
         public IQueryable<Category> GetAllCategories => _context.Categories;
 
         public IQueryable<Product> GetProductsOfGivenCategory(string CategoryName) =>
-            _context.Categories.Single(c => c.Name.Equals(CategoryName)).Products.AsQueryable();
+            _context.Products.Where(c => c.Name.Equals(CategoryName)).AsQueryable();
 
         public IQueryable<Product> GetProductsOfGivenCategory(int CategoryId) =>
-            _context.Categories.Single(c => c.Id == CategoryId).Products.AsQueryable();
+            _context.Products.Where(I => I.CategoryId == CategoryId).AsQueryable();
+
     }
 }

@@ -9,7 +9,6 @@ namespace Project.TechnoStore.Entities.Concrete
     {
         public int PaymentId { get; set; }
         public string PaymentType { get; set; }
-        public bool Allowed { get; set; }
 
         public List<Order> Orders { get; set; }
     }
