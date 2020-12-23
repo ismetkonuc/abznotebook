@@ -17,5 +17,10 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Repositories
         {
             return _dbContext.Payments.ToList();
         }
+
+        public string GetPaymentNameWithId(int? paymentId)
+        {
+            return _dbContext.Payments.Single(I => I.PaymentId == paymentId).PaymentType;
+        }
     }
 }

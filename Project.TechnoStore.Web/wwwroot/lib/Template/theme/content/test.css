@@ -82,6 +82,4 @@
 }
 
 .label-warning[href],
-.badge-warning[href] {
-    background-color: #c67605;
-}
+.badge-warning[href] { background-color: #c67605; }

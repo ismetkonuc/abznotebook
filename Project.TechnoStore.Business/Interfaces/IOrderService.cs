@@ -9,5 +9,6 @@ namespace Project.TechnoStore.Business.Interfaces
     {
         List<Order> GetUnshippedOrders();
         List<Order> GetShippedOrders();
+        List<Order> GetAllowedOrders();
     }
 }

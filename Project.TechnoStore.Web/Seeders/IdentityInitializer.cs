@@ -21,7 +21,7 @@ namespace Project.TechnoStore.Web
             if (memberRole == null)
                 await roleManager.CreateAsync(new AppRole { Name = "Member" });
 
-            var adminUser = await userManager.FindByNameAsync("ismet");
+            var adminUser = await userManager.FindByNameAsync("admin");
 
             if (adminUser == null)
             {
@@ -30,7 +30,7 @@ namespace Project.TechnoStore.Web
                     Name = "İsmet",
                     Surname = "Konuç",
                     Email = "ismetkonuc@gmail.com",
-                    UserName = "ismet"
+                    UserName = "admin"
                 };
 
                 await userManager.CreateAsync(user, "1");

@@ -14,9 +14,8 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Configuration
             builder.Property(I => I.Name).HasMaxLength(100).IsRequired();
             builder.Property(I => I.Surname).HasMaxLength(100).IsRequired();
 
-           
-            builder.HasMany(I => I.Orders).WithOne(I => I.Customer).HasForeignKey(I => I.CustomerId)
-                .OnDelete(deleteBehavior: DeleteBehavior.SetNull);
+
+            builder.HasMany(I => I.Orders).WithOne(I => I.Customer).HasForeignKey(I => I.CustomerId).OnDelete(deleteBehavior: DeleteBehavior.NoAction);
         }
     }
 }

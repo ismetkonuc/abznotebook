@@ -43,5 +43,10 @@ namespace Project.TechnoStore.Business.Concrete
         {
             return _paymentDal.GetAllPayments();
         }
+
+        public string GetPaymentNameWithId(int? paymentId)
+        {
+            return _paymentDal.GetPaymentNameWithId(paymentId);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace Project.TechnoStore.Data.Interfaces
     {
         List<Order> GetUnshippedOrders();
         List<Order> GetShippedOrders();
+        List<Order> GetAllowedOrders();
     }
 }

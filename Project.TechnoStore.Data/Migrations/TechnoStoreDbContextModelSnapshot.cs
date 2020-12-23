@@ -15,7 +15,7 @@ namespace Project.TechnoStore.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.10")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -132,7 +132,7 @@ namespace Project.TechnoStore.Data.Migrations
                         .HasColumnType("ntext")
                         .HasMaxLength(250);
 
-                    b.Property<int?>("AppUserId")
+                    b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("City")
@@ -302,8 +302,14 @@ namespace Project.TechnoStore.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAllowed")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsShipped")
                         .HasColumnType("bit");
@@ -314,16 +320,18 @@ namespace Project.TechnoStore.Data.Migrations
                     b.Property<Guid>("OrderNumber")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("PaymentId")
+                    b.Property<int>("PaymentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ShipDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ShipperId")
+                    b.Property<int>("ShipperId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("CustomerId");
 
@@ -341,13 +349,13 @@ namespace Project.TechnoStore.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -522,23 +530,36 @@ namespace Project.TechnoStore.Data.Migrations
                 {
                     b.HasOne("Project.TechnoStore.Entities.Concrete.AppUser", "AppUser")
                         .WithMany("Addresses")
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Project.TechnoStore.Entities.Concrete.Order", b =>
                 {
+                    b.HasOne("Project.TechnoStore.Entities.Concrete.Address", "Address")
+                        .WithMany("Orders")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Project.TechnoStore.Entities.Concrete.AppUser", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Project.TechnoStore.Entities.Concrete.Payment", "Payment")
                         .WithMany("Orders")
-                        .HasForeignKey("PaymentId");
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Project.TechnoStore.Entities.Concrete.Shipper", "Shipper")
                         .WithMany("Orders")
-                        .HasForeignKey("ShipperId");
+                        .HasForeignKey("ShipperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Project.TechnoStore.Entities.Concrete.OrderDetail", b =>
@@ -546,12 +567,14 @@ namespace Project.TechnoStore.Data.Migrations
                     b.HasOne("Project.TechnoStore.Entities.Concrete.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Project.TechnoStore.Entities.Concrete.Product", "Product")
                         .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Project.TechnoStore.Entities.Concrete.Product", b =>

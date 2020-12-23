@@ -43,5 +43,15 @@ namespace Project.TechnoStore.Business.Concrete
         {
             return _orderDetailDal.GetAllOrderDetails();
         }
+
+        public dynamic GetGivenUsersDetailedOrder(AppUser user)
+        {
+            return _orderDetailDal.GetGivenUsersDetailedOrder(user);
+        }
+
+        public decimal ComputeTotalPriceOfOrder(int orderId)
+        {
+            return _orderDetailDal.ComputeTotalPriceOfOrder(orderId);
+        }
     }
 }

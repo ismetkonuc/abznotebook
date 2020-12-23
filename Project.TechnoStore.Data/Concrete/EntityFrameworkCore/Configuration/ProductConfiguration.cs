@@ -27,7 +27,7 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Configuration
             builder.Property(I => I.Image3).IsRequired(false);
             builder.Property(I => I.UnitPrice).IsRequired();
 
-            builder.HasMany(I => I.OrderDetails).WithOne(I => I.Product).HasForeignKey(I => I.ProductId).OnDelete(deleteBehavior: DeleteBehavior.SetNull);
+            builder.HasMany(I => I.OrderDetails).WithOne(I => I.Product).HasForeignKey(I => I.ProductId);
         }
     }
 }

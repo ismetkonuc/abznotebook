@@ -6,5 +6,6 @@ namespace Project.TechnoStore.Business.Interfaces
     public interface IPaymentService : IGenericService<Payment>
     {
         List<Payment> GetAllPayments();
+        string GetPaymentNameWithId(int? paymentId);
     }
 }

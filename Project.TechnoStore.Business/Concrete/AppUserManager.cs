@@ -21,5 +21,9 @@ namespace Project.TechnoStore.Business.Concrete
             return _appUserDal.GetGivenCustomersOrders(user);
         }
 
+        public string GetOrderOwnerFullNameWithUserId(int userId)
+        {
+            return _appUserDal.GetOrderOwnerFullNameWithUserId(userId);
+        }
     }
 }

@@ -28,66 +28,116 @@ namespace Project.TechnoStore.Web
                     
                     new Product()
                     {
-                        Name = "HP 15-DA2067",
-                        Description = "HP 15-DA2067NT Intel Core i5 10210U 4GB 256GB SSD MX110 Freedos 15.6",
-                        IsAvailable = false,
-                        ProcessorVendor = "Intel",
-                        ProcessorType = "Intel Core i5",
-                        UnitInStock = 100,
-                        Vendor = "HP",
-                        GraphicsCard = "Nvidia GeForce MX110",
-                        DiscCapacity = "1 TB",
-                        MemoryCapacity = "4 GB",
-                        CategoryId = 1,
-                        Category = context.Categories.Single(I=>I.Id == 1)
-                    },
-
-                    new Product()
-                    {
-                        Name = "HP 15S-FQ100NT",
-                        Description = "HP 15S-FQ100NT Intel Core i5 1035G1 8GB 256GB SSD Windows 10 Home 15.6'' Taşınabilir Bilgisayar 8KR82EA",
-                        IsAvailable = true,
-                        ProcessorVendor = "Intel",
-                        ProcessorType = "Intel Core i5",
-                        UnitInStock = 100,
-                        Vendor = "HP",
-                        GraphicsCard = "Nvidia GeForce MX110",
-                        DiscCapacity = "256 GB",
-                        MemoryCapacity = "4 GB",
+                        Name = "Asus X515JF-BR070T",
+                        Vendor = "Asus",
+                        UnitPrice = 4898,
+                        UnitInStock = 10,
                         CategoryId = 2,
-                        Category = context.Categories.Single(I => I.Id == 2)
-                    },
-
-                    new Product()
-                    {
-                        Name = "Asus X509JA-BR089T",
-                        Description = "Asus X509JA-BR089T Intel Core i3 1005G1 4GB 256GB SSD Windows 10 Home 15.6\" Taşınabilir Bilgisayar",
-                        IsAvailable = true,
+                        SKU = "TSV00000X5TSR",
                         ProcessorVendor = "Intel",
-                        ProcessorType = "Intel Core i3",
-                        UnitInStock = 100,
-                        Vendor = "HP",
+                        ProcessorType = "Intel Core i3 1005G1",
                         GraphicsCard = "Intel UHD Graphics",
                         DiscCapacity = "256 GB",
                         MemoryCapacity = "4 GB",
-                        CategoryId = 1,
-                        Category = context.Categories.Single(I => I.Id == 1)
+                        Description = "Asus X515JF-BR070T Intel Core i3 1005G1 4GB 256GB SSD Windows 10 Home 15.6 Taşınabilir Bilgisayar",
+                        Image1 = "format_webp (1).jpg",
+                        Image2 = "format_webp (3).jpg",
+                        Image3 = "format_webp (4).jpg"
                     },
 
                     new Product()
                     {
-                        Name = "MSI GF63 Thin 9SCXR-620XTR",
-                        Description = "MSI GF63 Thin 9SCXR-620XTR Intel Core i7 9750H 8GB 512GB SSD GTX1650 Freedos 15.6\" FHD Taşınabilir Bilgisayar",
-                        IsAvailable = true,
+                        Name = "MSI GF63 Thin 9SCSR-1053XTR",
+                        Vendor = "MSI",
+                        UnitPrice = 7776,
+                        UnitInStock = 25,
+                        CategoryId = 1,
+                        SKU = "TSV00000X9GRY",
                         ProcessorVendor = "Intel",
-                        ProcessorType = "Intel Core i7",
-                        UnitInStock = 100,
-                        Vendor = "HP",
-                        GraphicsCard = "Nvidia GeForce GTX1650",
-                        DiscCapacity = "512 GB",
+                        ProcessorType = "Intel Core i5 9300H",
+                        GraphicsCard = "NVIDIA GTX 1650Ti",
+                        DiscCapacity = "256 GB",
                         MemoryCapacity = "8 GB",
+                        Description = "MSI GF63 Thin 9SCSR-1053XTR Intel Core i5 9300H 8GB 256GB SSD GTX 1650Ti Freedos 15.6\" FHD Taşınabilir Bilgisayar",
+                        Image1 = "msigf63_1.jpg",
+                        Image2 = "msigf63_2.jpg",
+                        Image3 = "msigf63_3.jpg"
+                    },
+
+                    new Product()
+                    {
+                        Name = "Dell Vostro 3501",
+                        Vendor = "Dell",
+                        UnitPrice = (decimal) (5999.4),
+                        UnitInStock = 100,
                         CategoryId = 2,
-                        Category = context.Categories.Single(I => I.Id == 2)
+                        SKU = "TSV00000X9GRQ",
+                        ProcessorVendor = "Intel",
+                        ProcessorType = "Intel Core i3 1005G1",
+                        GraphicsCard = "Intel UHD Graphics",
+                        DiscCapacity = "1 TB",
+                        MemoryCapacity = "8 GB",
+                        Description = "Dell Vostro 3501 Intel Core i3 1005G1 8GB 256GB SSD Windows 10 Home 15.6\" FHD Taşınabilir Bilgisayar FB05W82N",
+                        Image1 = "Dell Vostro 3501_1.jpg",
+                        Image2 = "Dell Vostro 3501_2.jpg",
+                        Image3 = "Dell Vostro 3501_3.jpg"
+                    },
+
+                    new Product()
+                    {
+                        Name = "Apple Macbook Pro M1",
+                        Vendor = "Apple",
+                        UnitPrice = (decimal)(14298.99),
+                        UnitInStock = 3,
+                        CategoryId = 2,
+                        SKU = "TSV00000OSBNX",
+                        ProcessorVendor = "Apple",
+                        ProcessorType = "M1",
+                        GraphicsCard = "AMD Radeon Pro 5600M",
+                        DiscCapacity = "256 GB",
+                        MemoryCapacity = "8 GB",
+                        Description = "Apple Macbook Pro M1 Çip 8GB 256GB macOS 13\" QHD Taşınabilir Bilgisayar Uzay Grisi MYD82TU/A",
+                        Image1 = "Apple Macbook Pro M1_1.jpg",
+                        Image2 = "Apple Macbook Pro M1_2.jpg",
+                        Image3 = "Apple Macbook Pro M1_3.jpg"
+                    },
+
+                    new Product()
+                    {
+                        Name = "Lenovo IdeaPad Creator 5",
+                        Vendor = "Lenovo",
+                        UnitPrice = 9699,
+                        UnitInStock = 30,
+                        CategoryId = 1,
+                        SKU = "TSV00000LK9W1",
+                        ProcessorVendor = "Intel",
+                        ProcessorType = "Intel Core i5 10300H",
+                        GraphicsCard = "NVIDIA GTX 1650Ti",
+                        DiscCapacity = "512 GB",
+                        MemoryCapacity = "16 GB",
+                        Description = "Lenovo IdeaPad Creator 5 Intel Core i5 10300H 16GB 512GB SSD GTX 1650Ti Freedos 15.6'\' FHD Taşınabilir Bilgisayar 82D4002KTX",
+                        Image1 = "Lenovo IdeaPad Creator 5_1.jpg",
+                        Image2 = "Lenovo IdeaPad Creator 5_2.jpg",
+                        Image3 = "Lenovo IdeaPad Creator 5_3.jpg"
+                    },
+
+                    new Product()
+                    {
+                        Name = "Asus TUF Gaming A15 FA506II-BQ200",
+                        Vendor = "Asus",
+                        UnitPrice = 10114,
+                        UnitInStock = 60,
+                        CategoryId = 1,
+                        SKU = "TSV00000UMKL4",
+                        ProcessorVendor = "AMD",
+                        ProcessorType = "AMD Ryzen 7 4800H",
+                        GraphicsCard = "NVIDIA GTX1650Ti",
+                        DiscCapacity = "1 TB",
+                        MemoryCapacity = "8 GB",
+                        Description = "Asus TUF Gaming A15 FA506II-BQ200 AMD Ryzen 7 4800H 8GB 1TB + 256GB SSD GTX1650Ti FreeDos 15.6\" FHD Taşınabilir Bilgisayar",
+                        Image1 = "Asus TUF Gaming A15 FA506II-BQ200_1.jpg",
+                        Image2 = "Asus TUF Gaming A15 FA506II-BQ200_2.jpg",
+                        Image3 = "Asus TUF Gaming A15 FA506II-BQ200_3.jpg"
                     }
 
                     );

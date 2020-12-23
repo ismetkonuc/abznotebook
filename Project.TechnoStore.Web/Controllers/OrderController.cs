@@ -36,24 +36,35 @@ namespace Project.TechnoStore.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Checkout()
         {
-            var x = _cart.Lines;
 
             if (User.Identity.IsAuthenticated)
             {
                 var appUser = await _userManager.GetUserAsync(User);
                 ViewBag.Address = _addressService?.GetAddressesByUserId(appUser.Id);
 
-                ViewBag.AddressCollection = new SelectList(ViewBag.Address, "Id", "Title");
-                ViewBag.PaymentCollection = new SelectList(_paymentService.GetAllPayments(), "PaymentId", "PaymentType");
-                ViewBag.ShipperCollection = new SelectList(_shipperService.GetAllShippers(), "Id", "CompanyName");
+                ViewBag.AddressCollection = 
+                    new SelectList(ViewBag.Address, "Id", "Title");
+
+                ViewBag.PaymentCollection = 
+                    new SelectList(_paymentService.GetAllPayments(), "PaymentId", "PaymentType");
+
+                ViewBag.ShipperCollection = 
+                    new SelectList(_shipperService.GetAllShippers(), "Id", "CompanyName");
             }
 
-            return View(new OrderViewModel());
+            return View(new OrderViewModel(){LinesCount = _cart.Lines.Count});
         }
 
+        [HttpPost]
         public async Task<IActionResult> Checkout(OrderViewModel model)
         {
             var appUser = await _userManager.GetUserAsync(User);
+
+            if (model.LinesCount == 0)
+            {
+                ModelState.AddModelError("", "Sepetiniz boş!");
+                return View(model);
+            }
 
             Guid orderNumber = Guid.NewGuid();
 
@@ -67,6 +78,7 @@ namespace Project.TechnoStore.Web.Controllers
                     OrderDate = DateTime.Now,
                     OrderNumber = orderNumber,
                     ShipperId = model.ShipperId,
+                    AddressId = model.AddressId
                 });
 
                 foreach (var cartLine in _cart.Lines)

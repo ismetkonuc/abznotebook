@@ -13,8 +13,7 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Configuration
         {
             builder.HasKey(I => I.Id);
 
-            builder.HasMany(I => I.OrderDetails).WithOne(I => I.Order).HasForeignKey(I => I.OrderId)
-                .OnDelete(deleteBehavior: DeleteBehavior.SetNull);
+            builder.HasMany(I => I.OrderDetails).WithOne(I => I.Order).HasForeignKey(I => I.OrderId);
         }
     }
 }

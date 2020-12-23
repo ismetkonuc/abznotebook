@@ -15,8 +15,10 @@ namespace Project.TechnoStore.Entities.Concrete
         public string Neighborhood { get; set; }
         public string PostalCode { get; set; }
 
-        public int? AppUserId { get; set; }
+        public int AppUserId { get; set; }
         public AppUser AppUser { get; set; }
+
+        public List<Order> Orders { get; set; }
 
     }
 }

@@ -19,9 +19,4 @@
     <ProjectReference Include="..\Project.TechnoStore.Business\Project.TechnoStore.Business.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Seeders\List\" />
-    <Folder Include="wwwroot\img\" />
-  </ItemGroup>
-
 </Project>

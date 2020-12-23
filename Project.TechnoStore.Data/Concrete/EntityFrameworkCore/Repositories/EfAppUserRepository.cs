@@ -10,12 +10,22 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Repositories
 {
     public class EfAppUserRepository : IAppUserDal
     {
-        public List<Order> GetGivenCustomersOrders(AppUser user)
-        {
-            using var context = new TechnoStoreDbContext();
+        private readonly TechnoStoreDbContext _db;
 
-            return context.Users.Where(I => I.Id == user.Id).FirstOrDefault().Orders.ToList();
+        public EfAppUserRepository(TechnoStoreDbContext db)
+        {
+            _db = db;
         }
 
+        public List<Order> GetGivenCustomersOrders(AppUser user)
+        {
+            return _db.Users.Single(I => I.Id == user.Id).Orders.ToList();
+        }
+
+        public string GetOrderOwnerFullNameWithUserId(int userId)
+        {
+            AppUser user = _db.Users.Single(I => I.Id == userId);
+            return $"{user.Name} {user.Surname}";
+        }
     }
 }

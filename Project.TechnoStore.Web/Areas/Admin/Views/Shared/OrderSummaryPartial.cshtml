@@ -1,0 +1,30 @@
+﻿@using Project.TechnoStore.Web.Pages
+@model OrderSummaryViewModel
+
+
+<td>@Model.OrderId</td>
+<td>@Model.OrderDate</td>
+
+@if (Model.IsShipped)
+{
+    <td>Kargoya Verildi</td>
+}
+else
+{
+    <td>Kargoya Verilmedi</td>
+}
+
+@if (Model.IsAllowed)
+{
+    <td>Onaylandı</td>
+}
+else
+{
+    <td>Onay Bekliyor</td>
+}
+
+<td>@Model.PaymentMethod</td>
+<td>@Model.CustomerFullName.ToUpper()</td>
+
+
+

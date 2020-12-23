@@ -23,6 +23,11 @@ namespace Project.TechnoStore.Business.Concrete
             return _orderDal.GetShippedOrders();
         }
 
+        public List<Order> GetAllowedOrders()
+        {
+            return _orderDal.GetAllowedOrders();
+        }
+
         public void Save(Order table)
         {
             _orderDal.Save(table);

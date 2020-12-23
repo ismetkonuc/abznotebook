@@ -19,11 +19,13 @@ namespace Project.TechnoStore.Web.Areas.Admin.Controllers
 
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly IOrderService _orderService;
 
-        public HomeController(IProductService productService, ICategoryService categoryService)
+        public HomeController(IProductService productService, ICategoryService categoryService, IOrderService orderService)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _orderService = orderService;
         }
 
         public IActionResult Index()
@@ -31,7 +33,6 @@ namespace Project.TechnoStore.Web.Areas.Admin.Controllers
             return View();
         }
 
-        
 
     }
 }

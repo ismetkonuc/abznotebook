@@ -6,5 +6,6 @@ namespace Project.TechnoStore.Data.Interfaces
     public interface IPaymentDal : IGenericDal<Payment>
     {
         List<Payment> GetAllPayments();
+        string GetPaymentNameWithId(int? paymentId);
     }
 }

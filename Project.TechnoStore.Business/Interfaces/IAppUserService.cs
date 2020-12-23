@@ -8,5 +8,6 @@ namespace Project.TechnoStore.Business.Interfaces
     public interface IAppUserService
     {
         List<Order> GetGivenCustomersOrders(AppUser user);
+        string GetOrderOwnerFullNameWithUserId(int userId);
     }
 }

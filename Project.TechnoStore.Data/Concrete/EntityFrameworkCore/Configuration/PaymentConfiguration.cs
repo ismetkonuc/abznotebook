@@ -14,8 +14,7 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Configuration
             builder.HasKey(I => I.PaymentId);
             builder.Property(I => I.PaymentType).IsRequired();
 
-            builder.HasMany(I => I.Orders).WithOne(I => I.Payment).HasForeignKey(I => I.PaymentId)
-                .OnDelete(deleteBehavior: DeleteBehavior.SetNull);
+            builder.HasMany(I => I.Orders).WithOne(I => I.Payment).HasForeignKey(I => I.PaymentId);
         }
     }
 }

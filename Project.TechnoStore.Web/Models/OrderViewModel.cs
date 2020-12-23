@@ -11,6 +11,6 @@ namespace Project.TechnoStore.Web.Models
         public int AddressId { get; set; }
         public int ShipperId { get; set; }
         public int PaymentId { get; set; }
-
+        public int? LinesCount { get; set; }
     }
 }

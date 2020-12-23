@@ -11,7 +11,6 @@ namespace Project.TechnoStore.Entities.Concrete
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Image { get; set; } = "default.png";
-
         public List<Address> Addresses { get; set; }
 
         public List<Order> Orders { get; set; }
