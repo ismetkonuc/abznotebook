@@ -17,6 +17,8 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Repositories
             _context = context;
         }
 
+        
+
         public IQueryable<Product> GetAllProducts => _context.Products;
         public IQueryable<Category> GetAllCategories => _context.Categories;
 
@@ -25,6 +27,7 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Repositories
 
         public IQueryable<Product> GetProductsOfGivenCategory(int CategoryId) =>
             _context.Products.Where(I => I.CategoryId == CategoryId).AsQueryable();
+
 
     }
 }

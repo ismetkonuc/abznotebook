@@ -19,4 +19,10 @@
     <ProjectReference Include="..\Project.TechnoStore.Business\Project.TechnoStore.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Base\Admin\" />
+    <Folder Include="Base\Member\" />
+    <Folder Include="Components\" />
+  </ItemGroup>
+
 </Project>

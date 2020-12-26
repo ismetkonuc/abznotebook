@@ -6,7 +6,7 @@ using Project.TechnoStore.Entities.Concrete;
 
 namespace Project.TechnoStore.Web.Areas.Member.Models
 {
-    public class OrderDetailViewModel
+    public class UserOrderDetailViewModel
     {
         public int OrderId { get; set; }
         public DateTime OrderDate { get; set; }

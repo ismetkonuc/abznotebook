@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Project.TechnoStore.Entities.Concrete;
 
-namespace Project.TechnoStore.Web.Areas.Admin.Models
+namespace Project.TechnoStore.Web.Base.Common.Models
 {
     public class BillViewModel
     {

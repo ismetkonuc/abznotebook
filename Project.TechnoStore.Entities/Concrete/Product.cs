@@ -24,6 +24,7 @@ namespace Project.TechnoStore.Entities.Concrete
         public string Image3 { get; set; } // CommonFeature
         public int UnitInStock { get; set; }
         public bool IsAvailable { get; set; }
+
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public List<OrderDetail> OrderDetails { get; set; }
@@ -33,4 +34,5 @@ namespace Project.TechnoStore.Entities.Concrete
         public Category Category { get; set; }
 
     }
+
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Project.TechnoStore.Business.Interfaces;
 using Project.TechnoStore.Data.Interfaces;
 using Project.TechnoStore.Entities.Concrete;
@@ -24,6 +25,11 @@ namespace Project.TechnoStore.Business.Concrete
         public string GetOrderOwnerFullNameWithUserId(int userId)
         {
             return _appUserDal.GetOrderOwnerFullNameWithUserId(userId);
+        }
+
+        public async Task<List<AppUser>> GetUsersAsync()
+        {
+            return await _appUserDal.GetUsersAsync();
         }
     }
 }

@@ -5,7 +5,6 @@
 }
 
 <body>
-
     <h1 class="mt-4">Kategori İşlemleri</h1>
     <div class="dropdown-divider"></div>
 
@@ -13,7 +12,11 @@
         <div class="col-md-12">
             <div class="row">
 
-                <div class="col-xl-4 col-md-4">
+                <div class="col-xl-2 col-md-2">
+                    
+                </div>
+
+                <div class="col-xl-8 col-md-8">
                     <div class="card bg-success text-white mb-4">
                         <div class="card-body">Kategori Ekle</div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
@@ -23,24 +26,8 @@
                     </div>
                 </div>
 
-                <div class="col-xl-4 col-md-4">
-                    <div class="card bg-warning text-white mb-4">
-                        <div class="card-body">Kategori Düzenle</div>
-                        <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" asp-controller="Operations" asp-action="EditCategory">İşlem Yap</a>
-                            <div class="small text-white"><i class="fas fa-edit"></i></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-4 col-md-4">
-                    <div class="card bg-danger text-white mb-4">
-                        <div class="card-body">Kategori Sil</div>
-                        <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" asp-controller="Operations" asp-action="DeleteCategory">İşlem Yap</a>
-                            <div class="small text-white"><i class="far fa-trash-alt"></i></div>
-                        </div>
-                    </div>
+                <div class="col-xl-2 col-md-2">
+                    
                 </div>
 
             </div>
@@ -62,6 +49,7 @@
                                 <th>Ad</th>
                                 <th>Açıklama</th>
                                 <th>Ürün Sayısı</th>
+                                <th>Düzenle / Sil</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,6 +60,25 @@
                                     <td>@category.Name</td>
                                     <td>@(category?.Description ?? "Detay Mevcut Değil")</td>
                                     <td>@category.CountOfProduct</td>
+                                    <td>
+
+                                        <form asp-action="DeleteCategory" asp-route-id="@category.Id" method="post">
+                                            <a class="btn btn-outline-warning" asp-controller="Operations" asp-action="EditCategory" asp-route-id="@category.Id">Düzenle</a>
+
+
+                                            <span id="confirmDeleteSpan_@category.Id" style="display: none">
+                                                <div>Onaylıyor musunuz?</div>
+
+                                                <button type="submit" class="btn btn-danger">Onayla</button>
+                                                <a href="#" class="btn btn-primary" onclick="confirmDelete('@category.Id', false)">Vazgeç</a>
+                                            </span>
+
+                                            <span id="deleteSpan_@category.Id">
+                                                <a href="#" class="btn btn-danger" onclick="confirmDelete('@category.Id', true)">Sil</a>
+                                            </span>
+
+                                        </form>
+                                    </td>
                                 </tr>
                             }
 
@@ -84,3 +91,22 @@
     </div>
 
 </body>
+
+@section scripts
+{
+    <script>
+        function confirmDelete(uniqueId, isDeleteClicked) {
+            var deleteSpan = 'deleteSpan_' + uniqueId;
+            var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+
+            if (isDeleteClicked) {
+                $('#' + deleteSpan).hide();
+                $('#' + confirmDeleteSpan).show();
+            }
+            else {
+                $('#' + deleteSpan).show();
+                $('#' + confirmDeleteSpan).hide();
+            }
+        }
+    </script>
+}

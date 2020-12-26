@@ -16,10 +16,12 @@
         </ul>
 
         <ul class="navbar-nav navbar-right">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-1" type="text" placeholder="Bir ürün ara">
+            <form class="form-inline my-2 my-lg-0" method="get" asp-controller="Search" asp-action="Index">
+                <input class="form-control mr-sm-1" type="text" name="searchString" value="@ViewBag.Searched" placeholder="Bir ürün ara">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ara</button>
             </form>
+
+
             <li class="nav-item dropdown dropleft">
 
                 @if (User.IsInRole("Admin"))
@@ -27,7 +29,7 @@
                     <a class="nav-link" href="#" id="dropdownIdprofil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-user mr-2"></span></a>
                     <div class="dropdown-menu" aria-labelledby="dropdownIdprofil">
                         <a class="dropdown-item" href="/Admin">Kontrol Paneli</a>
-                        <a class="dropdown-item" asp-controller="Account" asp-action="LogOut">Çıkış</a>
+                        <a class="dropdown-item" href="../../Account/Logout">Çıkış</a>
                     </div>
 
                 }
@@ -45,9 +47,9 @@
                 }
 
             </li>
-<li class="nav-item dropdown">
-        <a class="nav-link" href="~/cart" id="dropdownId" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-shopping-bag"></span></a>
-    </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="~/cart" id="dropdownId" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-shopping-bag"></span></a>
+            </li>
 
         </ul>
     </div>

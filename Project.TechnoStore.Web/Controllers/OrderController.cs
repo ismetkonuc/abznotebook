@@ -37,28 +37,33 @@ namespace Project.TechnoStore.Web.Controllers
         public async Task<IActionResult> Checkout()
         {
 
+            OrderViewModel model = new OrderViewModel()
+            {
+                LinesCount = _cart.Lines.Count
+            };
+
             if (User.Identity.IsAuthenticated)
             {
                 var appUser = await _userManager.GetUserAsync(User);
-                ViewBag.Address = _addressService?.GetAddressesByUserId(appUser.Id);
-
-                ViewBag.AddressCollection = 
-                    new SelectList(ViewBag.Address, "Id", "Title");
-
-                ViewBag.PaymentCollection = 
-                    new SelectList(_paymentService.GetAllPayments(), "PaymentId", "PaymentType");
-
-                ViewBag.ShipperCollection = 
-                    new SelectList(_shipperService.GetAllShippers(), "Id", "CompanyName");
+                
+                model.Addresses = _addressService.GetAddressesByUserId(appUser.Id);
+                model.AddressCollection = new SelectList(model.Addresses, "Id", "Title");
+                model.PaymentCollection = new SelectList(_paymentService.GetAllPayments(), "PaymentId", "PaymentType");
+                model.ShipperCollection = new SelectList(_shipperService.GetAllShippers(), "Id", "CompanyName");
             }
 
-            return View(new OrderViewModel(){LinesCount = _cart.Lines.Count});
+            return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Checkout(OrderViewModel model)
         {
             var appUser = await _userManager.GetUserAsync(User);
+            model.LinesCount = _cart.Lines.Count;
+            model.Addresses = _addressService?.GetAddressesByUserId(appUser.Id);
+            model.AddressCollection = new SelectList(model.Addresses, "Id", "Title");
+            model.PaymentCollection = new SelectList(_paymentService.GetAllPayments(), "PaymentId", "PaymentType");
+            model.ShipperCollection = new SelectList(_shipperService.GetAllShippers(), "Id", "CompanyName");
 
             if (model.LinesCount == 0)
             {
@@ -96,6 +101,8 @@ namespace Project.TechnoStore.Web.Controllers
 
                 return RedirectToAction("Completed", new{orderId = orderId});
             }
+
+            ModelState.AddModelError("", "Seç");
 
             return View(model);
         }

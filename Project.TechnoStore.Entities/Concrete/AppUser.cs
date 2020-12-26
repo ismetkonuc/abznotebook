@@ -14,5 +14,6 @@ namespace Project.TechnoStore.Entities.Concrete
         public List<Address> Addresses { get; set; }
 
         public List<Order> Orders { get; set; }
+
     }
 }

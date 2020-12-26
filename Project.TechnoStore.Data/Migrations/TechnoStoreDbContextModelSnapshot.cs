@@ -295,6 +295,34 @@ namespace Project.TechnoStore.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Project.TechnoStore.Entities.Concrete.Coupon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("DiscountPercentage")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("smalldatetime");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasFilter("[Code] IS NOT NULL");
+
+                    b.ToTable("Coupons");
+                });
+
             modelBuilder.Entity("Project.TechnoStore.Entities.Concrete.Order", b =>
                 {
                     b.Property<int>("Id")

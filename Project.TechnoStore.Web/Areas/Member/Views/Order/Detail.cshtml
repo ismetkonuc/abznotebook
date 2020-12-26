@@ -1,0 +1,102 @@
+﻿@model OrderDetailViewModel
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Areas/Member/Views/Shared/_StandartLayout.cshtml";
+}
+
+<div>
+    <h3 class="mx-4">#@Model.OrderId Numaralı Siparişim</h3>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col my-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Sipariş Özeti</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sipariş Numarası</th>
+                                <th scope="col">Sipariş Tarihi</th>
+                                <th scope="col">Kargo Durumu</th>
+                                <th scope="col">Onay Durumu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.OrderId</td>
+                                <td>@Model.OrderDate.ToString("M") @Model.OrderDate.Year - @Model.OrderDate.ToString("t")</td>
+                                <td>@Model.ShipStatus</td>
+
+                                <td>@Model.AllowStatus</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col my-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Ürün Bilgileri</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Ürün Adı</th>
+                                <th scope="col">Adet</th>
+                                <th scope="col">Birim Fiyat</th>
+                                <th scope="col">Toplam Ödenen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var bill in @Model.Bill)
+                            {
+                                <tr>
+                                    <th scope="row">@bill.Product.Name</th>
+                                    <td>@bill.Quantity</td>
+                                    <td>@bill.UnitPrice</td>
+                                    <td>@bill.TotalPrice</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col my-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Kargo Bilgileri</h5>
+                    <p class="card-text">@Model.ShipperCompanyName</p>
+                    <p class="card-text">@Model.ShipperPhone</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col my-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Adres Bilgileri</h5>
+                    <p class="card-text">@Model.AddressLine</p>
+                    <p class="card-text">@Model.AddressNeighborhood</p>
+                    <p class="card-text">@Model.AddressDistrict / @Model.AddressCity</p>
+                    <p class="card-text">@Model.AddressPostalCode</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

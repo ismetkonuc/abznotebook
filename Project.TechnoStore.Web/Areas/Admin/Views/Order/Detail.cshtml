@@ -6,79 +6,6 @@
 }
 
 
-@*<div class="container-fluid">
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="text-center">
-                    #@Model.OrderId.ToString()
-                    @if (@Model.IsAllowed)
-                    {
-                        <p style="color: green">Sipariş Onaylandı</p>
-                    }
-                    else
-                    {
-                        <p style="color: red">Sipariş Onay Bekliyor</p>
-                    }
-                </div>
-            </div>
-
-            <div class="col-md-6 my-2">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Sipariş Numarası</th>
-                                <th>Sipariş Tarihi</th>
-                                <th>Kargo Durumu</th>
-                                <th>Onay Durumu</th>
-                                <th>Ödeme Yöntemi</th>
-                                <th>Sipariş Sahibi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <partial name="OrderSummaryPartial" model="Model" />
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="col-md-6 my-2">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Ürün Adı</th>
-                                    <th>Ürün SKU</th>
-                                    <th>Sipariş Adedi</th>
-                                    <th>Birim Fiyat</th>
-                                    <th>Toplam Tutar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var bill in Model.Bill)
-                                {
-                                    <tr>
-                                        <td>@bill.Product.Name</td>
-                                        <td>@bill.Product.SKU</td>
-                                        <td>@bill.Quantity</td>
-                                        <td>@bill.UnitPrice</td>
-                                        <td>@bill.TotalPrice</td>
-                                    </tr>
-
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            <hr/>
-            <partial name="AddressPartial" model="@Model.Address" />
-
-        </div>
-    </div>*@
-
 <div class="container-fluid">
 
     <div class="row">
@@ -88,24 +15,19 @@
                     <h5 class="card-title">Sipariş Özeti</h5>
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th scope="col">Sipariş Numarası</th>
-                                <th scope="col">Sipariş Tarihi</th>
-                                <th scope="col">Kargo Durumu</th>
-                                <th scope="col">Onay Durumu</th>
-                                <th scope="col">Müşteri Adı</th>
-                                <th scope="col">Ödeme Yöntemi</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">Sipariş Numarası</th>
+                            <th scope="col">Sipariş Tarihi</th>
+                            <th scope="col">Kargo Durumu</th>
+                            <th scope="col">Onay Durumu</th>
+                            <th scope="col">Müşteri Adı</th>
+                            <th scope="col">Ödeme Yöntemi</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">@Model.OrderId</th>
-                                <td>@Model.OrderDate</td>
-                                <td>@Model.IsShipped</td>
-                                <td>@Model.IsAllowed</td>
-                                <td>@Model.CustomerFullName</td>
-                                <td>@Model.PaymentMethod</td>
-                            </tr>
+                        <tr>
+                            <partial name="OrderSummaryPartial" model="@Model"/>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -120,26 +42,26 @@
                     <h5 class="card-title">Ürün Bilgileri</h5>
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th scope="col">SKU</th>
-                                <th scope="col">Ürün Adı</th>
-                                <th scope="col">Adet</th>
-                                <th scope="col">Birim Fiyat</th>
-                                <th scope="col">Toplam Ödenen</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">SKU</th>
+                            <th scope="col">Ürün Adı</th>
+                            <th scope="col">Adet</th>
+                            <th scope="col">Birim Fiyat</th>
+                            <th scope="col">Toplam Ödenen</th>
+                        </tr>
                         </thead>
                         <tbody>
 
-                            @foreach (var bill in @Model.Bill)
-                            {
-                                <tr>
-                                    <th scope="row">@bill.Product.SKU</th>
-                                    <td>@bill.Product.Name</td>
-                                    <td>@bill.Quantity</td>
-                                    <td>@bill.UnitPrice</td>
-                                    <td>@bill.TotalPrice</td>
-                                </tr>
-                            }
+                        @foreach (var bill in @Model.Bill)
+                        {
+                            <tr>
+                                <th scope="row">@bill.Product.SKU</th>
+                                <td>@bill.Product.Name</td>
+                                <td>@bill.Quantity</td>
+                                <td>@bill.UnitPrice</td>
+                                <td>@bill.TotalPrice</td>
+                            </tr>
+                        }
 
                         </tbody>
                     </table>
@@ -154,8 +76,8 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Kargo Bilgileri</h5>
-                    <p class="card-text">@Model.Shipper.CompanyName</p>
-                    <p class="card-text">@Model.Shipper.Phone</p>
+                    <p class="card-text">@Model.ShipperCompanyName</p>
+                    <p class="card-text">@Model.ShipperPhone</p>
                 </div>
             </div>
         </div>
@@ -166,10 +88,10 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Adres Bilgileri</h5>
-                    <p class="card-text">@Model.Address.AddressLine</p>
-                    <p class="card-text">@Model.Address.Neighborhood</p>
-                    <p class="card-text">@Model.Address.District / @Model.Address.City</p>
-                    <p class="card-text">@Model.Address.PostalCode</p>
+                    <p class="card-text">@Model.AddressLine</p>
+                    <p class="card-text">@Model.AddressNeighborhood</p>
+                    <p class="card-text">@Model.AddressDistrict / @Model.AddressCity</p>
+                    <p class="card-text">@Model.AddressPostalCode</p>
                     <a class="btn btn-outline-success">Adresi Düzenle</a>
                 </div>
             </div>
@@ -179,11 +101,14 @@
     <div class="row">
         <div class="col my-2">
             <div class="card">
-                <div class="card-body text-right">
-                    <a class="btn btn-outline-danger">Reddet</a>
-                    <a class="btn btn-outline-success">Onayla</a>
-                </div>
+                <form method="post" asp-action="Detail">
+                    <div class="card-body text-right">
+                        <button type="submit" class="btn btn-outline-danger" asp-route-orderId="@Model.OrderId" asp-route-allowStatus="false">Reddet</button>
+                        <button type="submit" class="btn btn-outline-success" asp-route-orderId="@Model.OrderId" asp-route-allowStatus="true">Onayla</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+

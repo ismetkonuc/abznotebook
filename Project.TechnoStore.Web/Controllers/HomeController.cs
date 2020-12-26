@@ -11,21 +11,18 @@ namespace Project.TechnoStore.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IProductService _productService;
-        private readonly ICategoryService _categoryService;
-        public int pageSize = 9;
+        public int pageSize = 6;
 
-        public HomeController(IProductService productService, ICategoryService categoryService, Cart cart)
+        public HomeController(IProductService productService, Cart cart)
         {
             _productService = productService;
-            _categoryService = categoryService;
         }
 
 
-        public IActionResult Index(int productPage = 1, string sortOrder="")
+        public IActionResult Index(int productPage = 1, string sortOrder = "")
         {
 
-
-            ProductListViewModel productList =  new ProductListViewModel()
+            ProductListViewModel productList = new ProductListViewModel()
             {
                 Products =
                     _productService.Products.OrderBy(p => p.Id).Skip((productPage - 1) * pageSize).Take(pageSize),
@@ -60,13 +57,12 @@ namespace Project.TechnoStore.Web.Controllers
             return View(productList);
         }
 
-        public IActionResult Product(int productId=1, string name="")
+        public IActionResult Product(int productId = 1, string name = "")
         {
             name = WebUtility.UrlEncode(name);
-            var product = _productService.Products.Single(I=>I.Id == productId);
+            var product = _productService.Products.Single(I => I.Id == productId);
             return View(product);
         }
-
 
     }
 }

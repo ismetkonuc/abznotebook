@@ -10,7 +10,7 @@ using Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Contexts;
 namespace Project.TechnoStore.Data.Migrations
 {
     [DbContext(typeof(TechnoStoreDbContext))]
-    [Migration("20201223200538_Initial")]
+    [Migration("20201225200912_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -295,6 +295,34 @@ namespace Project.TechnoStore.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Project.TechnoStore.Entities.Concrete.Coupon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("DiscountPercentage")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("smalldatetime");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasFilter("[Code] IS NOT NULL");
+
+                    b.ToTable("Coupons");
                 });
 
             modelBuilder.Entity("Project.TechnoStore.Entities.Concrete.Order", b =>

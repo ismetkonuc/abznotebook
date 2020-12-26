@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Project.TechnoStore.Entities.Concrete;
 
 namespace Project.TechnoStore.Business.Interfaces
@@ -9,5 +10,7 @@ namespace Project.TechnoStore.Business.Interfaces
     {
         List<Order> GetGivenCustomersOrders(AppUser user);
         string GetOrderOwnerFullNameWithUserId(int userId);
+        Task<List<AppUser>> GetUsersAsync();
+
     }
 }

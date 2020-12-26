@@ -7,8 +7,8 @@ namespace Project.TechnoStore.Web.Areas.Member.Models
 {
     public class UserViewModel
     {
-        public string Ad { get; set; }
-        public string Soyad { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
         public string Mail { get; set; }
     }
 }

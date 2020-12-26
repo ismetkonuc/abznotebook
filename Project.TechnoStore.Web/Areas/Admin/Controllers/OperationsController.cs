@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Project.TechnoStore.Business.Interfaces;
 using Project.TechnoStore.Entities.Concrete;
 using Project.TechnoStore.Web.Areas.Admin.Infrastructure;
 using Project.TechnoStore.Web.Areas.Admin.Models;
+using Project.TechnoStore.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Project.TechnoStore.Web.Base.Common.Models;
 
 namespace Project.TechnoStore.Web.Areas.Admin.Controllers
 {
@@ -21,11 +24,19 @@ namespace Project.TechnoStore.Web.Areas.Admin.Controllers
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IWebHostEnvironment _WebHostEnvironment;
-        public OperationsController(IProductService productService, ICategoryService categoryService, IWebHostEnvironment WebHostEnvironment)
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IAppUserService _userService;
+        private readonly IOrderService _orderService;
+        private readonly IPaymentService _paymentService;
+        public OperationsController(IProductService productService, ICategoryService categoryService, IWebHostEnvironment WebHostEnvironment, UserManager<AppUser> userManager, IAppUserService userService, IOrderService orderService, IPaymentService paymentService)
         {
             _productService = productService;
             _categoryService = categoryService;
             _WebHostEnvironment = WebHostEnvironment;
+            _userManager = userManager;
+            _userService = userService;
+            _orderService = orderService;
+            _paymentService = paymentService;
         }
 
         [Route("admin/islemler")]
@@ -34,7 +45,11 @@ namespace Project.TechnoStore.Web.Areas.Admin.Controllers
             return View();
         }
 
+        
+        //PRODUCT CRUD OPERATIONS
+        
         [Route("admin/islemler/urunler")]
+        
         public IActionResult Product(string sortOrder, string searchString)
         {
             ViewBag.IdSort = sortOrder == "IdSort" ? "id_desc" : "IdSort";
@@ -177,7 +192,9 @@ namespace Project.TechnoStore.Web.Areas.Admin.Controllers
             return RedirectToAction("Product");
         }
 
-
+        
+        //CATEGORY CRUD OPERATIONS
+        
         public IActionResult Category()
         {
             List<Category> categories = _categoryService.GetAllCategories.ToList();
@@ -219,6 +236,92 @@ namespace Project.TechnoStore.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult EditCategory(int id)
+        {
+            var selectedCategory = _categoryService.GetAllCategories.Single(I => I.Id == id);
+
+            EditCategoryViewModel model = new EditCategoryViewModel()
+            {
+                CategoryId = selectedCategory.Id,
+                CategoryName = selectedCategory.Name,
+                CategoryDescription = selectedCategory.Description
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditCategory(EditCategoryViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _categoryService.Update(new Category()
+                {
+                    Id = model.CategoryId,
+                    Name = model.CategoryName,
+                    Description = model.CategoryDescription
+                });
+
+                return RedirectToAction("Category");
+            }
+
+            return View(model);
+        }
+
+        public IActionResult DeleteCategory(int id)
+        {
+            _categoryService.Delete(new Category { Id = id });
+            return RedirectToAction("Category");
+        }
+
+        
+        //USER OPERATIONS
+        public IActionResult Customer(string sortOrder, string searchString)
+        {
+
+            ViewBag.IdSort = sortOrder == "IdSort" ? "id_desc" : "IdSort";
+            ViewBag.NameSort = sortOrder == "NameSort" ? "name_desc" : "NameSort";
+            ViewBag.SurnameSort = sortOrder == "SurnameSort" ? "surname_desc" : "SurnameSort";
+            ViewBag.UsernameSort = sortOrder == "UsernameSort" ? "username_desc" : "UsernameSort";
+            ViewBag.FromSearch = searchString;
+
+            return View(this.sortUserByParameters(sortOrder, searchString));
+        }
+
+        public  IActionResult CustomerOrders(int userId)
+        {
+            AppUser appUser = _userManager.Users.Single(I => I.Id == userId);
+
+            var model = GetAllOrderSummaries(appUser).OrderByDescending(I => I.OrderDate).ToList();
+            return View(model);
+        }
+
+        public List<OrderSummaryViewModel> GetAllOrderSummaries(AppUser appUser)
+        {
+
+            List<OrderSummaryViewModel> model = new List<OrderSummaryViewModel>();
+
+            var orders = _orderService.GetAllOrders().Where(I=>I.CustomerId == appUser.Id);
+            foreach (var order in orders)
+            {
+                string paymentMethod = _paymentService.GetPaymentNameWithId(order.PaymentId);
+                string orderOwnerFullName = _userService.GetOrderOwnerFullNameWithUserId(order.CustomerId);
+
+                model.Add(new OrderSummaryViewModel()
+                {
+                    OrderId = order.Id,
+                    OrderDate = order.OrderDate,
+                    PaymentMethod = paymentMethod,
+                    CustomerFullName = orderOwnerFullName,
+                    ShipStatus = order.IsShipped ? "Kargoya Verildi" : "Kargoya Verilmedi",
+                    AllowStatus = order.IsAllowed ? "Onaylandı" : "Onay Bekliyor",
+                });
+            }
+
+            return model;
+        }
         private string[] UploadedFile(AddProductViewModel model)
         {
             //string uniqueFileName = null;
@@ -262,7 +365,69 @@ namespace Project.TechnoStore.Web.Areas.Admin.Controllers
 
             return uniqueFileNames;
         }
+        private List<UserViewModel> sortUserByParameters(string sortOrder, string searchString)
+        {
+            var users = _userManager.Users.Where(I => I.UserName != "admin").ToList();
 
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(I =>
+                    I.UserName.Contains(searchString) || I.Name.Contains(searchString) ||
+                    I.Surname.Contains(searchString)).ToList();
+            }
+
+            List<UserViewModel> model = new List<UserViewModel>();
+
+            foreach (var user in users)
+            {
+                model.Add(new UserViewModel()
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    Mail = user.Email,
+                    Username = user.UserName
+                });
+            }
+
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    model = model.OrderBy(I => I.Id).ToList();
+                    break;
+
+                case "IdSort":
+                    model = model.OrderByDescending(I => I.Id).ToList();
+                    break;
+
+                case "name_desc":
+                    model = model.OrderBy(I => I.Name).ToList();
+                    break;
+                case "NameSort": 
+                    model = model.OrderByDescending(I => I.Name).ToList();
+                    break;
+
+                case "surname_desc":
+                    model = model.OrderBy(I => I.Surname).ToList();
+                    break;
+
+                case "SurnameSort":
+                    model = model.OrderByDescending(I => I.Surname).ToList();
+                    break;
+
+                case "username_desc":
+                    model = model.OrderBy(I => I.Username).ToList();
+                    break;
+                case "UsernameSort":
+                    model = model.OrderByDescending(I => I.Username).ToList();
+                    break;
+                default:
+                    model = model.OrderByDescending(I => I.Id).ToList();
+                    break;
+            }
+
+            return model;
+        }
         private IQueryable<Product> sortByParameters(string sortOrder, string searchString)
         {
             var products = _productService.Products;

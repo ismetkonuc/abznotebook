@@ -9,5 +9,6 @@ namespace Project.TechnoStore.Business.Interfaces
         public IQueryable<Product> Products { get; }
         public Product GetSpesificProduct(int id);
         public List<Product> GetProductsByCategoryId(int Id);
+
     }
 }

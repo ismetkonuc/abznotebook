@@ -28,6 +28,7 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Contexts
             builder.ApplyConfiguration(new ShipperConfiguration());
             builder.ApplyConfiguration(new AddressConfiguration());
             builder.ApplyConfiguration(new ShipperConfiguration());
+            builder.ApplyConfiguration(new CouponConfiguration());
             base.OnModelCreating(builder);
         }
 
@@ -38,6 +39,7 @@ namespace Project.TechnoStore.Data.Concrete.EntityFrameworkCore.Contexts
         public DbSet<Shipper> Shippers { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Coupon> Coupons { get; set; }
 
     }
 }

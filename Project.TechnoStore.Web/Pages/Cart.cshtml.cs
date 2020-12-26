@@ -33,6 +33,11 @@ namespace Project.TechnoStore.Web.Pages
             return RedirectToPage(new {returnUrl = returnUrl});
         }
 
+        public IActionResult OnPostApplyCoupon(string id, string returnUrl)
+        {
+            return RedirectToPage(new {returnUrl = returnUrl});
+        }
+
         public IActionResult OnPostRemove(int id, string returnUrl)
         {
             Cart.RemoveLine(Cart.Lines.First(cl =>

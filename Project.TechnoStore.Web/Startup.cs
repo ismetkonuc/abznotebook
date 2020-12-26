@@ -31,7 +31,7 @@ namespace Project.TechnoStore.Web
             services.AddScoped<IShipperService, ShipperManager>();
             services.AddScoped<IPaymentService, PaymentManager>();
             services.AddScoped<IOrderDetailService, OrderDetailManager>();
-
+            services.AddScoped<ICouponService, CouponManager>();
 
             services.AddScoped<IAppUserDal, EfAppUserRepository>();
             services.AddScoped<IOrderDal, EfOrderRepository>();
@@ -41,6 +41,8 @@ namespace Project.TechnoStore.Web
             services.AddScoped<IShipperDal, EfShipperRepository>();
             services.AddScoped<IPaymentDal, EfPaymentRepository>();
             services.AddScoped<IOrderDetailDal, EfOrderDetailRepository>();
+            services.AddScoped<ICouponDal, EfCouponRepository>();
+            
             services.AddRazorPages();
 
             services.AddDbContext<TechnoStoreDbContext>();
@@ -66,7 +68,10 @@ namespace Project.TechnoStore.Web
             services.AddDistributedMemoryCache();
             
             services.AddSession();
+            
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
@@ -77,6 +82,7 @@ namespace Project.TechnoStore.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
+            
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
@@ -87,10 +93,12 @@ namespace Project.TechnoStore.Web
             app.UseAuthorization();
 
             IdentityInitializer.SeedData(userManager, roleManager).Wait();
+            
             SeedCategory.EnsurePopulated(app);
             SeedProduct.EnsurePopulated(app);
             SeedShipper.EnsurePopulated(app);
             SeedPayment.EnsurePopulated(app);
+            SeedCoupon.EnsurePopulated(app);
 
             app.UseEndpoints(endpoints =>
             {

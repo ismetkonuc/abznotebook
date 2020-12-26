@@ -2,29 +2,12 @@
 @model OrderSummaryViewModel
 
 
-<td>@Model.OrderId</td>
+<th scope="row">@Model.OrderId</th>
 <td>@Model.OrderDate</td>
 
-@if (Model.IsShipped)
-{
-    <td>Kargoya Verildi</td>
-}
-else
-{
-    <td>Kargoya Verilmedi</td>
-}
+<td>@Model.ShipStatus</td>
 
-@if (Model.IsAllowed)
-{
-    <td>Onaylandı</td>
-}
-else
-{
-    <td>Onay Bekliyor</td>
-}
+<td>@Model.AllowStatus</td>
 
 <td>@Model.PaymentMethod</td>
 <td>@Model.CustomerFullName.ToUpper()</td>
-
-
-

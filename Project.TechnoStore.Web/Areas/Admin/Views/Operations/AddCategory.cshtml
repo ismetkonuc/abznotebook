@@ -3,7 +3,6 @@
     ViewData["Title"] = "AddCategory";
     Layout = "~/Areas/Admin/Views/Shared/_StandartLayout.cshtml";
 }
-
 <div class="container">
     <div class="col-md-12">
         <div class="row">
@@ -11,7 +10,7 @@
             <div class="col-md-6 mt-2">
                 <div class="card bg-warning text-white mb-4">
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" asp-controller="Operations" asp-action="UpdateCategory">Kategori Güncelle</a>
+                        <a class="small text-white stretched-link" asp-controller="Operations" asp-action="Category">Kategori Güncelle</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
@@ -20,7 +19,7 @@
             <div class="col-md-6 mt-2">
                 <div class="card bg-danger text-white mb-4">
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" asp-controller="Operations" asp-action="DeleteCategory">Kategori Sil</a>
+                        <a class="small text-white stretched-link" asp-controller="Operations" asp-action="Category">Kategori Sil</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
@@ -28,6 +27,8 @@
         </div>
     </div>
 </div>
+
+<div class="dropdown-divider"></div>
 
 <div class="dropdown-divider"></div>
 
