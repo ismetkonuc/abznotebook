@@ -106,7 +106,8 @@ namespace Project.TechnoStore.Web.Areas.Admin.Controllers
                     UnitPrice = model.UnitPrice,
                     Image1 = uniqueFileNames[0],
                     Image2 = uniqueFileNames[1],
-                    Image3 = uniqueFileNames[2]
+                    Image3 = uniqueFileNames[2],
+                    RealPrice = model.RealPrice
                 });
                 return RedirectToAction("Product");
             }
@@ -137,7 +138,8 @@ namespace Project.TechnoStore.Web.Areas.Admin.Controllers
                 Image1 = product.Image1,
                 Image2 = product.Image2,
                 Image3 = product.Image3,
-                SKU = product.SKU
+                SKU = product.SKU,
+                RealPrice = product.RealPrice
             };
 
             ViewBag.Categories = new SelectList(_categoryService.GetAllCategories.ToList(), "Id", "Name");
@@ -172,7 +174,8 @@ namespace Project.TechnoStore.Web.Areas.Admin.Controllers
                     Image1 = model.Image1,
                     Image2 = model.Image2,
                     Image3 = model.Image3,
-                    SKU = model.SKU
+                    SKU = model.SKU,
+                    RealPrice = model.RealPrice
                 });
                 return RedirectToAction("Product");
             }

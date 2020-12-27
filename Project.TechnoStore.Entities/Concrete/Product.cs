@@ -11,6 +11,7 @@ namespace Project.TechnoStore.Entities.Concrete
         public int Id { get; set; } // CommonFeature
         public string SKU { get; set; } // CommonFeature
         public string Name { get; set; } // CommonFeature
+        public decimal? RealPrice { get; set; }
         public decimal UnitPrice { get; set; }
         public string Description { get; set; } // CommonFeature
         public string Vendor { get; set; } // CommonFeature

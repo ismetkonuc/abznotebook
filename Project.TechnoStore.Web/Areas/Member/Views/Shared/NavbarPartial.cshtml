@@ -1,4 +1,8 @@
-﻿<style>
+﻿@*
+    Areas's Navbar    
+*@
+
+<style>
     .search-item-text {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
@@ -40,9 +44,9 @@
 
                 <ul class="navbar-nav">
                     <li>
-                        <form class="form-inline my-2 my-lg-0" method="get" asp-controller="Search" asp-action="Index">
-                            <input class="form-control mr-sm-1" type="text" name="searchString" value="@ViewBag.Searched" placeholder="Bir ürün ara">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ara</button>
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-0 search-item-text" type="text" placeholder="Bir ürün ara">
+                            <button class="btn btn-outline-success my-2 my-sm-0 search-item-btn" type="submit"><span class="fa fa-search"></span></button>
                         </form>
                     </li>
                     <li class="nav-item dropdown dropleft">
@@ -52,7 +56,8 @@
                             <a class="nav-link" href="#" id="dropdownIdprofil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-user mr-2"></span></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownIdprofil">
                                 <a class="dropdown-item" href="/Admin">Kontrol Paneli</a>
-                                <a class="dropdown-item" asp-controller="Account" asp-action="LogOut">Çıkış</a>
+                                @*<a class="dropdown-item" asp-controller="Account" asp-action="LogOut">Çıkış</a>*@
+                                <a class="dropdown-item" href="account/logout">Çıkış</a>
                             </div>
 
                         }
@@ -61,7 +66,8 @@
                             <a class="nav-link" href="#" id="dropdownIdprofil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-user mr-2"></span></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownIdprofil">
                                 <a class="dropdown-item" href="/Member">Profil</a>
-                                <a class="dropdown-item" asp-controller="Account" asp-action="LogOut">Çıkış</a>
+                                @*<a class="dropdown-item" asp-controller="Account" asp-action="LogOut">Çıkış</a>*@
+                                <a class="dropdown-item" href="account/logout">Çıkış</a>
                             </div>
                         }
                         else
@@ -80,6 +86,3 @@
         </div>
     </nav>
 </div>
-
-
-

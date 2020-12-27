@@ -33,6 +33,12 @@ namespace Project.TechnoStore.Web
                     {
                         Name = "Ev - Ofis Laptop'ları",
                         Description = "Günlük temel düzeyde kullanımı temel alan ev - ofis bilgisayarları.",
+                    },
+
+                    new Category()
+                    {
+                        Name = "İkisi Bir Arada",
+                        Description = "Hem normal hem de dokunmatik işleve sahip bilgisayarlar"
                     }
 
                 );

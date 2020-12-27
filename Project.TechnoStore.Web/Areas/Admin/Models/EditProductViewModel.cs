@@ -20,6 +20,7 @@ namespace Project.TechnoStore.Web.Areas.Admin.Models
         public string? GraphicsCard { get; set; }
         public string? DiscCapacity { get; set; }
         public string? MemoryCapacity { get; set; }
+        public decimal? RealPrice { get; set; }
 #nullable disable
         public decimal UnitPrice { get; set; }
         public int UnitInStock { get; set; }

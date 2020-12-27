@@ -5,31 +5,32 @@
     Layout = "~/Views/Shared/_StandartLayout.cshtml";
 }
 
-@section order
+
+@section sort
 {
-
-
-    <div class="col-md-12 text-right mt-2 ml-auto">
-        <a class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="font-size: 14px;">@ViewBag.OrderStatus<span class="caret"></span></a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" x-placement="bottom-start" style="position: absolute; transform: translate3d(71px, 48px, 0px); top: 0px; left: 0px; will-change: transform; font-size: 14px;">
-                    <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-sortOrder="best_match">En İyi Eşleşme</a>
-                    <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-sortOrder="asc_price">Fiyat: Artan</a>
-                    <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-sortOrder="desc_price">Fiyat: Azalan</a>
-                </div>
-    </div>
+    <a class="btn btn-primary btn-order" asp-controller="Home" asp-action="Index" asp-route-sortOrder="best_match">En İyi Eşleşme</a>
+    <a class="btn btn-primary btn-order" asp-controller="Home" asp-action="Index" asp-route-sortOrder="asc_price">Artan Fiyat</a>
+    <a class="btn btn-primary btn-order" asp-controller="Home" asp-action="Index" asp-route-sortOrder="desc_price">Azalan Fiyat</a>
 }
 
 
-<div class="container-fluid">
-    <div class="row">
+<div class="container" style="margin:0; padding:0; text-align:center; border-bottom:1px solid lightgray">
+    <div class="row text-center">
         @foreach (var product in Model.Products)
         {
-            <partial name="ProductSummary" model="product"/>
+            <partial name="ProductSummary" model="product" />
         }
     </div>
 </div>
 
-
-
-<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-left m-1 my-2"></div>
-
+<div style="margin: 50px 0">
+    <table style="width:100%">
+        <tr>
+            <td class="text-center" >
+                <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary"
+                     class="btn-group">
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

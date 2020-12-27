@@ -26,10 +26,10 @@ namespace Project.TechnoStore.Web.Pages
             ReturnUrl = returnUrl ?? "/";
         }
 
-        public IActionResult OnPost(int id, string returnUrl)
+        public IActionResult OnPost(int id, string returnUrl, int quantity=1)
         {
             Product product = _productService.Products.FirstOrDefault(p => p.Id == id);
-            Cart.AddItem(product, 1);
+            Cart.AddItem(product, quantity);
             return RedirectToPage(new {returnUrl = returnUrl});
         }
 

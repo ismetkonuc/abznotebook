@@ -26,7 +26,13 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="UnitPrice">Birim Fiyatı</label>
+        <label asp-for="RealPrice">Gerçek Fiyatı</label>
+        <input type="number" asp-for="RealPrice" class="form-control" value="@Convert.ToInt32(@Model.RealPrice)" />
+        <span asp-validation-for="RealPrice" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UnitPrice">İndirimli Fiyatı</label>
         <input type="number" asp-for="UnitPrice" class="form-control" value="@Convert.ToInt32(@Model.UnitPrice)" />
         <span asp-validation-for="UnitPrice" class="text-danger"></span>
     </div>

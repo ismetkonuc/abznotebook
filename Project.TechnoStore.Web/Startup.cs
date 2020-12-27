@@ -121,6 +121,9 @@ namespace Project.TechnoStore.Web
                 endpoints.MapControllerRoute("category2", "Kategori/Bilgisayar/EvOfis",
                     new { Controller = "Category", action = "HomeOffice" });
 
+                endpoints.MapControllerRoute("category3", "Kategori/Bilgisayar/IkisiBirArada",
+                    new { Controller = "Category", action = "TwoInOne" });
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"

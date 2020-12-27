@@ -1,7 +1,6 @@
-﻿@model Project.TechnoStore.Web.Areas.Member.Models.AddAddressViewModel
-
+﻿@model Address
 @{
-    ViewData["Title"] = "AddAddress";
+    ViewData["Title"] = "EditAddress";
     Layout = "~/Areas/Member/Views/Shared/_StandartLayout.cshtml";
 }
 
@@ -12,55 +11,63 @@
 <div class="container" style="width:50%; text-align:left">
     <div class="row my-4">
         <div class="card-body">
-            <form asp-action="AddAddress">
+            <form asp-action="EditAddress">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="form-group">
+                    <label asp-for="AppUserId" class="control-label" hidden>Adres Başlığı</label>
+                    <input asp-for="AppUserId" class="form-control" value="@Model.AppUserId" hidden />
+                    <span asp-validation-for="AppUserId" class="text-danger" hidden></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label" hidden>Adres Başlığı</label>
+                    <input asp-for="Id" class="form-control" value="@Model.Id" hidden />
+                    <span asp-validation-for="Id" class="text-danger" hidden></span>
+                </div>
+
+                <div class="form-group">
                     <label asp-for="Title" class="control-label">Adres Başlığı</label>
-                    <input asp-for="Title" class="form-control" />
+                    <input asp-for="Title" class="form-control" value="@Model.Title" />
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="City" class="control-label">Şehir</label>
-                    <input asp-for="City" class="form-control" />
+                    <input asp-for="City" class="form-control" value="@Model.City" />
                     <span asp-validation-for="City" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="District" class="control-label">İlçe</label>
-                    <input asp-for="District" class="form-control" />
+                    <input asp-for="District" class="form-control" value="@Model.District" />
                     <span asp-validation-for="District" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="AddressLine" class="control-label">Adres</label>
-                    <input asp-for="AddressLine" class="form-control" />
+                    <input asp-for="AddressLine" class="form-control" value="@Model.AddressLine" />
                     <span asp-validation-for="AddressLine" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="Neighborhood" class="control-label">Mahalle</label>
-                    <input asp-for="Neighborhood" class="form-control" />
+                    <input asp-for="Neighborhood" class="form-control" value="@Model.Neighborhood" />
                     <span asp-validation-for="Neighborhood" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="PostalCode" class="control-label">Posta Kodu</label>
-                    <input asp-for="PostalCode" class="form-control" />
+                    <input asp-for="PostalCode" class="form-control" value="@Model.PostalCode" />
                     <span asp-validation-for="PostalCode" class="text-danger"></span>
                 </div>
                 <div class="form-group mt-3">
                     <div style="width:100%; text-align:right">
-                        <a asp-action="Index" class="btn btn-primary pr-4">Adreslerime Dön</a>
-                        @*<input type="submit" value="Ekle" class="btn btn-primary text-right mt-3" />*@
-                        <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> Ekle</button>
+                        <a asp-action="Index" class="btn btn-primary pr-4">Vazgeç</a>
+                        <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> Kaydet</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-
-

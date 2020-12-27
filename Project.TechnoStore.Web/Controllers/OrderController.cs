@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -98,7 +99,6 @@ namespace Project.TechnoStore.Web.Controllers
                 }
 
                 int orderId = _orderService.GetAllOrders().Single(I => I.OrderNumber.Equals(orderNumber)).Id;
-
                 return RedirectToAction("Completed", new{orderId = orderId});
             }
 

@@ -30,6 +30,7 @@ namespace Project.TechnoStore.Web
                     {
                         Name = "Asus X515JF-BR070T",
                         Vendor = "Asus",
+                        RealPrice = 12200,
                         UnitPrice = 4898,
                         UnitInStock = 10,
                         CategoryId = 2,
@@ -49,6 +50,7 @@ namespace Project.TechnoStore.Web
                     {
                         Name = "MSI GF63 Thin 9SCSR-1053XTR",
                         Vendor = "MSI",
+                        RealPrice = 14751,
                         UnitPrice = 7776,
                         UnitInStock = 25,
                         CategoryId = 1,
@@ -68,6 +70,7 @@ namespace Project.TechnoStore.Web
                     {
                         Name = "Dell Vostro 3501",
                         Vendor = "Dell",
+                        RealPrice = 6250,
                         UnitPrice = (decimal) (5999.4),
                         UnitInStock = 100,
                         CategoryId = 2,
@@ -87,6 +90,7 @@ namespace Project.TechnoStore.Web
                     {
                         Name = "Apple Macbook Pro M1",
                         Vendor = "Apple",
+                        RealPrice = 20100,
                         UnitPrice = (decimal)(14298.99),
                         UnitInStock = 3,
                         CategoryId = 2,
@@ -106,6 +110,7 @@ namespace Project.TechnoStore.Web
                     {
                         Name = "Lenovo IdeaPad Creator 5",
                         Vendor = "Lenovo",
+                        RealPrice = 10000,
                         UnitPrice = 9699,
                         UnitInStock = 30,
                         CategoryId = 1,
@@ -125,6 +130,7 @@ namespace Project.TechnoStore.Web
                     {
                         Name = "Asus TUF Gaming A15 FA506II-BQ200",
                         Vendor = "Asus",
+                        RealPrice = 12200,
                         UnitPrice = 10114,
                         UnitInStock = 60,
                         CategoryId = 1,

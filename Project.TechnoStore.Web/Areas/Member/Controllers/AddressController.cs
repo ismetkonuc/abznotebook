@@ -19,8 +19,6 @@ namespace Project.TechnoStore.Web.Areas.Member.Controllers
         private readonly IAppUserService _appUserService;
         private readonly SignInManager<AppUser> _signInManager;
 
-        public delegate dynamic UserDelegate();
-
         public AddressController(IAddressService addressService, IAppUserService appUserService, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
         {
             _addressService = addressService;
@@ -64,6 +62,40 @@ namespace Project.TechnoStore.Web.Areas.Member.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditAddress(int addressId)
+        {
+            var appUser = await _userManager.GetUserAsync(User);
+            var selectedAddress = _addressService.GetAddressesByUserId(appUser.Id).Single(I => I.Id == addressId);
+            return View(selectedAddress);
+        }
+
+        [HttpPost]
+        public IActionResult EditAddress(Address address)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _addressService.Update(new Address()
+                {
+                    Title = address.Title,
+                    City = address.City,
+                    District = address.District,
+                    AddressLine = address.AddressLine,
+                    PostalCode = address.PostalCode,
+                    Neighborhood = address.Neighborhood,
+                    Id = address.Id,
+                    AppUserId = address.AppUserId
+                });
+
+                return RedirectToAction("Index");
+            }
+
+            
+
+            return View(address);
         }
 
     }
