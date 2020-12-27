@@ -31,13 +31,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Category" asp-action="HomeOffice">Notebook<span class="sr-only"></span></a>
+                        <a class="nav-link" asp-area="" asp-controller="Category" asp-action="HomeOffice">Notebook<span class="sr-only"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Category" asp-action="Gaming">Oyun Bilgisayarı</a>
+                        <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Gaming">Oyun Bilgisayarı</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Category" asp-action="TwoInOne">İkisi Bir Arada</a>
+                        <a class="nav-link" asp-area="" asp-controller="Category" asp-action="TwoInOne">İkisi Bir Arada</a>
                     </li>
 
                 </ul>
@@ -56,8 +56,7 @@
                             <a class="nav-link" href="#" id="dropdownIdprofil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-user mr-2"></span></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownIdprofil">
                                 <a class="dropdown-item" href="/Admin">Kontrol Paneli</a>
-                                @*<a class="dropdown-item" asp-controller="Account" asp-action="LogOut">Çıkış</a>*@
-                                <a class="dropdown-item" href="account/logout">Çıkış</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="LogOut">Çıkış</a>
                             </div>
 
                         }
@@ -66,8 +65,7 @@
                             <a class="nav-link" href="#" id="dropdownIdprofil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-user mr-2"></span></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownIdprofil">
                                 <a class="dropdown-item" href="/Member">Profil</a>
-                                @*<a class="dropdown-item" asp-controller="Account" asp-action="LogOut">Çıkış</a>*@
-                                <a class="dropdown-item" href="account/logout">Çıkış</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="LogOut" >Çıkış</a>
                             </div>
                         }
                         else
