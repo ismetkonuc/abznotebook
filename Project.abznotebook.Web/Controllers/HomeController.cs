@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Project.abznotebook.Entities.Concrete;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Project.abznotebook.Web.Controllers
         }
 
 
-        public IActionResult Index(int productPage = 1, string sortOrder = "")
+        public IActionResult Index(int productPage = 1, string sortOrder = "", string vendorFilter = "", string memoryFilter="") //vendorFilter = "Asus"
         {
 
             ProductListViewModel productList = new ProductListViewModel()
@@ -31,9 +32,13 @@ namespace Project.abznotebook.Web.Controllers
                     CurrentPage = productPage,
                     ItemsPerPage = pageSize,
                     TotalItems = _productService.Products.Count()
+                },
+                FilterTypes = new FilterViewModel()
+                {
+                    Vendors = _productService.Products.Select(I => I.Vendor).Distinct().OrderBy(I => I).ToList(),
+                    Memories = _productService.Products.Select(I=>I.MemoryCapacity).Distinct().OrderBy(I=>I).ToList()
                 }
             };
-
 
             ViewBag.OrderStatus = "En İyi Eşleşme";
 
@@ -53,6 +58,20 @@ namespace Project.abznotebook.Web.Controllers
                     ViewBag.OrderStatus = "Fiyat: Artan";
                     break;
             }
+
+
+            if (!vendorFilter.Equals(""))
+            {
+                productList.Products = _productService.Products.Where(I => I.Vendor.Equals(vendorFilter)).ToList();
+            }
+
+            if (!memoryFilter.Equals(""))
+            {
+                productList.Products =
+                    _productService.Products.Where(I => I.MemoryCapacity.Equals(memoryFilter)).ToList();
+            }
+
+
 
             return View(productList);
         }

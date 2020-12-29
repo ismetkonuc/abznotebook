@@ -26,6 +26,7 @@ namespace Project.abznotebook.Web.Models
             }
         }
 
+
         public virtual void RemoveLine(Product product) =>
             Lines.RemoveAll(l => l.Product.Id == product.Id);
         public decimal ComputeTotalValue() => Lines.Sum(e => e.Product.UnitPrice * e.Quantity);

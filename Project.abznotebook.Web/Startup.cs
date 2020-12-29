@@ -46,7 +46,6 @@ namespace Project.abznotebook.Web
             services.AddRazorPages();
 
             services.AddDbContext<TechnoStoreDbContext>();
-
             services.AddIdentity<AppUser, AppRole>(opt =>
             {
                 opt.Password.RequireDigit = false;

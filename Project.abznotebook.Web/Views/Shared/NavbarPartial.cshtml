@@ -42,9 +42,9 @@
 
                 <ul class="navbar-nav">
                     <li>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-0 search-item-text" type="text" placeholder="Bir ürün ara">
-                            <button class="btn btn-outline-success my-2 my-sm-0 search-item-btn" type="submit"><span class="fa fa-search"></span></button>
+                        <form class="form-inline my-2 my-lg-0" method="get" asp-controller="Search" asp-action="Index">
+                            <input class="form-control mr-sm-1" type="text" name="searchString" value="@ViewBag.Searched" placeholder="Bir ürün ara">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ara</button>
                         </form>
                     </li>
                     <li class="nav-item dropdown dropleft">

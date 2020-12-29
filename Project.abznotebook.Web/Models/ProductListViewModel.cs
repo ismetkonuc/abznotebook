@@ -9,9 +9,8 @@ namespace Project.abznotebook.Web.Models
 
         public IEnumerable<Product> Products { get; set; }
         public PagingInfo PagingInfo { get; set; }
-
         public string CurrentCategory { get; set; }
-
+        public FilterViewModel FilterTypes { get; set; }
         //public int Id { get; set; }
         //public string SKU { get; set; }
         //public string Name { get; set; }

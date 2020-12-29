@@ -30,6 +30,8 @@ namespace Project.abznotebook.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginViewModel model, string data="")
         {
+
+
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByNameAsync(model.UserName);
@@ -108,7 +110,14 @@ namespace Project.abznotebook.Web.Controllers
                 {
                     foreach (var error in result.Errors)
                     {
-                        ModelState.AddModelError("", error.Description);
+                        if (error.Code.Equals("DuplicateUserName"))
+                        {
+                            ModelState.AddModelError("DuplicateUserName", $"{model.UserName} adlı kullanıcı adı zaten alınmış!");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
                     }
                 }
             }

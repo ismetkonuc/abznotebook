@@ -18,7 +18,7 @@ namespace Project.abznotebook.Web.Controllers
             _productService = productService;
         }
 
-        public ViewResult Gaming(int productPage = 1, string sortOrder = "")
+        public ViewResult Gaming(int productPage = 1, string sortOrder = "", string vendorFilter = "", string memoryFilter = "")
         {
 
             ProductListViewModel productList = new ProductListViewModel()
@@ -30,6 +30,11 @@ namespace Project.abznotebook.Web.Controllers
                     CurrentPage = productPage,
                     ItemsPerPage = pageSize,
                     TotalItems = _productService.Products.Count()
+                },
+                FilterTypes = new FilterViewModel()
+                {
+                    Vendors = _productService.Products.Select(I => I.Vendor).Distinct().OrderBy(I => I).ToList(),
+                    Memories = _productService.Products.Select(I => I.MemoryCapacity).Distinct().OrderBy(I => I).ToList()
                 }
             };
 
@@ -51,6 +56,18 @@ namespace Project.abznotebook.Web.Controllers
                     ViewBag.OrderStatus = "Fiyat: Artan";
                     break;
             }
+
+            if (!vendorFilter.Equals(""))
+            {
+                productList.Products = _productService.Products.Where(I => I.Vendor.Equals(vendorFilter)).ToList();
+            }
+
+            if (!memoryFilter.Equals(""))
+            {
+                productList.Products =
+                    _productService.Products.Where(I => I.MemoryCapacity.Equals(memoryFilter)).ToList();
+            }
+
 
             return View(productList);
         }
