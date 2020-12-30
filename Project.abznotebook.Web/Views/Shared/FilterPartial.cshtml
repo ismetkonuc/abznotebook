@@ -6,23 +6,74 @@
     var actionName = this.ViewContext.RouteData.Values["action"].ToString();
 }
 
+@*<div class="col-md-3">
+        <div class="filter filter-first">
+            <h6 class="font-weight-bold">MARKA</h6>
+
+            @foreach (var vendor in Model.Vendors)
+            {
+                <div class="mt-2 mb-2 pl-2">
+                    <a class="custom-control custom-checkbox" asp-controller="@controllerName" asp-action="@actionName" asp-route-vendorFilter="@vendor">@vendor</a>
+                </div>
+            }
+            <hr />
+            @foreach (var memory in Model.Memories)
+            {
+                <div class="mt-2 mb-2 pl-2">
+                    <a class="custom-control custom-checkbox" asp-controller="@controllerName" asp-action="@actionName" asp-route-memoryFilter="@memory">@memory</a>
+                </div>
+            }
+
+        </div>
+    </div>*@
+
+
+@*<div class="col-md-3">
+        <div class="filter filter-first">
+            <h6 class="font-weight-bold">Vendor</h6>
+
+            <form method="get" asp-controller="@controllerName" asp-action="@actionName">
+
+                @foreach (var vendor in Model.Vendors)
+                {
+                    <div class="mt-2 mb-2 pl-2">
+                        <input type="checkbox" value="@vendor" asp-for="SelectedVendor" /> @vendor
+                    </div>
+                }
+
+
+                <h6 class="font-weight-bold">Memory</h6>
+                @foreach (var memory in Model.Memories)
+                {
+                    <div class="mt-2 mb-2 pl-2">
+                        <input type="checkbox" value="@memory" asp-for="SelectedMemory"/> @memory
+                    </div>
+                }
+                <button type="submit" class="btn btn-danger">Filtrele</button>
+            </form>
+
+        </div>
+    </div>*@
+
+
 <div class="col-md-3">
     <div class="filter filter-first">
-        <h6 class="font-weight-bold">MARKA</h6>
+        <form method="get" asp-controller="@controllerName" asp-action="@actionName">
+            <h6 class="font-weight-bold">MARKA</h6>
+            <div class="mt-2 mb-2 pl-2">
+                <select class="form-control" asp-for="SelectedVendor" asp-items="@ViewBag.Vendors">
+                </select>
+            </div>
 
-        @foreach (var vendor in Model.Vendors)
-        {
+            <h6 class="font-weight-bold">Bellek</h6>
             <div class="mt-2 mb-2 pl-2">
-                <a class="custom-control custom-checkbox" asp-controller="@controllerName" asp-action="@actionName" asp-route-vendorFilter="@vendor">@vendor</a>
+                <select class="form-control" asp-for="SelectedMemory" asp-items="@ViewBag.Memories">
+                </select>
             </div>
-        }
-        <hr />
-        @foreach (var memory in Model.Memories)
-        {
-            <div class="mt-2 mb-2 pl-2">
-                <a class="custom-control custom-checkbox" asp-controller="@controllerName" asp-action="@actionName" asp-route-memoryFilter="@memory">@memory</a>
-            </div>
-        }
+
+            <button type="submit" class="btn btn-danger">Filtrele</button>
+            <a class="btn btn-dark" asp-action="@actionName" asp-controller="@controllerName">Sıfırla</a>
+        </form>
 
     </div>
 </div>

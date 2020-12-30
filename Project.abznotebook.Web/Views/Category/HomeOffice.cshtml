@@ -11,6 +11,11 @@
     <a class="btn btn-primary btn-order" asp-controller="Category" asp-action="HomeOffice" asp-route-sortOrder="desc_price">Azalan Fiyat</a>
 }
 
+@section filter
+{
+    <partial name="FilterPartial" model="@Model.FilterTypes" />
+}
+
 <div class="container" style="margin:0; padding:0; text-align:center; border-bottom:1px solid lightgray">
     <div class="row text-center">
         @foreach (var product in Model.Products)
@@ -25,8 +30,8 @@
         <tr>
             <td class="text-center">
                 <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary"
-                         class="btn-group">
-                    </div>
+                     class="btn-group">
+                </div>
             </td>
         </tr>
     </table>

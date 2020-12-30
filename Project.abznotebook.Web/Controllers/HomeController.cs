@@ -20,7 +20,7 @@ namespace Project.abznotebook.Web.Controllers
         }
 
 
-        public IActionResult Index(int productPage = 1, string sortOrder = "", string vendorFilter = "", string memoryFilter="") //vendorFilter = "Asus"
+        public IActionResult Index(int productPage = 1, string sortOrder = "", FilterViewModel model=null) 
         {
 
             ProductListViewModel productList = new ProductListViewModel()
@@ -36,9 +36,22 @@ namespace Project.abznotebook.Web.Controllers
                 FilterTypes = new FilterViewModel()
                 {
                     Vendors = _productService.Products.Select(I => I.Vendor).Distinct().OrderBy(I => I).ToList(),
-                    Memories = _productService.Products.Select(I=>I.MemoryCapacity).Distinct().OrderBy(I=>I).ToList()
+                    Memories = _productService.Products.Select(I => I.MemoryCapacity).Distinct().OrderBy(I => I).ToList()
                 }
             };
+
+            ViewBag.Vendors = new SelectList(productList.FilterTypes.Vendors);
+            ViewBag.Memories = new SelectList(productList.FilterTypes.Memories);
+
+            if (!string.IsNullOrEmpty(model.SelectedVendor))
+            {
+                productList.Products = productList.Products.Where(I => I.Vendor.Contains(model.SelectedVendor));
+            }
+
+            if (!string.IsNullOrEmpty(model.SelectedMemory))
+            {
+                productList.Products = productList.Products.Where(I => I.MemoryCapacity == model.SelectedMemory);
+            }
 
             ViewBag.OrderStatus = "En İyi Eşleşme";
 
@@ -58,20 +71,6 @@ namespace Project.abznotebook.Web.Controllers
                     ViewBag.OrderStatus = "Fiyat: Artan";
                     break;
             }
-
-
-            if (!vendorFilter.Equals(""))
-            {
-                productList.Products = _productService.Products.Where(I => I.Vendor.Equals(vendorFilter)).ToList();
-            }
-
-            if (!memoryFilter.Equals(""))
-            {
-                productList.Products =
-                    _productService.Products.Where(I => I.MemoryCapacity.Equals(memoryFilter)).ToList();
-            }
-
-
 
             return View(productList);
         }
