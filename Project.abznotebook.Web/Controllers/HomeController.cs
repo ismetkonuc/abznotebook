@@ -5,6 +5,7 @@ using Project.abznotebook.Entities.Concrete;
 using System.Linq;
 using System.Net;
 using Project.abznotebook.Business.Interfaces;
+using Project.abznotebook.Web.Base.Common;
 using Project.abznotebook.Web.Models;
 
 namespace Project.abznotebook.Web.Controllers
@@ -20,7 +21,7 @@ namespace Project.abznotebook.Web.Controllers
         }
 
 
-        public IActionResult Index(int productPage = 1, string sortOrder = "", FilterViewModel model=null) 
+        public IActionResult Index(int productPage = 1, string sortOrder = "", FilterViewModel model = null)
         {
 
             ProductListViewModel productList = new ProductListViewModel()
@@ -36,38 +37,36 @@ namespace Project.abznotebook.Web.Controllers
                 FilterTypes = new FilterViewModel()
                 {
                     Vendors = _productService.Products.Select(I => I.Vendor).Distinct().OrderBy(I => I).ToList(),
-                    Memories = _productService.Products.Select(I => I.MemoryCapacity).Distinct().OrderBy(I => I).ToList()
+                    Memories = _productService.Products.Select(I => I.MemoryCapacity).Distinct().OrderBy(I => I).ToList(),
+                    Processors = _productService.Products.Select(I => I.ProcessorVendor).Distinct().OrderBy(I => I).ToList()
                 }
             };
 
-            ViewBag.Vendors = new SelectList(productList.FilterTypes.Vendors);
-            ViewBag.Memories = new SelectList(productList.FilterTypes.Memories);
 
-            if (!string.IsNullOrEmpty(model.SelectedVendor))
+            if (!string.IsNullOrEmpty(model.SelectedVendor) || !string.IsNullOrEmpty(model.SelectedMemory) || !string.IsNullOrEmpty(model.SelectedProcessor))
             {
-                productList.Products = productList.Products.Where(I => I.Vendor.Contains(model.SelectedVendor));
+                productList.Products = _productService.Products;
+                productList = FilterLogic.FilterByModel(productList, model);
+                
             }
 
-            if (!string.IsNullOrEmpty(model.SelectedMemory))
-            {
-                productList.Products = productList.Products.Where(I => I.MemoryCapacity == model.SelectedMemory);
-            }
+            
 
             ViewBag.OrderStatus = "En İyi Eşleşme";
 
             switch (sortOrder)
             {
                 case "best_match":
-                    productList.Products = _productService.Products.OrderByDescending(P => P.CreatedDate);
+                    productList.Products = productList.Products.OrderByDescending(P => P.CreatedDate);
                     ViewBag.OrderStatus = "En İyi Eşleşme";
                     break;
 
                 case "desc_price":
-                    productList.Products = _productService.Products.OrderByDescending(p => p.UnitPrice);
+                    productList.Products = productList.Products.OrderByDescending(p => p.UnitPrice);
                     ViewBag.OrderStatus = "Fiyat: Azalan";
                     break;
                 case "asc_price":
-                    productList.Products = _productService.Products.OrderBy(p => p.UnitPrice);
+                    productList.Products = productList.Products.OrderBy(p => p.UnitPrice);
                     ViewBag.OrderStatus = "Fiyat: Artan";
                     break;
             }

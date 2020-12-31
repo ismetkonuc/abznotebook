@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Project.abznotebook.Business.Interfaces;
 using Project.abznotebook.Entities.Concrete;
+using Project.abznotebook.Web.Base.Common;
 using Project.abznotebook.Web.Models;
 
 namespace Project.abznotebook.Web.Controllers
@@ -26,36 +27,15 @@ namespace Project.abznotebook.Web.Controllers
         [HttpGet]
         public ViewResult Gaming(int productPage = 1, string sortOrder = "", FilterViewModel model=null)
         {
+            ProductListViewModel productList = FillProductListViewModelByCategoryId(1, productPage);
             
-            ProductListViewModel productList = new ProductListViewModel()
+            if (!string.IsNullOrEmpty(model.SelectedVendor) || !string.IsNullOrEmpty(model.SelectedMemory) || !string.IsNullOrEmpty(model.SelectedProcessor))
             {
-                Products =
-                    _productService.GetProductsByCategoryId(1).OrderBy(p => p.Id).Skip((productPage - 1) * pageSize).Take(pageSize),
-                PagingInfo = new PagingInfo()
-                {
-                    CurrentPage = productPage,
-                    ItemsPerPage = pageSize,
-                    TotalItems = _productService.Products.Count()
-                },
-                FilterTypes = new FilterViewModel()
-                {
-                    Vendors = _productService.Products.Select(I => I.Vendor).Distinct().OrderBy(I => I).ToList(),
-                    Memories = _productService.Products.Select(I => I.MemoryCapacity).Distinct().OrderBy(I => I).ToList(),
-                }
-            };
-
-            ViewBag.Vendors = new SelectList(productList.FilterTypes.Vendors);
-            ViewBag.Memories = new SelectList(productList.FilterTypes.Memories);
-
-            if (!string.IsNullOrEmpty(model.SelectedVendor))
-            {
-                productList.Products = productList.Products.Where(I => I.Vendor.Contains(model.SelectedVendor));
+                productList.Products = _productService.GetProductsByCategoryId(1);
+                productList = FilterLogic.FilterByModel(productList, model);
             }
 
-            if (!string.IsNullOrEmpty(model.SelectedMemory))
-            {
-                productList.Products = productList.Products.Where(I => I.MemoryCapacity == model.SelectedMemory);
-            }
+            productList.PagingInfo.TotalItems = productList.Products.Count();
 
             ViewBag.OrderStatus = "En İyi Eşleşme";
 
@@ -76,8 +56,6 @@ namespace Project.abznotebook.Web.Controllers
                     break;
             }
 
-
-
             return View(productList);
         }
 
@@ -85,35 +63,15 @@ namespace Project.abznotebook.Web.Controllers
         public ViewResult HomeOffice(int productPage = 1, string sortOrder = "", FilterViewModel model = null)
         {
 
-            ProductListViewModel productList = new ProductListViewModel()
-            {
-                Products =
-                    _productService.GetProductsByCategoryId(2).OrderBy(p => p.Id).Skip((productPage - 1) * pageSize).Take(pageSize),
-                PagingInfo = new PagingInfo()
-                {
-                    CurrentPage = productPage,
-                    ItemsPerPage = pageSize,
-                    TotalItems = _productService.Products.Count()
-                },
-                FilterTypes = new FilterViewModel()
-                {
-                    Vendors = _productService.Products.Select(I => I.Vendor).Distinct().OrderBy(I => I).ToList(),
-                    Memories = _productService.Products.Select(I => I.MemoryCapacity).Distinct().OrderBy(I => I).ToList(),
-                }
-            };
+            ProductListViewModel productList = FillProductListViewModelByCategoryId(2, productPage);
 
-            ViewBag.Vendors = new SelectList(productList.FilterTypes.Vendors);
-            ViewBag.Memories = new SelectList(productList.FilterTypes.Memories);
 
-            if (!string.IsNullOrEmpty(model.SelectedVendor))
+            if (!string.IsNullOrEmpty(model.SelectedVendor) || !string.IsNullOrEmpty(model.SelectedMemory) || !string.IsNullOrEmpty(model.SelectedProcessor))
             {
-                productList.Products = productList.Products.Where(I => I.Vendor.Contains(model.SelectedVendor));
+                productList.Products = _productService.GetProductsByCategoryId(2);
+                productList = FilterLogic.FilterByModel(productList, model);
             }
-
-            if (!string.IsNullOrEmpty(model.SelectedMemory))
-            {
-                productList.Products = productList.Products.Where(I => I.MemoryCapacity == model.SelectedMemory);
-            }
+            productList.PagingInfo.TotalItems = productList.Products.Count();
 
             ViewBag.OrderStatus = "En İyi Eşleşme";
 
@@ -136,38 +94,19 @@ namespace Project.abznotebook.Web.Controllers
 
             return View(productList);
         }
-
+        
+        [HttpGet]
         public ViewResult TwoInOne(int productPage = 1, string sortOrder = "", FilterViewModel model = null)
         {
-            ProductListViewModel productList = new ProductListViewModel()
-            {
-                Products =
-                    _productService.GetProductsByCategoryId(3).OrderBy(p => p.Id).Skip((productPage - 1) * pageSize).Take(pageSize),
-                PagingInfo = new PagingInfo()
-                {
-                    CurrentPage = productPage,
-                    ItemsPerPage = pageSize,
-                    TotalItems = _productService.Products.Count()
-                },
-                FilterTypes = new FilterViewModel()
-                {
-                    Vendors = _productService.Products.Select(I => I.Vendor).Distinct().OrderBy(I => I).ToList(),
-                    Memories = _productService.Products.Select(I => I.MemoryCapacity).Distinct().OrderBy(I => I).ToList(),
-                }
-            };
+            ProductListViewModel productList = FillProductListViewModelByCategoryId(3, productPage);
 
-            ViewBag.Vendors = new SelectList(productList.FilterTypes.Vendors);
-            ViewBag.Memories = new SelectList(productList.FilterTypes.Memories);
 
-            if (!string.IsNullOrEmpty(model.SelectedVendor))
+            if (!string.IsNullOrEmpty(model.SelectedVendor) || !string.IsNullOrEmpty(model.SelectedMemory) || !string.IsNullOrEmpty(model.SelectedProcessor))
             {
-                productList.Products = productList.Products.Where(I => I.Vendor.Contains(model.SelectedVendor));
+                productList.Products = _productService.GetProductsByCategoryId(3);
+                productList = FilterLogic.FilterByModel(productList, model);
             }
-
-            if (!string.IsNullOrEmpty(model.SelectedMemory))
-            {
-                productList.Products = productList.Products.Where(I => I.MemoryCapacity == model.SelectedMemory);
-            }
+            productList.PagingInfo.TotalItems = productList.Products.Count();
 
             ViewBag.OrderStatus = "En İyi Eşleşme";
 
@@ -189,6 +128,29 @@ namespace Project.abznotebook.Web.Controllers
             }
 
             return View(productList);
+        }
+
+        public ProductListViewModel FillProductListViewModelByCategoryId(int categoryId, int productPage)
+        {
+
+            ProductListViewModel productList = new ProductListViewModel()
+            {
+                Products =
+                    _productService.GetProductsByCategoryId(categoryId).OrderBy(p => p.Id).Skip((productPage - 1) * pageSize).Take(pageSize),
+                PagingInfo = new PagingInfo()
+                {
+                    CurrentPage = productPage,
+                    ItemsPerPage = pageSize,
+                },
+                FilterTypes = new FilterViewModel()
+                {
+                    Vendors = _productService.GetProductsByCategoryId(categoryId).Select(I => I.Vendor).Distinct().OrderBy(I => I).ToList(),
+                    Memories = _productService.GetProductsByCategoryId(categoryId).Select(I => I.MemoryCapacity).Distinct().OrderBy(I => I).ToList(),
+                    Processors = _productService.GetProductsByCategoryId(categoryId).Select(I => I.ProcessorVendor).Distinct().OrderBy(I => I).ToList()
+                }
+            };
+
+            return productList;
         }
     }
 }

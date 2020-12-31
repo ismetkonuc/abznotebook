@@ -11,9 +11,9 @@ namespace Project.abznotebook.Web.Models
     {
         public List<string> Vendors { get; set; }
         public List<string> Memories { get; set; }
+        public List<string> Processors { get; set; }
         public string SelectedVendor { get; set; }
         public string SelectedMemory { get; set; }
-
-
+        public string SelectedProcessor { get; set; }
     }
 }
