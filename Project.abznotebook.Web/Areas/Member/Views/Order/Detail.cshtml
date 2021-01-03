@@ -45,29 +45,23 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Ürün Bilgileri</h5>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Ürün Adı</th>
-                                <th scope="col">Adet</th>
-                                <th scope="col">Birim Fiyat</th>
-                                <th scope="col">Toplam Ödenen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            @foreach (var bill in @Model.Bill)
-                            {
-                                <tr>
-                                    <th scope="row">@bill.Product.Name</th>
-                                    <td>@bill.Quantity</td>
-                                    <td>@bill.UnitPrice</td>
-                                    <td>@bill.TotalPrice</td>
-                                </tr>
-                            }
-
-                        </tbody>
-                    </table>
+                    @foreach (var bill in @Model.Bill)
+                    {
+                        <a asp-area="" asp-controller="Home" asp-action="Product" asp-route-productId="@bill.Product.Id" target="_blank" style="        text-decoration: none;
+        color: #212529;">
+                            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                <div class="media-body order-2 order-lg-1">
+                                    <h5 class="mt-0 font-weight-bold mb-2">@bill.Product.Name</h5>
+                                    <p class="font-italic text-muted mb-0 small">@bill.Product.Description</p>
+                                    <div class="d-flex align-items-center justify-content-between mt-1">
+                                        <h6 class="font-weight-bold my-2">@bill.Product.UnitPrice.ToString("C")</h6>
+                                    </div>
+                                </div><img src="~/img/@bill.Product.Image1" alt="Generic placeholder image" width="50" class="ml-lg-5 order-1 order-lg-2">
+                            </div>
+                        </a>
+                        <hr />
+                    }
+                    <h5 class="mt-0 font-weight-bold mb-2 text-right">Toplam Ödenen: @Model.Bill.First().TotalPrice.ToString("C")</h5>
                 </div>
             </div>
         </div>

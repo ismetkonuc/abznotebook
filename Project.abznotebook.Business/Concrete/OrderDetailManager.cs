@@ -53,5 +53,7 @@ namespace Project.abznotebook.Business.Concrete
         {
             return _orderDetailDal.ComputeTotalPriceOfOrder(orderId);
         }
+
+        public int ComputeTotalProductCount(int orderId) => _orderDetailDal.ComputeTotalProductCount(orderId);
     }
 }

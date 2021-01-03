@@ -14,5 +14,9 @@ namespace Project.abznotebook.Web.Base.Common.Models
         public string AllowStatus { get; set; }
         public string CustomerFullName { get; set; }
         public string PaymentMethod { get; set; }
+
+        public List<string> ProductImages { get; set; }
+        public int ProductCount { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }

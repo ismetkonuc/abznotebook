@@ -58,5 +58,8 @@ namespace Project.abznotebook.Data.Concrete.EntityFrameworkCore.Repositories
 
             return totalValue;
         }
+
+        public int ComputeTotalProductCount(int orderId)=> _dbContext.OrderDetails.Count(I => I.OrderId == orderId);
+        
     }
 }
