@@ -17,12 +17,14 @@ namespace Project.abznotebook.Web.Controllers
             _productService = productService;
         }
 
+
+        //split kullan
         public IActionResult Index(string searchString)
         {
             ViewBag.Searched = searchString;
 
             var products = _productService.Products;
-
+            
             if (!String.IsNullOrEmpty(searchString))
             {
                 products = _productService.Products.Where(I =>

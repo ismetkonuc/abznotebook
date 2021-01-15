@@ -40,6 +40,7 @@ namespace Project.abznotebook.Web.Areas.Member.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddAddress(AddAddressViewModel model)
         {
 
@@ -68,11 +69,22 @@ namespace Project.abznotebook.Web.Areas.Member.Controllers
         public async Task<IActionResult> EditAddress(int addressId)
         {
             var appUser = await _userManager.GetUserAsync(User);
-            var selectedAddress = _addressService.GetAddressesByUserId(appUser.Id).Single(I => I.Id == addressId);
-            return View(selectedAddress);
+
+            try
+            {
+                var selectedAddress = _addressService.GetAddressesByUserId(appUser.Id).Single(I => I.Id == addressId);
+                return View(selectedAddress);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+
+            
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditAddress(Address address)
         {
 

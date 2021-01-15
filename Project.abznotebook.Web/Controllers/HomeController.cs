@@ -50,8 +50,6 @@ namespace Project.abznotebook.Web.Controllers
                 
             }
 
-            
-
             ViewBag.OrderStatus = "En İyi Eşleşme";
 
             switch (sortOrder)
@@ -76,9 +74,16 @@ namespace Project.abznotebook.Web.Controllers
 
         public IActionResult Product(int productId = 1, string name = "")
         {
-            name = WebUtility.UrlEncode(name);
-            var product = _productService.Products.Single(I => I.Id == productId);
-            return View(product);
+            try
+            {
+                var product = _productService.Products.Single(I => I.Id == productId);
+                return View(product);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
         }
 
     }

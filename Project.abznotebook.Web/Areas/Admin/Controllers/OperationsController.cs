@@ -118,7 +118,16 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult EditProduct(int id)
         {
-            Product product = _productService.GetSpesificProduct(id);
+            Product product = new Product();
+
+            try
+            {
+                product = _productService.GetSpesificProduct(id);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
 
             EditProductViewModel model = new EditProductViewModel()
             {
@@ -242,16 +251,26 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult EditCategory(int id)
         {
-            var selectedCategory = _categoryService.GetAllCategories.Single(I => I.Id == id);
 
-            EditCategoryViewModel model = new EditCategoryViewModel()
+            try
             {
-                CategoryId = selectedCategory.Id,
-                CategoryName = selectedCategory.Name,
-                CategoryDescription = selectedCategory.Description
-            };
+                var selectedCategory = _categoryService.GetAllCategories.Single(I => I.Id == id);
 
-            return View(model);
+                EditCategoryViewModel model = new EditCategoryViewModel()
+                {
+                    CategoryId = selectedCategory.Id,
+                    CategoryName = selectedCategory.Name,
+                    CategoryDescription = selectedCategory.Description
+                };
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+
+            
         }
 
         [HttpPost]
@@ -275,8 +294,16 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
 
         public IActionResult DeleteCategory(int id)
         {
-            _categoryService.Delete(new Category { Id = id });
-            return RedirectToAction("Category");
+            try
+            {
+                _categoryService.Delete(new Category { Id = id });
+                return RedirectToAction("Category");
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+
         }
 
         
@@ -295,10 +322,20 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
 
         public  IActionResult CustomerOrders(int userId)
         {
-            AppUser appUser = _userManager.Users.Single(I => I.Id == userId);
 
-            var model = GetAllOrderSummaries(appUser).OrderByDescending(I => I.OrderDate).ToList();
-            return View(model);
+            try
+            {
+                AppUser appUser = _userManager.Users.Single(I => I.Id == userId);
+
+                var model = GetAllOrderSummaries(appUser).OrderByDescending(I => I.OrderDate).ToList();
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+
+            
         }
 
         public List<OrderSummaryViewModel> GetAllOrderSummaries(AppUser appUser)
@@ -327,19 +364,7 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
         }
         private string[] UploadedFile(AddProductViewModel model)
         {
-            //string uniqueFileName = null;
             string[] uniqueFileNames = new string[3];
-
-            //if (model.Image1 != null)
-            //{
-            //    string uploadsFolder = Path.Combine(_WebHostEnvironment.WebRootPath, "img");
-            //    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Image1.FileName;
-            //    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            //    using (var fileStream = new FileStream(filePath, FileMode.Create))
-            //    {
-            //        model.Image1.CopyTo(fileStream);
-            //    }
-            //}
 
             if (model.Images != null && model.Images.Count > 0)
             {

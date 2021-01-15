@@ -49,6 +49,11 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
 
             Order order = _orderService.GetOrderWithId(orderId);
 
+            if (order == null)
+            {
+                return NotFound();
+            }
+
             Address OrderAddress = _addressService.GetAddressesByUserId(order.CustomerId)
                 .Single(I => I.Id == order.AddressId);
             Shipper OrderShipper = _shipperService.GetAllShippers().Single(I => I.Id == order.ShipperId);
@@ -62,14 +67,14 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
                 AllowStatus = order.IsAllowed ? "Onaylandı" : "Onay Bekliyor",
                 PaymentMethod = _paymentService.GetPaymentNameWithId(order.PaymentId),
                 CustomerFullName = _appUserService.GetOrderOwnerFullNameWithUserId(order.CustomerId),
-                
+
                 AddressId = order.AddressId,
                 AddressLine = OrderAddress.AddressLine,
                 AddressCity = OrderAddress.City,
                 AddressDistrict = OrderAddress.District,
                 AddressNeighborhood = OrderAddress.Neighborhood,
                 AddressPostalCode = OrderAddress.PostalCode,
-                
+
                 ShipperCompanyName = OrderShipper.CompanyName,
                 ShipperPhone = OrderShipper.Phone
             };
@@ -83,7 +88,7 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
                     UnitPrice = orderDetail.Price,
                     OrderId = orderDetail.OrderId,
                     Quantity = orderDetail.Quantity,
-                    Product = _productService.Products.Single(I=>I.Id == orderDetail.ProductId),
+                    Product = _productService.Products.Single(I => I.Id == orderDetail.ProductId),
                     TotalPrice = _orderDetailService.ComputeTotalPriceOfOrder(model.OrderId),
                 });
             }
@@ -91,6 +96,8 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
             model.Bill = bill;
 
             return View(model);
+
+
         }
 
         [HttpPost]
@@ -100,7 +107,7 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
             order.IsAllowed = allowStatus;
             _orderService.Update(order);
 
-            return RedirectToAction("Detail", new {orderId=orderId});
+            return RedirectToAction("Detail", new { orderId = orderId });
         }
     }
 }

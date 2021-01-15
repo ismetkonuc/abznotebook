@@ -39,17 +39,26 @@ namespace Project.abznotebook.Web.Areas.Member.Controllers
             return View();
         }
 
+
+        
+
         public IActionResult Detail(int orderId)
         {
             List<BillViewModel> bill = new List<BillViewModel>();
 
             Order order = _orderService.GetOrderWithId(orderId);
 
+            if (order is null)
+            {
+                return NotFound();
+            }
+
+
             Address OrderAddress = _addressService.GetAddressesByUserId(order.CustomerId)
                 .Single(I => I.Id == order.AddressId);
             Shipper OrderShipper = _shipperService.GetAllShippers().Single(I => I.Id == order.ShipperId);
 
-            OrderDetailViewModel model = new Base.Common.Models.OrderDetailViewModel()
+            OrderDetailViewModel model = new OrderDetailViewModel()
             {
                 OrderId = order.Id,
                 OrderDate = order.OrderDate,

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Project.abznotebook.Entities.Concrete;
+using Project.abznotebook.Web.Areas.Member.Models;
 
 namespace Project.abznotebook.Web.Areas.Member.Controllers
 {
@@ -25,8 +26,5 @@ namespace Project.abznotebook.Web.Areas.Member.Controllers
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             return View(user);
         }
-
-
-
     }
 }

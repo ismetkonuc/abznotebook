@@ -59,7 +59,7 @@ namespace Project.abznotebook.Web.Controllers
                     }
                 }
 
-                ModelState.AddModelError("", "Bu kullanıcı adı bulunmadı.");
+                ModelState.AddModelError("", "Kullanıcı adı veya şifre yanlış.");
             }
             return View();
         }
