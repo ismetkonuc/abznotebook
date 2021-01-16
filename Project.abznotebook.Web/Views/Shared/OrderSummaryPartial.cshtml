@@ -1,0 +1,20 @@
+﻿@using Project.abznotebook.Web.Pages
+@model OrderSummarySidebarViewModel
+
+
+@*@{
+    var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+}*@
+
+
+@foreach (var productSummary in @Model.ProductSummaries)
+{
+    <p>@productSummary.ProductName</p>
+    <p>@productSummary.ProductPrice</p>
+    <p>@productSummary.ProductQuantity</p>
+    <img src="~/img/@productSummary.ProductImg" style="width: 50px; height: 50px;"/>
+    <hr/>
+}
+
+
+<p>Sepet Tutarı: @Model.TotalPrice</p>

@@ -109,14 +109,11 @@ namespace Project.abznotebook.Web
                 );
 
 
-                endpoints.MapControllerRoute("pagination", "urunler/sayfa{productPage}",
-                    new { Controller = "Home", action = "Index" });
-
                 endpoints.MapControllerRoute("products", "urunler/{productId}/{name}",
                     new { Controller = "Home", action = "Product" });
 
-                //endpoints.MapControllerRoute("category", "Kategori/Bilgisayar/Oyun",
-                //    new { Controller = "Category", action = "Gaming" });
+                endpoints.MapControllerRoute("category", "Kategori/Bilgisayar/Oyun",
+                    new { Controller = "Category", action = "Gaming" });
 
                 endpoints.MapControllerRoute("category2", "Kategori/Bilgisayar/EvOfis",
                     new { Controller = "Category", action = "HomeOffice" });

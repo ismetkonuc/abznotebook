@@ -11,13 +11,10 @@ namespace Project.abznotebook.Web.Models
 {
     public class OrderViewModel
     {
-        [BindRequired]
         public int AddressId { get; set; }
 
-        [BindRequired]
         public int ShipperId { get; set; }
 
-        [BindRequired]
         public int PaymentId { get; set; }
         public int? LinesCount { get; set; }
 
@@ -26,5 +23,7 @@ namespace Project.abznotebook.Web.Models
         public SelectList AddressCollection { get; set; }
         public SelectList PaymentCollection { get; set; }
         public SelectList ShipperCollection { get; set; }
+
+        public OrderSummarySidebarViewModel OrderSummary { get; set; }
     }
 }

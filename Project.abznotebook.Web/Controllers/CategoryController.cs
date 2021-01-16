@@ -17,7 +17,6 @@ namespace Project.abznotebook.Web.Controllers
     {
         private readonly IProductService _productService;
         public int pageSize = 6;
-        List<FilterViewModel> models = new List<FilterViewModel>();
         public CategoryController(IProductService productService)
         {
             _productService = productService;
@@ -33,9 +32,12 @@ namespace Project.abznotebook.Web.Controllers
             {
                 productList.Products = _productService.GetProductsByCategoryId(1);
                 productList = FilterLogic.FilterByModel(productList, model);
+                productList.Products = productList.Products.OrderBy(p => p.Id).Skip((productPage - 1) * pageSize)
+                    .Take(pageSize);
+                productList.PagingInfo.CurrentPage = productPage;
+                productList.PagingInfo.ItemsPerPage = pageSize;
+                productList.PagingInfo.TotalItems = productList.Products.Count();
             }
-
-            productList.PagingInfo.TotalItems = productList.Products.Count();
 
             ViewBag.OrderStatus = "En İyi Eşleşme";
 
@@ -70,6 +72,11 @@ namespace Project.abznotebook.Web.Controllers
             {
                 productList.Products = _productService.GetProductsByCategoryId(2);
                 productList = FilterLogic.FilterByModel(productList, model);
+                productList.Products = productList.Products.OrderBy(p => p.Id).Skip((productPage - 1) * pageSize)
+                    .Take(pageSize);
+                productList.PagingInfo.CurrentPage = productPage;
+                productList.PagingInfo.ItemsPerPage = pageSize;
+                productList.PagingInfo.TotalItems = productList.Products.Count();
             }
             productList.PagingInfo.TotalItems = productList.Products.Count();
 
@@ -105,6 +112,11 @@ namespace Project.abznotebook.Web.Controllers
             {
                 productList.Products = _productService.GetProductsByCategoryId(3);
                 productList = FilterLogic.FilterByModel(productList, model);
+                productList.Products = productList.Products.OrderBy(p => p.Id).Skip((productPage - 1) * pageSize)
+                    .Take(pageSize);
+                productList.PagingInfo.CurrentPage = productPage;
+                productList.PagingInfo.ItemsPerPage = pageSize;
+                productList.PagingInfo.TotalItems = productList.Products.Count();
             }
             productList.PagingInfo.TotalItems = productList.Products.Count();
 
@@ -141,6 +153,7 @@ namespace Project.abznotebook.Web.Controllers
                 {
                     CurrentPage = productPage,
                     ItemsPerPage = pageSize,
+                    TotalItems = _productService.GetProductsByCategoryId(categoryId).Count
                 },
                 FilterTypes = new FilterViewModel()
                 {

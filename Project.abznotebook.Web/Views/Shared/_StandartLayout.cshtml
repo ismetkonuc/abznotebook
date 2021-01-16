@@ -48,7 +48,6 @@
                 <a class="" asp-controller="Home" asp-action="Index" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: gray; font-size: 15px;">
                     <span class="fa fa-caret-down"> @ViewBag.OrderStatus </span>
                 </a>
-
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-sortOrder="best_match">En İyi Eşleşme</a>
                     <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-sortOrder="asc_price">Fiyat: Artan</a>
@@ -62,7 +61,6 @@
 
             @RenderSection("filter", false)
             @*<div class="col-md-3">
-
                     <div class="filter filter-first">
                         <h6 class="font-weight-bold">MARKA</h6>
                         <div class="mt-2 mb-2 pl-2">
@@ -71,7 +69,6 @@
                                 <label class="custom-control-label" for="category-1">Acer</label>
                             </div>
                         </div>
-
                         <div class="mt-2 mb-2 pl-2">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="category-2">
@@ -103,7 +100,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="filter filter-mid">
                         <h6 class="font-weight-bold">RAM</h6>
                         <div class="mt-2 mb-2 pl-2">
@@ -137,7 +133,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="filter filter-last">
                         <h6 class="font-weight-bold">FİYAT</h6>
                         <div class="price-filter-control">

@@ -1,0 +1,70 @@
+﻿@model PaymentViewModel
+
+@{
+    Layout = "_OrderLayout";
+}
+
+<div style="border-bottom:1px solid lightgray; padding-bottom:30px">
+    <h1 style="width:100%; text-align:center">Kart Bilgileri</h1>
+</div>
+
+<div class="container" style="width:50%; text-align:left">
+    <div class="row my-4">
+        <div class="card-body">
+            <form asp-action="Payment">
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <label asp-for="Cardholder" class="control-label">Kart Sahibi</label>
+                    <input asp-for="Cardholder" class="form-control" />
+                    <span asp-for="Cardholder" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CardNumber" class="control-label">Kart Numarası</label>
+                    <input asp-for="CardNumber" class="form-control" />
+                    <span asp-for="CardNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control" asp-for="ExpiredMonth" asp-items="@Model.MonthCollection">
+                        <option hidden value="-1">Ay</option>
+                    </select>
+                    <span asp-validation-for="ExpiredMonth" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control" asp-for="ExpiredYear" asp-items="@Model.YearCollection">
+                        <option hidden value="-1">Yıl</option>
+                    </select>
+                    <span asp-validation-for="ExpiredYear" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CVV" class="control-label">CVV</label>
+                    <input type="text" asp-for="CVV" class="form-control" />
+                    <span asp-validation-for="CVV" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" asp-for="AddressId" class="form-control" hidden />
+                </div>
+
+                <div class="form-group">
+                    <input type="text" asp-for="ShipperId" class="form-control" hidden />
+                </div>
+
+                <div class="form-group mt-3">
+                    <div style="width:100%; text-align:right">
+                        <a asp-action="Index" class="btn btn-primary pr-4">Önceki Ekrana Dön</a>
+                        <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> Sonraki Adıma Geç</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Sidebar
+{
+    <partial name="OrderSummaryPartial" model="@Model.OrderSummary"/>
+}

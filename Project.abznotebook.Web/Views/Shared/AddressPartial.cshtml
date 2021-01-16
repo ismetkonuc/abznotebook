@@ -1,6 +1,10 @@
 ﻿@using Project.abznotebook.Web.Pages
 @model Address
 
+@{
+    var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+}
+
 <style>
     .show-hide {
         visibility: hidden;
@@ -31,8 +35,9 @@
                 <p>@Model.Neighborhood</p>
                 <p>@Model.City / @Model.District</p>
                 <p>@Model.PostalCode</p>
-                <a asp-action="EditAddress" asp-controller="Address" class="btn btn-primary show-hide" asp-route-addressId="@Model.Id" >Düzenle</a>
+                <a asp-action="EditAddress" asp-controller="Address" asp-area="Member" class="btn btn-primary show-hide" asp-route-addressId="@Model.Id" >Düzenle</a>
                 <a asp-action="DeleteAddress" asp-controller="Address" class="btn btn-danger show-hide" asp-route-addressId="@Model.Id">Sil</a>
+
             </div>
         </div>
     </div>

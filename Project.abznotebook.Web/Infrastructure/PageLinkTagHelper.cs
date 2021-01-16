@@ -28,8 +28,8 @@ namespace Project.abznotebook.Web.Infrastructure
 
         public PagingInfo PageModel { get; set; }
         public string PageAction { get; set; }
-
         public bool PageClassesEnabled { get; set; } = false;
+        public bool PageFilterEnabled { get; set; }
         public string PageClass { get; set; }
         public string PageClassNormal { get; set; }
         public string PageClassSelected { get; set; }
@@ -44,12 +44,21 @@ namespace Project.abznotebook.Web.Infrastructure
             for (int i = 1; i <= PageModel.TotalPages; i++)
             {
                 TagBuilder tag = new TagBuilder("a");
-                tag.Attributes["href"] = urlHelper.Action(PageAction, new {productPage = i});
+                tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i });
+
                 if (PageClassesEnabled)
                 {
                     tag.AddCssClass(PageClass);
                     tag.AddCssClass(i==PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
                 }
+
+                if (PageFilterEnabled)
+                {
+                    tag.Attributes["href"] += $"&{PageModel.FilterQuery}";
+
+                    var test = tag.Attributes["href"];
+                }
+
                 tag.InnerHtml.Append(i.ToString());
                 result.InnerHtml.AppendHtml(tag);
             }

@@ -12,5 +12,8 @@ namespace Project.abznotebook.Web.Models
         public int CurrentPage { get; set; }
 
         public int TotalPages => (int) Math.Ceiling((decimal) TotalItems / ItemsPerPage);
+
+        //Filters
+        public string FilterQuery { get; set; }
     }
 }

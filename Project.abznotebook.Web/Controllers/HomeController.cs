@@ -47,7 +47,12 @@ namespace Project.abznotebook.Web.Controllers
             {
                 productList.Products = _productService.Products;
                 productList = FilterLogic.FilterByModel(productList, model);
-                
+                productList.Products = productList.Products.OrderBy(p => p.Id).Skip((productPage - 1) * pageSize)
+                    .Take(pageSize);
+                productList.PagingInfo.CurrentPage = productPage;
+                productList.PagingInfo.ItemsPerPage = pageSize;
+                productList.PagingInfo.FilterQuery =
+                    $"SelectedVendor={model.SelectedVendor}&SelectedMemory={model.SelectedMemory}&SelectedProcessor={model.SelectedProcessor}";
             }
 
             ViewBag.OrderStatus = "En İyi Eşleşme";

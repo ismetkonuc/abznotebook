@@ -38,7 +38,7 @@ namespace Project.abznotebook.Web.Base.Common
                     productList.Products.Select(I => I.ProcessorVendor).Distinct().OrderBy(I => I).ToList();
             }
 
-
+            productList.PagingInfo.TotalItems = productList.Products.Count();
             return productList;
         }
     }

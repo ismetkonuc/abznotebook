@@ -1,53 +1,29 @@
 ﻿@model OrderViewModel
-@*@{
-        Layout = "_AccountLayout";
-    }*@
-@*@{
-        Layout = "~/Areas/Member/Views/Shared/_StandartLayout.cshtml";
-    }*@
+
 @{
-    Layout = "~/Pages/_CartLayout.cshtml";
+    Layout = "_OrderLayout";
 }
-
-@*@foreach (var address in ViewBag.Address)
-    {
-        <partial name="AddressPartial" model="address" />
-    }*@
-
-
 
 @if (User.Identity.IsAuthenticated)
 {
     @if (@Model.LinesCount > 0)
     {
+        @foreach (var address in Model.Addresses)
+        {
+            <partial name="AddressPartial" model="address" />
+        }
+
         <div style="border-bottom:1px solid lightgray; padding-bottom:30px">
             <h1 style="width:100%; text-align:center">Teslimat Seçenekleri</h1>
         </div>
 
-        @if (Model.Addresses.Count != 0)
+        @if (Model.Addresses.Count() != 0)
         {
-
             <div class="container" style="width:50%; text-align:left">
                 <div class="row my-4">
                     <div class="card-body">
-                        <form method="post" asp-action="Checkout" enctype="multipart/form-data">
+                        <form method="post" asp-action="Delivery" enctype="multipart/form-data">
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label asp-for="AddressId">Adresler</label>
-                                    <select class="form-control" asp-for="AddressId" asp-items="@Model.AddressCollection">
-                                        <option hidden value="-1">Seç</option>
-                                    </select>
-                                    <span asp-validation-for="AddressId" class="text-danger"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label asp-for="PaymentId">Ödeme Yöntemi</label>
-                                    <select class="form-control" asp-for="PaymentId" asp-items="@Model.PaymentCollection">
-                                        <option hidden value="-1">Seç</option>
-                                    </select>
-                                    <span asp-validation-for="PaymentId" class="text-danger"></span>
-                                </div>
-
                                 <div class="form-group">
                                     <label asp-for="ShipperId">Kargo Firması</label>
                                     <select class="form-control" asp-for="ShipperId" asp-items="@Model.ShipperCollection">
@@ -55,8 +31,17 @@
                                     </select>
                                     <span asp-validation-for="ShipperId" class="text-danger"></span>
                                 </div>
+                                
+                                <div class="form-group">
+                                    <label asp-for="AddressId">Adres</label>
+                                    <select class="form-control" asp-for="AddressId" asp-items="@Model.AddressCollection">
+                                        <option hidden value="-1">Seç</option>
+                                    </select>
+                                    <span asp-validation-for="AddressId" class="text-danger"></span>
+                                </div>
+
                                 <div style="width:100%; text-align:right">
-                                    <button class="btn btn-success text-right mt-3" type="submit"><i class="fa fa-send"></i> Ödemeyi Tamamla</button>
+                                    <button class="btn btn-success text-right mt-3" type="submit"><i class="fa fa-send"></i> Sonraki Adıma Geç</button>
                                 </div>
                             </div>
                         </form>
@@ -98,3 +83,7 @@ else
 }
 
 
+@section Sidebar
+{
+    <partial name="OrderSummaryPartial" model="@Model.OrderSummary"/>
+}

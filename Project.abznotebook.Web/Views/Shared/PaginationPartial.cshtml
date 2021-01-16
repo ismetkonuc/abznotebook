@@ -1,0 +1,30 @@
+﻿@using Project.abznotebook.Web.Pages
+@model PagingInfo
+
+@{
+    var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+    var actionName = this.ViewContext.RouteData.Values["action"].ToString();
+}
+
+
+
+<div style="margin: 50px 0">
+    <table style="width:100%">
+        <tr>
+            <td class="text-center">
+                @if (!string.IsNullOrEmpty(Model.FilterQuery))
+                {
+                    <div page-model="@Model" page-action="@actionName" page-classes-enabled="true" page-filter-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary"
+                         class="btn-group">
+                    </div>
+                }
+                else
+                {
+                    <div page-model="@Model" page-action="@actionName" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary"
+                         class="btn-group">
+                    </div>
+                }
+            </td>
+        </tr>
+    </table>
+</div>
