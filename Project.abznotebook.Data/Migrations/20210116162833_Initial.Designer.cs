@@ -10,7 +10,7 @@ using Project.abznotebook.Data.Concrete.EntityFrameworkCore.Contexts;
 namespace Project.abznotebook.Data.Migrations
 {
     [DbContext(typeof(TechnoStoreDbContext))]
-    [Migration("20201227204515_Initial")]
+    [Migration("20210116162833_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
