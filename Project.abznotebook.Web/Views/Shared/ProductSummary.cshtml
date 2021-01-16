@@ -38,7 +38,29 @@
                 <img class="card-img-top" src="~/img/@Model.Image1" alt="" />
             </a>
             <p class="card-title" style="text-align:left">@productName</p>
-            <p class="card-text font-weight-bold" style="text-align:left">@Model.UnitPrice.ToString("C")</p>
+            @*<p class="card-text font-weight-bold" style="text-align:left">@Model.UnitPrice.ToString("C")</p>*@
+
+            @{
+                var disPer = Convert.ToInt32(100 * (Model.RealPrice - Model.UnitPrice) / Model.RealPrice);
+                if (disPer > 0)
+                {
+                    <div class="container col-12">
+                        <div class="row h-100">
+                            <div class="col-3 btn" style="font-size:.95rem; color:#fff; background-color:red; cursor:default">
+                                <p class="card-text" style="transform: translateY(25%)">%@disPer</p>
+                            </div>
+                            <div class="col-8 ml-2">
+                                <div class="row">
+                                    <p class="card-text" style="font-size:small"><s>@Model.RealPrice?.ToString("C")</s></p>
+                                </div>
+                                <div class="row">
+                                    <p class="card-text font-weight-bold" style="font-size:large">@Model.UnitPrice.ToString("C")</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
 
             @{
                 if (Model.IsAvailable)
