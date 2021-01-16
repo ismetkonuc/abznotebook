@@ -17,7 +17,7 @@
 <div style="width:100%">
     <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark" style="text-align:center">
 
-        <div class="container my-0 mx-auto" style="width:80%; text-align:center">
+        <div class="container pr-0" style="width:80%; text-align:center; margin:0 auto">
 
             <a class="navbar-brand" href="/">
                 <img src="~/img/favicon_transparent.png" alt="" width="30" height="30" />
@@ -30,7 +30,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link" asp-action="HomeOffice" asp-controller="Category">Notebook<span class="sr-only"></span></a>
                     </li>
@@ -43,41 +43,57 @@
 
                 </ul>
 
-                <ul class="navbar-nav">
+                <ul class="navbar-nav btn-group" role="group">
                     <li>
-                        <form class="form-inline my-2 my-lg-0" method="get" asp-controller="Search" asp-action="Index">
-                            <input class="form-control mr-sm-1" type="text" name="searchString" value="@ViewBag.Searched" placeholder="Bir ürün ara">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ara</button>
+                        <form class="form-inline mr-4">
+                            <input class="form-control search-item-text" type="text" placeholder="Bir ürün ara">
+                            <button class="btn btn-outline-success search-item-btn" type="submit"><span class="fa fa-search"></span></button>
                         </form>
                     </li>
-                    <li class="nav-item dropdown dropleft">
 
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a class="nav-link" href="#" id="dropdownIdprofil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-user mr-2"></span></a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item dropdown dropleft">
+                            <a class="btn btn-outline-primary ml-1" href="#" id="dropdownIdprofil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="fa fa-user"> Admin</span>
+                            </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownIdprofil">
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="Index">Kontrol Paneli</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="LogOut">Çıkış</a>
                             </div>
+                        </li>
 
-                        }
-                        else if (User.IsInRole("Member"))
-                        {
-                            <a class="nav-link" href="#" id="dropdownIdprofil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-user mr-2"></span></a>
+                    }
+                    else if (User.IsInRole("Member"))
+                    {
+                        <li class="nav-item dropdown dropleft">
+                            <a class="btn btn-outline-primary ml-1" href="#" id="dropdownIdprofil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="fa fa-user"> Hesabım</span>
+                            </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownIdprofil">
                                 <a class="dropdown-item" asp-area="Member" asp-controller="Home" asp-action="Index">Profil</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="LogOut">Çıkış</a>
                             </div>
-                        }
-                        else
-                        {
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login" id="dropdownIdprofil" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-user mr-2"></span></a>
-                        }
-
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="~/cart" id="dropdownId" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-shopping-bag"></span></a>
-                    </li>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-outline-warning ml-2" href="~/cart" id="dropdownId" aria-haspopup="true" aria-expanded="false">
+                                <span class="fa fa-shopping-bag"> Sepetim</span>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown dropleft">
+                            <a class="btn btn-outline-secondary ml-1" asp-area="" asp-controller="Account" asp-action="Login" id="dropdownIdprofil" aria-haspopup="true" aria-expanded="false">
+                                <span class="fa fa-user"> Giriş Yap</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-outline-warning ml-2" href="~/cart" id="dropdownId" aria-haspopup="true" aria-expanded="false">
+                                <span class="fa fa-shopping-bag"> Sepetim</span>
+                            </a>
+                        </li>
+                    }
 
                 </ul>
             </div>
