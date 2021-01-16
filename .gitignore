@@ -338,3 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+Project.abznotebook.Data/Concrete/EntityFrameworkCore/Contexts/TechnoStoreDbContext.cs
