@@ -13,7 +13,7 @@ namespace Project.abznotebook.Data.Concrete.EntityFrameworkCore.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-                "Server=DESKTOP-0GDA6G3; Database=TechnoStore; Trusted_Connection=True; MultipleActiveResultSets=True;");
+                "Server=(localdb)\\MSSQLLocalDB; Database=TechnoStore; Trusted_Connection=True; MultipleActiveResultSets=True;");
             
             base.OnConfiguring(optionsBuilder);
         }

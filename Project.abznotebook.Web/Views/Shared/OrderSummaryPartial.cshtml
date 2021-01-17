@@ -5,8 +5,8 @@
         var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
     }*@
 
-<div class="right border my-4">
-    <h4>Sipariş Özeti</h4>
+<div class="container m-4 p-5" style="border: solid 1px lightgray; border-radius: 7px;">
+    <h4>Sepet Özeti</h4>
     <br/>
     <p>@Model.ProductSummaries.Count Ürün</p>
     
@@ -22,8 +22,6 @@
         </div>
         <hr/>
     }
-
-    <hr>
 
     <div class="row lower">
         <div class="col text-left">Kargo</div>

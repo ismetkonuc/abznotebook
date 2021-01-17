@@ -5,6 +5,12 @@
 
 <title>abz | @Model.Name</title>
 
+<style>
+    span, p{
+        cursor: default;
+    }
+</style>
+
 <div class="container">
     <div class="single_product" style="background-color:white">
         <div class="container-fluid" style="padding:20px; background-color:white">
@@ -44,50 +50,74 @@
 
                         </div>
 
-                        <div>
-                            <span class="product_price">@Model.UnitPrice.ToString("C")</span>
-                            <strike class="product_discount">
-                                <span style='color: black'>@Model.RealPrice?.ToString("C")</span>
-                            </strike>
+                        @{
+                            var disPer = Convert.ToInt32(100 * (Model.RealPrice - Model.UnitPrice) / Model.RealPrice);
+                            if (disPer > 0)
+                            {
+                                <div class="container col-12 my-4">
+                                    <div class="row h-100">
+                                        <div class="col-1 btn p-0" style="font-size:.95rem; color:#fff; background-color:red; cursor:default">
+                                            <p class="card-text text-center" style="transform:translateY(50%)">%@disPer</p>
+                                        </div>
+                                        <div class="col-8 ml-2">
+                                            <div class="row">
+                                                <p class="card-text" style="font-size:small"><s>@Model.RealPrice?.ToString("C")</s></p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="card-text font-weight-bold" style="font-size:large">@Model.UnitPrice.ToString("C")</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="product_saved">Kazancınız:</span>
+                                    <span style='color: black'>@( (Model.RealPrice - Model.UnitPrice )?.ToString("C"))</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="container col-12 my-4">
+                                    <div class="row">
+                                        <p class="card-text font-weight-bold" style="font-size:large">@Model.UnitPrice.ToString("C")</p>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        <hr class="singleline my-3">
+
+                        <div class="row mt-4 ml-1">
+                            <span>Bellek : <strong>@Model.MemoryCapacity</strong></span>
+                        </div>
+                        <div class="row mb-4 ml-1">
+                            <span>Depolama : <strong>@Model.DiscCapacity</strong></span>
                         </div>
 
-                        <div>
-                            <span class="product_saved">Kazancınız:</span> <span style='color: black'>@( (Model.RealPrice - Model.UnitPrice )?.ToString("C"))</span>
-                        </div>
-
-                        <hr class="singleline">
                         <div>
                             <span class="product_info"><i class="fa fa-truck"></i> Ücretsiz Kargo</span><br>
                             <span class="product_info"><i class="fa fa-plus"></i> 2+1 Yıl Garanti</span><br>
                             <span class="product_info"><i class="fa fa-refresh"></i> Kolay İade</span><br>
                         </div>
-                        <div>
-                            <div class="row" style="margin-top: 15px;">
-                                <div class="col-xs-6" style="margin-left: 15px;">
-                                    <span class="product_options">Bellek</span><br>
-                                    <button class="btn btn-primary btn-sm">@Model.MemoryCapacity</button>
-                                </div>
-                                <div class="col-xs-6" style="margin-left: 55px;">
-                                    <span class="product_options">Depolama</span><br>
-                                    <button class="btn btn-primary btn-sm">@Model.DiscCapacity</button>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="singleline">
+
+                        <hr class="singleline my-3">
                         <div class="order_info d-flex flex-row">
                             <form action="#"> </form>
                         </div>
 
-                        <div class="col-xs-6">
-                            <form id="@Model.Id" asp-page="/Cart" method="post">
+                        <div class="row pl-2 pt-3">
+                            <form id="@Model.Id" asp-page="/Cart" method="post" class="w-100">
+
                                 <div class="product_quantity">
                                     <span>Adet: </span> <input id="quantity_input" type="text" name="quantity">
                                 </div>
+
                                 <input type="hidden" asp-for="Id" />
                                 <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
                                 <button type="submit" class="btn btn-success my-2">Sepete Ekle</button>
+
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -186,5 +216,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

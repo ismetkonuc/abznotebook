@@ -4,40 +4,47 @@
     Layout = "_OrderLayout";
 }
 
-<div class="left border">
+<div class="container">
     <div class="row">
-        <h4>Ödeme</h4>
-        <div class="icons"> <img src="https://img.icons8.com/color/48/000000/visa.png" /> <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" /> <img src="https://img.icons8.com/color/48/000000/maestro.png" /> </div>
+        <h4 class="ml-3">Ödeme Seçenekleri</h4>
+    </div>
+    <div class="row my-4 ml-2">
+        <div class="icons">
+            <img src="~/img/payment_visa.png" class="mr-2"/>
+            <img src="~/img/payment_mastercard.png" class="mr-2"/>
+            <img src="~/img/payment_maestro.png" class="mr-2"/>
+            <img src="~/img/payment_troy.png" class="mr-2"/>
+        </div>
     </div>
 
     <form asp-action="Payment" method="post">
         <div class="form-group">
             <span asp-validation-for="Cardholder" class="text-danger"></span>
-            <span>Kart Sahibi:</span>
-            <input asp-for="Cardholder" class="form-control" placeholder="Mehmet Ertürk">
+            <span style="color:gray; font-size:small">* Kart üzerindeki isim</span>
+            <input asp-for="Cardholder" class="form-control" placeholder="Ad Soyad">
         </div>
 
         <div class="form-group">
             <span asp-validation-for="CardNumber" class="text-danger"></span>
-            <span>Kart Numarası:</span>
-            <input asp-for="CardNumber" class="form-control" placeholder="4444 6780 4567 9909">
+            <span style="color:gray; font-size:small">* Kart numarası</span>
+            <input asp-for="CardNumber" class="form-control" placeholder="0000 0000 0000 0000">
         </div>
 
-        <div class="row">
+        <div class="row mb-4">
             <div class="col-4 form-group">
                 <span asp-validation-for="ExpiredMonth" class="text-danger"></span>
-                <span>Yıl:</span>
-                <input type="text" placeholder="Ay" asp-for="ExpiredMonth" class="form-control">
+                <span style="color:gray; font-size:small">Ay:</span>
+                <input type="text" placeholder="1" asp-for="ExpiredMonth" class="form-control">
             </div>
             <div class="col-4 form-group">
                 <span asp-validation-for="ExpiredYear" class="text-danger"></span>
-                <span>Yıl:</span>
-                <input type="text" placeholder="Yıl" asp-for="ExpiredYear" class="form-control">
+                <span style="color:gray; font-size:small">Yıl:</span>
+                <input type="text" placeholder="2021" asp-for="ExpiredYear" class="form-control">
             </div>
             <div class="col-4 form-group">
                 <span asp-validation-for="CVV" class="text-danger"></span>
-                <span>CVV:</span>
-                <input asp-for="CVV" class="form-control">
+                <span style="color:gray; font-size:small">CVV:</span>
+                <input type="text" placeholder="123" asp-for="CVV" class="form-control">
             </div>
 
             <div class="form-group">
@@ -49,8 +56,8 @@
             </div>
         </div>
 
-        <a asp-area="" asp-controller="Order" asp-action="Delivery" class="btn btn-info" style="width: 200px">Önceki Sayfa</a>
-        <button class="btn btn-success" type="submit" style="width: 200px">Ödemeyi Yap</button>
+        <a asp-area="" asp-controller="Order" asp-action="Delivery" class="btn btn-info" style="width: 200px">Teslimat Bilgileri</a>
+        <button class="btn btn-success" type="submit" style="width: 200px">Siparişi Tamamla</button>
     </form>
 </div>
 

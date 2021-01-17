@@ -60,12 +60,19 @@
                         </div>
                     </div>
                 }
+                else
+                {
+                    <div class="container col-12">
+                        <div class="row">
+                            <p class="card-text font-weight-bold" style="font-size:large">@Model.UnitPrice.ToString("C")</p>
+                        </div>
+                    </div> 
+                }
             }
-
+            <br />
             @{
                 if (Model.IsAvailable)
                 {
-                    <br />
                     <p class="card-text" style="text-align:left; color:green; font-weight:bold; font-size:.75rem">24 Saatte Kargoda</p>
                 }
             }

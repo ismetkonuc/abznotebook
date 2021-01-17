@@ -9,7 +9,8 @@
 }
 
 
-<body>
+<div class="container">
+
     <div style="border-bottom:1px solid lightgray; padding-bottom:30px">
         <h1 style="width:100%; text-align:center; color:green"><i class="fa fa-ticket"></i> Sipariş tamamlandı.</h1>
     </div>
@@ -17,31 +18,31 @@
     <div class="card-body my-2">
         <p class="text-center">Sipariş verdiğiniz için teşekkür ederiz. #@Model.OrderId</p>
         <p class="text-center">Ürününüzü en kısa sürede size ulaştırmak üzere kargolayacağız.</p>
-        <a class="btn btn-primary mt-3" asp-controller="Home" asp-action="Index">Mağazaya geri dön</a>
+        <p class="text-center my-5"><a class="btn btn-primary mt-3" asp-controller="Home" asp-action="Index">Alışverişe devam et</a></p>
     </div>
 
-</body>
 
-<div class="row">
-    <div class="card">
-            <div class="card-body">
-                <h5 class="card-title my-2">Sipariş Özetiniz</h5>
-                @foreach (var productSummary in @Model.ProductSummaries)
-                {
-                    <a asp-area="" asp-controller="Home" asp-action="Product" asp-route-productId="@productSummary.ProductId" target="_blank" style="text-decoration: none;color: #212529;">
-                        <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                            <div class="media-body order-2 order-lg-1">
-                                <h5 class="mt-0 font-weight-bold mb-2">@productSummary.ProductName</h5> @*Ürün Adı*@
-                                <p class="font-italic text-muted mb-0 small">@productSummary.ProductDescription</p> @*Ürün tanımı*@
-                                <div class="d-flex align-items-center justify-content-between mt-1">
-                                    <h6 class="font-weight-bold my-2">@productSummary.ProductPrice.ToString("C") X @productSummary.ProductQuantity Adet</h6> @*Ürün İndirimli Fiyatı*@
-                                </div>
-                            </div><img src="~/img/@productSummary.ProductImg" alt="Generic placeholder image" width="50" class="ml-lg-5 order-1 order-lg-2">
-                        </div>
-                    </a>
-                    <hr />
-                }
-                <h5 class="mt-0 font-weight-bold mb-2 text-right">Toplam Ödenen: @Model.TotalPrice.ToString("C")</h5>
-            </div>
+    <div class="card-body mt-2 mb-4 text-center">
+
+        <h5 class="card-title my-2">Sipariş Özetiniz</h5>
+        <hr />
+        <div class="col-8 mx-auto">
+            @foreach (var productSummary in @Model.ProductSummaries)
+            {
+                <a asp-area="" asp-controller="Home" asp-action="Product" asp-route-productId="@productSummary.ProductId" target="_blank" style="text-decoration: none;color: #212529;">
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <h5 class="mt-0 font-weight-bold mb-2">@productSummary.ProductName</h5>
+                            <p class="font-italic text-muted mb-0 small">@productSummary.ProductDescription</p>
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h6 class="font-weight-bold my-2">@productSummary.ProductPrice.ToString("C") X @productSummary.ProductQuantity Adet</h6>
+                            </div>
+                        </div><img src="~/img/@productSummary.ProductImg" alt="Generic placeholder image" width="50" class="ml-lg-5 order-1 order-lg-2">
+                    </div>
+                </a>
+                <hr />
+            }
+            <h5 class="mt-0 font-weight-bold mb-2">Toplam Ödenen: @Model.TotalPrice.ToString("C")</h5>
         </div>
+    </div>
 </div>
