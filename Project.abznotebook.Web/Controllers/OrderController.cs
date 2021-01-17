@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Project.abznotebook.Business.Interfaces;
 using Project.abznotebook.Entities.Concrete;
@@ -58,84 +59,45 @@ namespace Project.abznotebook.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delivery(OrderViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delivery(OrderViewModel model)
         {
             if (ModelState.IsValid)
             {
                 return RedirectToAction("Payment", new {AddressId = model.AddressId, ShipperId = model.ShipperId});
             }
 
-            ModelState.AddModelError("", "Bir şeyler ters gitti");
+            AppUser user = await _userManager.GetUserAsync(User);
             model.OrderSummary = CreateSidebar();
+            model.Addresses = _addressService.GetAddressesByUserId(user.Id);
+            model.LinesCount = _cart.Lines.Count;
+            model.ShipperCollection = new SelectList(_shipperService.GetAllShippers(), "Id", "CompanyName");
+            model.AddressCollection = new SelectList(_addressService.GetAddressesByUserId(user.Id), "Id", "Title");
+
             return View(model);
         }
 
         [HttpGet]
         public IActionResult Payment(int AddressId, int ShipperId)
         {
-
-            List<int> Months = new List<int>() {1,2,3,4,5,6,7,8,9,10,11,12};
-
-            List<int> Years = new List<int>() {2021, 2022, 2023, 2024, 2025, 2026, 2027,2028, 2029, 2030};
-
             PaymentViewModel model = new PaymentViewModel()
             {
                 AddressId = AddressId,
                 ShipperId = ShipperId,
-                LinesCount = _cart.Lines.Count,
-                MonthCollection = new SelectList(Months, "ExpiredMonth"),
-                YearCollection = new SelectList(Years, "ExpiredYear")
-            };
-
-            model.OrderSummary = CreateSidebar();
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult Payment(PaymentViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction("Checkout");
-            }
-            ModelState.AddModelError("", "Bir şeyler ters gitti");
-
-            model.OrderSummary = CreateSidebar();
-            return View(model);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Checkout()
-        {
-            OrderViewModel model = new OrderViewModel()
-            {
                 LinesCount = _cart.Lines.Count
             };
 
-            if (User.Identity.IsAuthenticated)
-            {
-                var appUser = await _userManager.GetUserAsync(User);
-
-                model.Addresses = _addressService.GetAddressesByUserId(appUser.Id);
-                model.AddressCollection = new SelectList(model.Addresses, "Id", "Title");
-                model.PaymentCollection = new SelectList(_paymentService.GetAllPayments(), "PaymentId", "PaymentType");
-                model.ShipperCollection = new SelectList(_shipperService.GetAllShippers(), "Id", "CompanyName");
-            }
+            model.OrderSummary = CreateSidebar();
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Checkout(OrderViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Payment(PaymentViewModel model)
         {
             var appUser = await _userManager.GetUserAsync(User);
             model.LinesCount = _cart.Lines.Count;
-            model.Addresses = _addressService?.GetAddressesByUserId(appUser.Id);
-            model.AddressCollection = new SelectList(model.Addresses, "Id", "Title");
-            model.PaymentCollection = new SelectList(_paymentService.GetAllPayments(), "PaymentId", "PaymentType");
-            model.ShipperCollection = new SelectList(_shipperService.GetAllShippers(), "Id", "CompanyName");
-
             if (model.LinesCount == 0)
             {
                 ModelState.AddModelError("", "Sepetiniz boş!");
@@ -148,7 +110,7 @@ namespace Project.abznotebook.Web.Controllers
             {
                 _orderService.Save(new Order()
                 {
-                    PaymentId = model.PaymentId,
+                    PaymentId = 1,
                     IsShipped = false,
                     CustomerId = appUser.Id,
                     OrderDate = DateTime.Now,
@@ -168,18 +130,34 @@ namespace Project.abznotebook.Web.Controllers
                     });
                 }
 
-                int orderId = _orderService.GetAllOrders().Single(I => I.OrderNumber.Equals(orderNumber)).Id;
-                return RedirectToAction("Completed", new { orderId = orderId });
+                return RedirectToAction("Completed", new { orderNumber = orderNumber });
             }
 
-            ModelState.AddModelError("", "Seç");
+            model.OrderSummary = CreateSidebar();
 
             return View(model);
+
+            
+            
         }
 
-        public IActionResult Completed(int orderId)
+        [Authorize]
+        public IActionResult Completed(Guid orderNumber)
         {
-            return View(orderId);
+            int orderId = 0;
+
+            try
+            {
+                orderId = _orderService.GetAllOrders().Single(I => I.OrderNumber.Equals(orderNumber)).Id;
+            }
+            catch (Exception)
+            {
+                return Unauthorized();
+            }
+
+            OrderSummarySidebarViewModel model = CreateSidebar();
+            model.OrderId = orderId;
+            return View(model);
         }
 
 
@@ -199,7 +177,9 @@ namespace Project.abznotebook.Web.Controllers
                     ProductName = cartLine.Product.Name,
                     ProductImg = cartLine.Product.Image1,
                     ProductPrice = cartLine.Product.UnitPrice,
-                    ProductQuantity = cartLine.Quantity
+                    ProductQuantity = cartLine.Quantity,
+                    ProductDescription = cartLine.Product.Description,
+                    ProductDiscountPrice = cartLine.Product.RealPrice
                 });
             }
 

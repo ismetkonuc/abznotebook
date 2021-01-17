@@ -11,8 +11,10 @@ namespace Project.abznotebook.Web.Models
 {
     public class OrderViewModel
     {
+        [Range(0, Int32.MaxValue, ErrorMessage = "Zorunlu alan.")]
         public int AddressId { get; set; }
 
+        [Range(0,Int32.MaxValue, ErrorMessage = "Zorunlu alan.")]
         public int ShipperId { get; set; }
 
         public int PaymentId { get; set; }

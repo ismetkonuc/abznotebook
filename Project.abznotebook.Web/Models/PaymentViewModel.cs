@@ -10,23 +10,20 @@ namespace Project.abznotebook.Web.Models
 {
     public class PaymentViewModel : OrderViewModel
     {
-        [Required(ErrorMessage = "Doldurulması Zorunlu Alan")]
+        [Required(ErrorMessage = "Kart Sahibi Giriniz.")]
         public string Cardholder { get; set; }
 
-        //[CreditCard(ErrorMessage = "Kredi Kartını Doğru Formatta Giriniz.")]
-        [Required(ErrorMessage = "Doldurulması Zorunlu Alan")]
+        [Required(ErrorMessage = "Kart Numarası Giriniz.")]
         public string CardNumber { get; set; }
 
-        [Required( ErrorMessage = "Ay Seçiniz")]
-        public int ExpiredMonth { get; set; }
+        [Required(ErrorMessage = "Zorunlu alan")]
+        public string ExpiredMonth { get; set; }
 
-        [Required(ErrorMessage = "Yıl Seçiniz")]
-        public int ExpiredYear { get; set; }
+        [Required(ErrorMessage = "Zorunlu alan")]
+        public string ExpiredYear { get; set; }
 
         [Required(ErrorMessage = "CVV Giriniz")]
-        public short CVV { get; set; }
+        public string CVV { get; set; }
 
-        public SelectList MonthCollection { get; set; }
-        public SelectList YearCollection { get; set; }
     }
 }
