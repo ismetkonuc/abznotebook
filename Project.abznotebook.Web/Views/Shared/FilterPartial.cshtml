@@ -11,21 +11,18 @@
 
 <form class="col-md-3" id="form1" method="get" asp-controller="@controllerName" asp-action="@actionName">
 
-
     <div class="filter filter-first">
-        <h6 class="font-weight-bold">MARKA</h6>
+        <input hidden asp-for="SelectedVendor" />
+        <a asp-action="@actionName" asp-controller="@controllerName" class="btn btn-lg btn-block btn-warning my-2">MARKA</a>
 
-        <div class="mt-2 mb-2 pl-2">
+        <div class="my-2 p-3">
             @foreach (var vendor in Model.Vendors)
             {
-                <div class="mt-2 mb-2 pl-2">
-                    <button type="submit" value="@vendor" class="btn btn-outline-danger @(active == vendor ? "active":"")" onclick="addSelectedVendor(this)">@vendor</button>
+                <div class="my-2">
+                    <button type="submit" value="@vendor" class="btn btn-outline-danger btn-block @(active == vendor ? "active":"")" onclick="addSelectedVendor(this)">@vendor</button>
                 </div>
             }
         </div>
-
-        <input hidden asp-for="SelectedVendor" />
-        <a asp-action="@actionName" asp-controller="@controllerName" class="btn btn-lg btn-block btn-warning mt-3">Sıfırla</a>
 
     </div>
 </form>
