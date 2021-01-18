@@ -35,10 +35,39 @@
                 <p>@Model.Neighborhood</p>
                 <p>@Model.City / @Model.District</p>
                 <p>@Model.PostalCode</p>
-                <a asp-action="EditAddress" asp-controller="Address" asp-area="Member" class="btn btn-primary show-hide" asp-route-addressId="@Model.Id" >Düzenle</a>
-                <a asp-action="DeleteAddress" asp-controller="Address" class="btn btn-danger show-hide" asp-route-addressId="@Model.Id">Sil</a>
 
+                <form asp-area="Member" asp-controller="Address" asp-action="DeleteAddress" asp-route-id="@Model.Id" method="post">
+                    
+                    <a asp-action="EditAddress" asp-controller="Address" asp-area="Member" class="btn btn-primary show-hide" asp-route-addressId="@Model.Id">Düzenle</a>
+
+                    <span id="confirmDeleteSpan_@Model.Id" style="display: none">
+                        <br/>
+                        <i>Onaylıyor musunuz?</i>
+                        <button type="submit" class="btn btn-danger" style="width:100%">Onayla</button>
+                        <a href="#" class="btn btn-primary" style="width:100%" onclick="confirmDelete('@Model.Id', false)">Vazgeç</a>
+                    </span>
+
+                    <span id="deleteSpan_@Model.Id">
+                        <a href="#" class="btn btn-outline-danger show-hide" onclick="confirmDelete('@Model.Id', true)">Sil</a>
+                    </span>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function confirmDelete(uniqueId, isDeleteClicked) {
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteSpan).show();
+        }
+        else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteSpan).hide();
+        }
+    }
+</script>

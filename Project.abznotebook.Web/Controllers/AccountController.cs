@@ -51,7 +51,7 @@ namespace Project.abznotebook.Web.Controllers
 
                         if (data.Contains("order"))
                         {
-                            return RedirectToAction("Checkout", "Order");
+                            return RedirectToAction("Delivery", "Order");
 
                         }
 

@@ -10,6 +10,7 @@ using Project.abznotebook.Business.Interfaces;
 using Project.abznotebook.Entities.Concrete;
 using Project.abznotebook.Web.Base.Common.Models;
 using Project.abznotebook.Business.Concrete;
+using Project.abznotebook.Web.Areas.Member.Models;
 
 namespace Project.abznotebook.Web.Areas.Admin.Controllers
 {
@@ -25,7 +26,8 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
         private readonly IPaymentService _paymentService;
         private readonly IAppUserService _appUserService;
         private readonly IProductService _productService;
-        public OrderController(IOrderDetailService orderDetailService, IShipperService shipperService, IAddressService addressService, IOrderService orderService, IPaymentService paymentService, IAppUserService appUserService, IProductService productService)
+        private readonly UserManager<AppUser> _userManager;
+        public OrderController(IOrderDetailService orderDetailService, IShipperService shipperService, IAddressService addressService, IOrderService orderService, IPaymentService paymentService, IAppUserService appUserService, IProductService productService, UserManager<AppUser> userManager)
         {
             _orderDetailService = orderDetailService;
             _shipperService = shipperService;
@@ -34,6 +36,7 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
             _paymentService = paymentService;
             _appUserService = appUserService;
             _productService = productService;
+            _userManager = userManager;
         }
 
         //public IActionResult Index()
@@ -108,6 +111,55 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
             _orderService.Update(order);
 
             return RedirectToAction("Detail", new { orderId = orderId });
+        }
+
+
+        [HttpGet]
+        public IActionResult EditOrderAddress(int orderId, int addressId)
+        {
+            var userId = _orderService.GetOrderWithId(orderId).CustomerId;
+
+            var address = _addressService.GetAddressesByUserId(userId).Single(I => I.Id == addressId);
+
+            EditOrderAddressViewModel model = new EditOrderAddressViewModel()
+            {
+                Id = address.Id,
+                AddressLine = address.AddressLine,
+                City = address.City,
+                AppUserId = address.AppUserId,
+                Neighborhood = address.Neighborhood,
+                District = address.District,
+                PostalCode = address.PostalCode,
+                AppUser = address.AppUser,
+                OrderId = orderId,
+                Orders = address.Orders,
+                Title = address.Title
+            };
+            
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditOrderAddress(EditOrderAddressViewModel address)
+        {
+            if (ModelState.IsValid)
+            {
+                _addressService.Update(new Address()
+                {
+                    Title = address.Title,
+                    City = address.City,
+                    District = address.District,
+                    AddressLine = address.AddressLine,
+                    PostalCode = address.PostalCode,
+                    Neighborhood = address.Neighborhood,
+                    Id = address.Id,
+                    AppUserId = address.AppUserId
+                });
+
+                return RedirectToAction("Detail", new{ orderId = address.OrderId});
+            }
+
+            return View(address);
         }
     }
 }

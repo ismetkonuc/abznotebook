@@ -32,21 +32,21 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" asp-action="HomeOffice" asp-controller="Category">Notebook<span class="sr-only"></span></a>
+                        <a class="nav-link" asp-area="" asp-action="HomeOffice" asp-controller="Category">Notebook<span class="sr-only"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-action="Gaming" asp-controller="Category">Oyun Bilgisayarı</a>
+                        <a class="nav-link" asp-area="" asp-action="Gaming" asp-controller="Category">Oyun Bilgisayarı</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-action="TwoInOne" asp-controller="Category">İkisi Bir Arada</a>
+                        <a class="nav-link" asp-area="" asp-action="TwoInOne" asp-controller="Category">İkisi Bir Arada</a>
                     </li>
 
                 </ul>
 
                 <ul class="navbar-nav btn-group" role="group">
                     <li>
-                        <form class="form-inline mr-4">
-                            <input class="form-control search-item-text" type="text" placeholder="Bir ürün ara">
+                        <form class="form-inline mr-4" asp-area="" asp-controller="Search" asp-action="Index" method="get">
+                            <input class="form-control search-item-text" type="text" name="searchString" value="@ViewBag.Searched" placeholder="Bir ürün ara">
                             <button class="btn btn-outline-success search-item-btn" type="submit"><span class="fa fa-search"></span></button>
                         </form>
                     </li>

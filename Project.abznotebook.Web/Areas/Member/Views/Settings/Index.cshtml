@@ -1,0 +1,69 @@
+﻿@model EditUserViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Member/Views/Shared/_StandartLayout.cshtml";
+}
+
+<body>
+
+    <div style="border-bottom:1px solid lightgray; padding-bottom:30px">
+        <h1 style="width:100%; text-align:center">Hesap Bilgilerim</h1>
+    </div>
+
+    <div class="container" style="width:50%; text-align:left">
+        <div class="row my-4">
+            <form class="card-body" method="post" asp-area="Member" asp-action="Index" asp-controller="Settings">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Name">Ad:</label>
+                    <input class="form-control" placeholder="Ad" value="@Model.Name" asp-for="Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Surname">Soyad</label>
+                    <input class="form-control" placeholder="Soyad" value="@Model.Surname" asp-for="Surname" />
+                    <span asp-validation-for="Surname" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email">E-posta adresi:</label>
+                    <input class="form-control" placeholder="E-posta adresi" value="@Model.Email" asp-for="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="OldPassword">Eski Şifreniz:</label>
+                    <span asp-validation-for="OldPassword" class="text-danger"></span>
+                    <input asp-for="OldPassword" class="form-control" placeholder="Eski Şifre" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="NewPassword">Yeni Şifreniz:</label>
+                    <span asp-validation-for="NewPassword" class="text-danger"></span>
+                    <input asp-for="NewPassword" class="form-control" placeholder="Yeni Şifre" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="NewPasswordConfirmation">Yeni Şifre Tekrar:</label>
+                    <span asp-validation-for="NewPasswordConfirmation" class="text-danger"></span>
+                    <input asp-for="NewPasswordConfirmation" class="form-control" placeholder="Yeni Şifre Tekrar" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Tel">Telefon:</label>
+                    <input class="form-control" placeholder="Telefon" value="@Model.Tel" asp-for="Tel" />
+                    <span asp-validation-for="Tel" class="text-danger"></span>
+                </div>
+
+                <div style="width: 100%; text-align: right">
+                    <button class="btn btn-success text-right mt-3" type="submit"><i class="fa fa-refresh"></i> Güncelle</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</body>

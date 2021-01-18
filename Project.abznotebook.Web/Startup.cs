@@ -32,7 +32,6 @@ namespace Project.abznotebook.Web
             services.AddScoped<IShipperService, ShipperManager>();
             services.AddScoped<IPaymentService, PaymentManager>();
             services.AddScoped<IOrderDetailService, OrderDetailManager>();
-            services.AddScoped<ICouponService, CouponManager>();
 
             services.AddScoped<IAppUserDal, EfAppUserRepository>();
             services.AddScoped<IOrderDal, EfOrderRepository>();
@@ -42,11 +41,11 @@ namespace Project.abznotebook.Web
             services.AddScoped<IShipperDal, EfShipperRepository>();
             services.AddScoped<IPaymentDal, EfPaymentRepository>();
             services.AddScoped<IOrderDetailDal, EfOrderDetailRepository>();
-            services.AddScoped<ICouponDal, EfCouponRepository>();
             
             services.AddRazorPages();
-
+            services.AddApplicationInsightsTelemetry();
             services.AddDbContext<TechnoStoreDbContext>();
+
             services.AddIdentity<AppUser, AppRole>(opt =>
             {
                 opt.Password.RequireDigit = false;
@@ -55,6 +54,10 @@ namespace Project.abznotebook.Web
                 opt.Password.RequiredLength = 1;
                 opt.Password.RequireUppercase = false;
             }).AddEntityFrameworkStores<TechnoStoreDbContext>();
+
+            services.AddIdentityCore<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<TechnoStoreDbContext>()
+                .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
 
             services.ConfigureApplicationCookie(opt =>
             {
@@ -84,7 +87,21 @@ namespace Project.abznotebook.Web
         {
             
             app.UseDeveloperExceptionPage();
-            app.UseStatusCodePages();
+
+            app.Use(async (ctx, next) =>
+            {
+                await next();
+
+                if (ctx.Response.StatusCode == 404 && !ctx.Response.HasStarted)
+                {
+                    string originalPath = ctx.Request.Path.Value;
+                    ctx.Items["originalPath"] = originalPath;
+                    ctx.Request.Path = "/error/404";
+                    await next();
+                }
+            });
+
+            //app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
@@ -98,7 +115,6 @@ namespace Project.abznotebook.Web
             SeedProduct.EnsurePopulated(app);
             SeedShipper.EnsurePopulated(app);
             SeedPayment.EnsurePopulated(app);
-            SeedCoupon.EnsurePopulated(app);
 
             app.UseEndpoints(endpoints =>
             {
@@ -107,7 +123,6 @@ namespace Project.abznotebook.Web
                     name: "areas",
                     pattern: "{area}/{controller=Home}/{action=Index}/{id?}"
                 );
-
 
                 endpoints.MapControllerRoute("products", "urunler/{productId}/{name}",
                     new { Controller = "Home", action = "Product" });

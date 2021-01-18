@@ -26,5 +26,7 @@ namespace Project.abznotebook.Web.Areas.Member.Controllers
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             return View(user);
         }
+
+
     }
 }
