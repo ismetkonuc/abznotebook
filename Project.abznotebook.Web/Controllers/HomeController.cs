@@ -36,15 +36,14 @@ namespace Project.abznotebook.Web.Controllers
                 },
                 FilterTypes = new FilterViewModel()
                 {
-                    Vendors = _productService.Products.Select(I => I.Vendor).Distinct().OrderBy(I => I).ToList(),
-                    Memories = _productService.Products.Select(I => I.MemoryCapacity).Distinct().OrderBy(I => I).ToList(),
-                    Processors = _productService.Products.Select(I => I.ProcessorVendor).Distinct().OrderBy(I => I).ToList()
+                    Vendors = _productService.Products.Select(I => I.Vendor).Distinct().OrderBy(I => I).ToList()
                 }
             };
 
 
-            if (!string.IsNullOrEmpty(model.SelectedVendor) || !string.IsNullOrEmpty(model.SelectedMemory) || !string.IsNullOrEmpty(model.SelectedProcessor))
+            if (!string.IsNullOrEmpty(model.SelectedVendor))
             {
+                TempData["Active"] = model.SelectedVendor;
                 productList.Products = _productService.Products;
                 productList = FilterLogic.FilterByModel(productList, model);
                 productList.Products = productList.Products.OrderBy(p => p.Id).Skip((productPage - 1) * pageSize)
@@ -52,7 +51,7 @@ namespace Project.abznotebook.Web.Controllers
                 productList.PagingInfo.CurrentPage = productPage;
                 productList.PagingInfo.ItemsPerPage = pageSize;
                 productList.PagingInfo.FilterQuery =
-                    $"SelectedVendor={model.SelectedVendor}&SelectedMemory={model.SelectedMemory}&SelectedProcessor={model.SelectedProcessor}";
+                    $"SelectedVendor={model.SelectedVendor}";
             }
 
             ViewBag.OrderStatus = "En İyi Eşleşme";
@@ -86,7 +85,7 @@ namespace Project.abznotebook.Web.Controllers
             }
             catch (Exception)
             {
-                return NotFound();
+                return View("PageNotFound");
             }
             
         }

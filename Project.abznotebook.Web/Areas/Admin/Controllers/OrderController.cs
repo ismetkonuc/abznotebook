@@ -54,7 +54,7 @@ namespace Project.abznotebook.Web.Areas.Admin.Controllers
 
             if (order == null)
             {
-                return NotFound();
+                return View("PageNotFound");
             }
 
             Address OrderAddress = _addressService.GetAddressesByUserId(order.CustomerId)

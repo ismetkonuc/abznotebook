@@ -50,7 +50,7 @@ namespace Project.abznotebook.Web.Areas.Member.Controllers
 
             if (order is null)
             {
-                return NotFound();
+                return View("PageNotFound");
             }
 
 

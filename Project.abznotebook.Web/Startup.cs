@@ -88,20 +88,20 @@ namespace Project.abznotebook.Web
             
             app.UseDeveloperExceptionPage();
 
-            app.Use(async (ctx, next) =>
-            {
-                await next();
+            //app.Use(async (ctx, next) =>
+            //{
+            //    await next();
 
-                if (ctx.Response.StatusCode == 404 && !ctx.Response.HasStarted)
-                {
-                    string originalPath = ctx.Request.Path.Value;
-                    ctx.Items["originalPath"] = originalPath;
-                    ctx.Request.Path = "/error/404";
-                    await next();
-                }
-            });
+            //    if (ctx.Response.StatusCode == 404 && !ctx.Response.HasStarted)
+            //    {
+            //        string originalPath = ctx.Request.Path.Value;
+            //        ctx.Items["originalPath"] = originalPath;
+            //        ctx.Request.Path = "/error/404";
+            //        await next();
+            //    }
+            //});
 
-            //app.UseStatusCodePages();
+            app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();

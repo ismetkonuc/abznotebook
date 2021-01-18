@@ -28,8 +28,9 @@ namespace Project.abznotebook.Web.Controllers
         {
             ProductListViewModel productList = FillProductListViewModelByCategoryId(1, productPage);
             
-            if (!string.IsNullOrEmpty(model.SelectedVendor) || !string.IsNullOrEmpty(model.SelectedMemory) || !string.IsNullOrEmpty(model.SelectedProcessor))
+            if (!string.IsNullOrEmpty(model.SelectedVendor))
             {
+                TempData["Active"] = model.SelectedVendor;
                 productList.Products = _productService.GetProductsByCategoryId(1);
                 productList = FilterLogic.FilterByModel(productList, model);
                 productList.Products = productList.Products.OrderBy(p => p.Id).Skip((productPage - 1) * pageSize)
@@ -68,8 +69,10 @@ namespace Project.abznotebook.Web.Controllers
             ProductListViewModel productList = FillProductListViewModelByCategoryId(2, productPage);
 
 
-            if (!string.IsNullOrEmpty(model.SelectedVendor) || !string.IsNullOrEmpty(model.SelectedMemory) || !string.IsNullOrEmpty(model.SelectedProcessor))
+            if (!string.IsNullOrEmpty(model.SelectedVendor))
             {
+                TempData["Active"] = model.SelectedVendor;
+
                 productList.Products = _productService.GetProductsByCategoryId(2);
                 productList = FilterLogic.FilterByModel(productList, model);
                 productList.Products = productList.Products.OrderBy(p => p.Id).Skip((productPage - 1) * pageSize)
@@ -108,8 +111,9 @@ namespace Project.abznotebook.Web.Controllers
             ProductListViewModel productList = FillProductListViewModelByCategoryId(3, productPage);
 
 
-            if (!string.IsNullOrEmpty(model.SelectedVendor) || !string.IsNullOrEmpty(model.SelectedMemory) || !string.IsNullOrEmpty(model.SelectedProcessor))
+            if (!string.IsNullOrEmpty(model.SelectedVendor))
             {
+                TempData["Active"] = model.SelectedVendor;
                 productList.Products = _productService.GetProductsByCategoryId(3);
                 productList = FilterLogic.FilterByModel(productList, model);
                 productList.Products = productList.Products.OrderBy(p => p.Id).Skip((productPage - 1) * pageSize)
@@ -158,8 +162,6 @@ namespace Project.abznotebook.Web.Controllers
                 FilterTypes = new FilterViewModel()
                 {
                     Vendors = _productService.GetProductsByCategoryId(categoryId).Select(I => I.Vendor).Distinct().OrderBy(I => I).ToList(),
-                    Memories = _productService.GetProductsByCategoryId(categoryId).Select(I => I.MemoryCapacity).Distinct().OrderBy(I => I).ToList(),
-                    Processors = _productService.GetProductsByCategoryId(categoryId).Select(I => I.ProcessorVendor).Distinct().OrderBy(I => I).ToList()
                 }
             };
 
