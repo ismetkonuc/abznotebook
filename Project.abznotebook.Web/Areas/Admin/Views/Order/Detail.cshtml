@@ -92,7 +92,8 @@
                     <p class="card-text">@Model.AddressNeighborhood</p>
                     <p class="card-text">@Model.AddressDistrict / @Model.AddressCity</p>
                     <p class="card-text">@Model.AddressPostalCode</p>
-                    <a class="btn btn-outline-success">Adresi Düzenle</a>
+                    
+                    <a class="btn btn-outline-success" asp-area="Admin" asp-controller="Order" asp-action="EditOrderAddress" asp-route-addressId ="@Model.AddressId" asp-route-orderId="@Model.OrderId">Adresi Düzenle</a>
                 </div>
             </div>
         </div>

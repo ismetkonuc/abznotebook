@@ -110,5 +110,10 @@ namespace Project.abznotebook.Web.Areas.Member.Controllers
             return View(address);
         }
 
+        public IActionResult DeleteAddress(int id)
+        {
+            _addressService.Delete(new Address{Id = id});
+            return RedirectToAction("Index");
+        }
     }
 }

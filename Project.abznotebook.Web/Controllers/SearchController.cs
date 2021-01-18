@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Project.abznotebook.Business.Interfaces;
+using Project.abznotebook.Entities.Concrete;
 
 namespace Project.abznotebook.Web.Controllers
 {
@@ -18,19 +19,20 @@ namespace Project.abznotebook.Web.Controllers
         }
 
 
-        //split kullan
         public IActionResult Index(string searchString)
         {
             ViewBag.Searched = searchString;
 
-            var products = _productService.Products;
-            
-            if (!String.IsNullOrEmpty(searchString))
+            if (String.IsNullOrEmpty(searchString))
             {
-                products = _productService.Products.Where(I =>
-                    I.Name.Contains(searchString) || I.Description.Contains(searchString) ||
-                    I.SKU.Contains(searchString));
+                return View(null);
             }
+
+            IQueryable<Product> products = _productService.Products;
+
+            products = _productService.Products.Where(I =>
+                I.Name.Contains(searchString) || I.Description.Contains(searchString) ||
+                I.SKU.Contains(searchString));
 
             return View(products);
         }
