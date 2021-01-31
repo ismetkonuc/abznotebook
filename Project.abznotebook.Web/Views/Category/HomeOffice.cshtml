@@ -25,14 +25,4 @@
     </div>
 </div>
 
-<div style="margin: 50px 0">
-    <table style="width:100%">
-        <tr>
-            <td class="text-center">
-                <div page-model="@Model.PagingInfo" page-action="HomeOffice" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary"
-                     class="btn-group">
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
+<partial name="PaginationPartial" model="@Model.PagingInfo" />

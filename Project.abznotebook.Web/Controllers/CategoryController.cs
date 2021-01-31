@@ -81,7 +81,6 @@ namespace Project.abznotebook.Web.Controllers
                 productList.PagingInfo.ItemsPerPage = pageSize;
                 productList.PagingInfo.TotalItems = productList.Products.Count();
             }
-            productList.PagingInfo.TotalItems = productList.Products.Count();
 
             ViewBag.OrderStatus = "En İyi Eşleşme";
 
@@ -122,7 +121,6 @@ namespace Project.abznotebook.Web.Controllers
                 productList.PagingInfo.ItemsPerPage = pageSize;
                 productList.PagingInfo.TotalItems = productList.Products.Count();
             }
-            productList.PagingInfo.TotalItems = productList.Products.Count();
 
             ViewBag.OrderStatus = "En İyi Eşleşme";
 
@@ -148,6 +146,7 @@ namespace Project.abznotebook.Web.Controllers
 
         public ProductListViewModel FillProductListViewModelByCategoryId(int categoryId, int productPage)
         {
+
 
             ProductListViewModel productList = new ProductListViewModel()
             {
